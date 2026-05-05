@@ -4,20 +4,23 @@ export async function POST(req: NextRequest) {
   try {
     const { name, email } = await req.json();
 
-    if (!name?.trim() || !email?.trim()) {
-      return NextResponse.json({ error: 'Name and email are required.' }, { status: 400 });
-    }
-
-    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    if (!emailRegex.test(email)) {
-      return NextResponse.json({ error: 'Please enter a valid email address.' }, { status: 400 });
+    if (!email || !email.includes('@')) {
+      return NextResponse.json({ error: 'Valid email required' }, { status: 400 });
     }
 
     const apiKey = process.env.MAILERLITE_API_KEY;
     if (!apiKey) {
-      console.error('MAILERLITE_API_KEY is not set');
-      return NextResponse.json({ error: 'Server configuration error.' }, { status: 500 });
+      console.error('MAILERLITE_API_KEY env var is not set');
+      return NextResponse.json({ error: 'Server configuration error' }, { status: 500 });
     }
+
+    const payload = {
+      email: email.toLowerCase().trim(),
+      fields: { first_name: (name || '').trim() },
+      groups: ['171464242535335650'],
+    };
+
+    console.log('Sending to MailerLite:', JSON.stringify({ email: payload.email, groups: payload.groups }));
 
     const mlRes = await fetch('https://connect.mailerlite.com/api/subscribers', {
       method: 'POST',
@@ -26,30 +29,24 @@ export async function POST(req: NextRequest) {
         'Accept': 'application/json',
         'Authorization': `Bearer ${apiKey}`,
       },
-      body: JSON.stringify({
-        email: email.toLowerCase().trim(),
-        fields: { name: name.trim() },
-        groups: ['171464242535335650'],
-      }),
+      body: JSON.stringify(payload),
     });
 
-    // 200 = existing subscriber updated, 201 = new subscriber created
+    const responseBody = await mlRes.json().catch(() => ({}));
+    console.log('MailerLite response:', mlRes.status, JSON.stringify(responseBody));
+
     if (mlRes.ok) {
       return NextResponse.json({ success: true });
     }
 
-    const errBody = await mlRes.json().catch(() => ({}));
-    console.error('MailerLite error:', mlRes.status, errBody);
-
-    // 422 with "already subscribed" is still a success
     if (mlRes.status === 422) {
       return NextResponse.json({ success: true });
     }
 
-    return NextResponse.json({ error: 'Could not subscribe. Please try again.' }, { status: 500 });
-
+    console.error('MailerLite error:', mlRes.status, JSON.stringify(responseBody));
+    return NextResponse.json({ error: 'Subscription failed. Please try again.' }, { status: 500 });
   } catch (err) {
-    console.error('Subscribe error:', err);
-    return NextResponse.json({ error: 'An unexpected error occurred.' }, { status: 500 });
+    console.error('Subscribe route error:', err);
+    return NextResponse.json({ error: 'Internal server error' }, { status: 500 });
   }
 }
