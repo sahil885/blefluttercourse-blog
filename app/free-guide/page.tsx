@@ -4,13 +4,31 @@ import { useState } from 'react';
 export default function FreeGuidePage() {
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
-  const [submitted, setSubmitted] = useState(false);
+  const [status, setStatus] = useState<'idle' | 'loading' | 'success' | 'error'>('idle');
+  const [errorMsg, setErrorMsg] = useState('');
 
-  function handleSubmit(e: React.FormEvent) {
+  async function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
     if (!name.trim() || !email.trim()) return;
-    // TODO: wire up your email service here
-    setSubmitted(true);
+    setStatus('loading');
+    setErrorMsg('');
+    try {
+      const res = await fetch('/api/subscribe', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ name: name.trim(), email: email.trim() }),
+      });
+      const data = await res.json();
+      if (res.ok) {
+        setStatus('success');
+      } else {
+        setStatus('error');
+        setErrorMsg(data.error || 'Something went wrong. Please try again.');
+      }
+    } catch {
+      setStatus('error');
+      setErrorMsg('Network error. Please try again.');
+    }
   }
 
   const bullets: [string, string][] = [
@@ -24,6 +42,7 @@ export default function FreeGuidePage() {
       <div style={{ position:'absolute', inset:0, zIndex:0, opacity:0.12, pointerEvents:'none', backgroundImage:'radial-gradient(circle,#4da6ff 1px,transparent 1px)', backgroundSize:'28px 28px' }} />
       <div style={{ position:'relative', zIndex:1, maxWidth:'1100px', margin:'0 auto', padding:'60px 24px 80px', display:'flex', gap:'56px', alignItems:'flex-start', flexWrap:'wrap' }}>
 
+        {/* LEFT */}
         <div style={{ flex:'1 1 400px', color:'#fff' }}>
           <h1 style={{ fontSize:'clamp(26px,4vw,42px)', fontWeight:800, lineHeight:1.2, marginBottom:'14px' }}>
             BLE Isn&apos;t Like Flutter, Swift, or Kotlin
@@ -49,8 +68,9 @@ export default function FreeGuidePage() {
           ))}
         </div>
 
+        {/* RIGHT — CARD */}
         <div style={{ flex:'0 0 360px', background:'#fff', borderRadius:'16px', padding:'36px 32px', boxShadow:'0 24px 80px rgba(0,0,0,0.45)' }}>
-          {submitted ? (
+          {status === 'success' ? (
             <div style={{ textAlign:'center', padding:'20px 0' }}>
               <div style={{ fontSize:'52px', marginBottom:'16px' }}>&#127881;</div>
               <h2 style={{ fontSize:'22px', fontWeight:800, color:'#0d0d3d', marginBottom:'12px' }}>Check your inbox!</h2>
@@ -73,14 +93,26 @@ export default function FreeGuidePage() {
               <form onSubmit={handleSubmit}>
                 <div style={{ marginBottom:'14px' }}>
                   <label style={{ display:'block', fontSize:'13px', fontWeight:600, color:'#333', marginBottom:'6px' }}>Enter name <span style={{color:'#e53e3e'}}>*</span></label>
-                  <input type="text" placeholder="John" value={name} required onChange={e=>setName(e.target.value)} style={{ width:'100%', padding:'12px 14px', border:'1.5px solid #ddd', borderRadius:'8px', fontSize:'15px', boxSizing:'border-box', outline:'none' }} />
+                  <input type="text" placeholder="John" value={name} required onChange={e=>setName(e.target.value)}
+                    style={{ width:'100%', padding:'12px 14px', border:'1.5px solid #ddd', borderRadius:'8px', fontSize:'15px', boxSizing:'border-box', outline:'none' }} />
                 </div>
                 <div style={{ marginBottom:'20px' }}>
                   <label style={{ display:'block', fontSize:'13px', fontWeight:600, color:'#333', marginBottom:'6px' }}>Enter email address <span style={{color:'#e53e3e'}}>*</span></label>
-                  <input type="email" placeholder="john@company.com" value={email} required onChange={e=>setEmail(e.target.value)} style={{ width:'100%', padding:'12px 14px', border:'1.5px solid #ddd', borderRadius:'8px', fontSize:'15px', boxSizing:'border-box', outline:'none' }} />
+                  <input type="email" placeholder="john@company.com" value={email} required onChange={e=>setEmail(e.target.value)}
+                    style={{ width:'100%', padding:'12px 14px', border:'1.5px solid #ddd', borderRadius:'8px', fontSize:'15px', boxSizing:'border-box', outline:'none' }} />
                 </div>
-                <button type="submit" style={{ width:'100%', padding:'14px', background:'linear-gradient(135deg,#3b7fe8,#6c3fc5)', color:'#fff', border:'none', borderRadius:'8px', fontSize:'16px', fontWeight:700, cursor:'pointer' }}>
-                  Get Instant Access to the Guide
+                {errorMsg && (
+                  <p style={{ color:'#e53e3e', fontSize:'13px', marginBottom:'12px', textAlign:'center', background:'#fff5f5', padding:'8px', borderRadius:'6px' }}>
+                    {errorMsg}
+                  </p>
+                )}
+                <button type="submit" disabled={status==='loading'} style={{
+                  width:'100%', padding:'14px',
+                  background: status==='loading' ? '#9aaecc' : 'linear-gradient(135deg,#3b7fe8,#6c3fc5)',
+                  color:'#fff', border:'none', borderRadius:'8px', fontSize:'16px', fontWeight:700,
+                  cursor: status==='loading' ? 'not-allowed' : 'pointer', transition:'background 0.2s',
+                }}>
+                  {status === 'loading' ? 'Sending...' : 'Get Instant Access to the Guide'}
                 </button>
               </form>
               <p style={{ textAlign:'center', fontSize:'12px', color:'#aaa', marginTop:'14px' }}>
