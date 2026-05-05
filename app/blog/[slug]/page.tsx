@@ -4,6 +4,7 @@ import Link from 'next/link'
 import { marked } from 'marked'
 import { getAllSlugs, getPostBySlug } from '@/lib/posts'
 import CourseCallout from '@/components/CourseCallout'
+import FreeGuideCTA from '@/components/FreeGuideCTA'
 
 interface Props {
   params: { slug: string }
@@ -94,6 +95,9 @@ export default function BlogPostPage({ params }: Props) {
         {/* Course CTA */}
         <CourseCallout />
 
+        {/* Free Guide CTA */}
+        <FreeGuideCTA />
+
         {/* Back to blog */}
         <div className="mt-10 pt-8 border-t border-slate-800">
           <Link
@@ -110,3 +114,4 @@ export default function BlogPostPage({ params }: Props) {
     </div>
   )
 }
+
