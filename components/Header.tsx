@@ -15,11 +15,12 @@ export default function Header() {
               </span>
             </Link>
             <nav className="hidden md:flex items-center gap-6">
-              <Link
-                href="/blog"
-                className="text-slate-400 hover:text-white transition-colors text-sm font-medium"
-              >
+              <Link href="/blog" className="text-slate-400 hover:text-white transition-colors text-sm font-medium">
                 Blog
+              </Link>
+              <Link href="/free-guide" className="flex items-center gap-1.5 text-slate-400 hover:text-sky-300 transition-colors text-sm font-medium">
+                <span className="bg-sky-500/20 text-sky-400 text-[10px] font-bold px-1.5 py-0.5 rounded uppercase tracking-wide">Free</span>
+                Guide
               </Link>
             </nav>
           </div>
@@ -39,3 +40,4 @@ export default function Header() {
     </header>
   )
 }
+
