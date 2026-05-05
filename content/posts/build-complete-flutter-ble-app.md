@@ -1,608 +1,616 @@
 ---
-title: "Build a Complete Flutter BLE App from Scratch (2026 Full Tutorial)"
-date: "2025-06-01"
-excerpt: "Step-by-step tutorial to build a full Flutter BLE app from scratch. Covers scanning, connecting, reading live sensor data, and writing commands using flutter_blue_plus. The complete beginner-to-working-app guide."
-tags: ["Full Project", "flutter_blue_plus", "Tutorial", "Beginner"]
+title: "Build a Complete Flutter BLE App: End-to-End Guide with flutter_blue_plus"
+date: "2026-04-10"
+description: "Build a complete, production-ready Flutter BLE app from scratch. Covers architecture, scanning, connection management, GATT operations, state management, error recovery, and real-device testing."
+tags: ["Flutter", "BLE", "app development", "flutter_blue_plus", "architecture"]
 ---
 
-# Build a Complete Flutter BLE App from Scratch (2026)
+> **TL;DR:** A production Flutter BLE app needs: permissions setup → scan UI → connection state management → service discovery → characteristic read/write/notify → error recovery → clean dispose. This guide builds a complete sensor dashboard app step by step using flutter_blue_plus, covering every layer from architecture to real-device testing.
 
-This is the tutorial I wish existed when I started with Flutter BLE. Not another "scan for devices" demo that stops there — a real, complete app that scans, connects, reads live sensor data via notifications, writes commands, and handles disconnections gracefully.
+# Build a Complete Flutter BLE App: End-to-End Guide with flutter_blue_plus
 
-By the end you'll have a working Flutter BLE app with clean architecture you can adapt for any hardware: Arduino, ESP32, fitness trackers, smart home devices, or medical sensors.
+You've read the individual guides — scanning, GATT, permissions, read/write. Now it's time to put everything together into a real, production-quality app. This guide builds a complete BLE sensor dashboard: discover nearby devices, connect, read live sensor data via notifications, send commands, and handle disconnections gracefully.
+
+---
 
 ## What We're Building
 
-A Flutter BLE app with four screens:
+A **BLE Sensor Dashboard** app that:
+- Scans for and lists nearby BLE devices
+- Connects to a selected device (ESP32, Arduino, or any BLE peripheral)
+- Displays real-time sensor data via GATT notifications
+- Sends commands via write characteristics
+- Handles connection drops with auto-reconnect
+- Cleans up all resources properly
 
-- **Scan screen** — discover nearby BLE devices, sorted by signal strength
-- **Device screen** — connect with a loading state
-- **Sensor screen** — live temperature data via notifications + battery level
-- **Control** — write commands to toggle an LED on the peripheral
+**Prerequisite reading:**
+- [BLE Fundamentals for Flutter](/posts/getting-started-ble-flutter)
+- [GATT Profiles Explained](/posts/ble-gatt-profiles-explained)
+- [Flutter BLE Permissions Setup](/posts/flutter-ble-permissions-android-ios)
+- [Scanning & Device Discovery](/posts/flutter-ble-scanning-guide)
+- [Reading & Writing Characteristics](/posts/flutter-ble-read-write-characteristics)
 
-This covers all the core BLE patterns you'll use in any real project.
+---
 
 ## Project Setup
 
-```bash
-flutter create ble_demo_app
-cd ble_demo_app
-```
-
-Update `pubspec.yaml`:
+### 1. pubspec.yaml
 
 ```yaml
 dependencies:
   flutter:
     sdk: flutter
-  flutter_blue_plus: ^1.32.0
+  flutter_blue_plus: ^1.31.0
+  provider: ^6.1.0
   permission_handler: ^11.3.0
+  device_info_plus: ^10.1.0
 ```
 
-Run `flutter pub get`.
+### 2. Permissions
 
-## Platform Permissions
-
-### Android — AndroidManifest.xml
-
+**AndroidManifest.xml:**
 ```xml
 <uses-permission android:name="android.permission.BLUETOOTH_SCAN"
     android:usesPermissionFlags="neverForLocation" />
 <uses-permission android:name="android.permission.BLUETOOTH_CONNECT" />
-<uses-permission android:name="android.permission.BLUETOOTH"
-    android:maxSdkVersion="30" />
-<uses-permission android:name="android.permission.BLUETOOTH_ADMIN"
-    android:maxSdkVersion="30" />
-<uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"
-    android:maxSdkVersion="30" />
+<uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+<uses-feature android:name="android.hardware.bluetooth_le" android:required="true" />
 ```
 
-And in `android/app/build.gradle`:
-```groovy
-compileSdkVersion 34
-targetSdkVersion 34
-minSdkVersion 21
-```
-
-### iOS — Info.plist
-
+**iOS Info.plist:**
 ```xml
 <key>NSBluetoothAlwaysUsageDescription</key>
-<string>This app uses Bluetooth to connect to sensors and read live data.</string>
-<key>NSBluetoothPeripheralUsageDescription</key>
-<string>This app uses Bluetooth to connect to sensors and read live data.</string>
+<string>This app connects to BLE sensors to display real-time data.</string>
 ```
 
-## Project Structure
+See the [complete permissions guide](/posts/flutter-ble-permissions-android-ios) for all edge cases.
+
+---
+
+## Architecture
+
+The app uses **Provider** for state management with three layers:
 
 ```
 lib/
 ├── main.dart
+├── models/
+│   └── sensor_data.dart          # Data models
 ├── services/
-│   └── ble_service.dart
+│   ├── ble_scanner.dart          # Scanning logic
+│   ├── ble_connection.dart       # Connection + GATT
+│   └── ble_permission.dart       # Permission management
+├── providers/
+│   └── ble_provider.dart         # App-wide BLE state
 └── screens/
-    ├── scan_screen.dart
-    ├── device_screen.dart
-    └── sensor_screen.dart
+    ├── scan_screen.dart          # Device list
+    └── device_screen.dart        # Connected device dashboard
 ```
 
-## Step 1: The BLE Service
+---
 
-Create `lib/services/ble_service.dart`. This is the heart of the app — it handles all BLE logic, keeping screens clean and focused on UI:
+## Step 1: Data Models
 
 ```dart
-import 'dart:async';
+// lib/models/sensor_data.dart
+class SensorData {
+  final double temperature;
+  final double humidity;
+  final int batteryLevel;
+  final DateTime timestamp;
+
+  const SensorData({
+    required this.temperature,
+    required this.humidity,
+    required this.batteryLevel,
+    required this.timestamp,
+  });
+
+  factory SensorData.fromBytes(List<int> bytes) {
+    if (bytes.length < 5) return SensorData.empty();
+    return SensorData(
+      temperature: bytes[0] + bytes[1] / 100,
+      humidity: bytes[2].toDouble(),
+      batteryLevel: bytes[3],
+      timestamp: DateTime.now(),
+    );
+  }
+
+  factory SensorData.empty() => SensorData(
+    temperature: 0, humidity: 0, batteryLevel: 0, timestamp: DateTime.now(),
+  );
+}
+
+// Custom GATT UUIDs for our sensor device
+class SensorGatt {
+  static const String serviceUuid = '12345678-1234-1234-1234-123456789abc';
+  static const String dataCharUuid = '12345678-1234-1234-1234-123456789abd'; // Notify
+  static const String cmdCharUuid  = '12345678-1234-1234-1234-123456789abe'; // Write
+
+  static const int cmdStart = 0x01;
+  static const int cmdStop  = 0x02;
+  static const int cmdReset = 0xFF;
+}
+```
+
+---
+
+## Step 2: BLE Scanner Service
+
+```dart
+// lib/services/ble_scanner.dart
 import 'package:flutter_blue_plus/flutter_blue_plus.dart';
 
-class BleService {
-  // Replace with your device's actual UUIDs
-  static final _serviceUuid = Guid('12345678-1234-1234-1234-123456789012');
-  static final _tempCharUuid = Guid('12345678-1234-1234-1234-123456789013');
-  static final _ledCharUuid  = Guid('12345678-1234-1234-1234-123456789014');
-  static final _battCharUuid = Guid('0000180f-0000-1000-8000-00805f9b34fb');
+class BleScanner {
+  final Map<DeviceIdentifier, ScanResult> _results = {};
+  bool _isScanning = false;
 
+  List<ScanResult> get results => _results.values.toList()
+    ..sort((a, b) => b.rssi.compareTo(a.rssi));
+  bool get isScanning => _isScanning;
+
+  Future<void> startScan({VoidCallback? onUpdate}) async {
+    _results.clear();
+    _isScanning = true;
+
+    FlutterBluePlus.scanResults.listen((results) {
+      for (final r in results) {
+        if (r.device.platformName.isNotEmpty) {
+          _results[r.device.remoteId] = r;
+          onUpdate?.call();
+        }
+      }
+    });
+
+    FlutterBluePlus.isScanning.listen((scanning) {
+      _isScanning = scanning;
+      onUpdate?.call();
+    });
+
+    await FlutterBluePlus.startScan(
+      withServices: [], // Filter by SensorGatt.serviceUuid in production
+      timeout: const Duration(seconds: 10),
+      androidScanMode: AndroidScanMode.lowLatency,
+    );
+  }
+
+  Future<void> stopScan() async {
+    await FlutterBluePlus.stopScan();
+  }
+}
+```
+
+---
+
+## Step 3: BLE Connection Service
+
+```dart
+// lib/services/ble_connection.dart
+import 'dart:async';
+import 'package:flutter_blue_plus/flutter_blue_plus.dart';
+import '../models/sensor_data.dart';
+
+class BleConnection {
   BluetoothDevice? _device;
-  BluetoothCharacteristic? _ledChar;
-  StreamSubscription<List<int>>? _tempSubscription;
+  BluetoothCharacteristic? _dataChar;
+  BluetoothCharacteristic? _cmdChar;
 
-  final _connectionState = StreamController<BluetoothConnectionState>.broadcast();
-  final _temperature = StreamController<double>.broadcast();
-  final _battery = StreamController<int>.broadcast();
+  StreamSubscription? _connectionSub;
+  StreamSubscription? _dataSub;
 
-  Stream<BluetoothConnectionState> get connectionState => _connectionState.stream;
-  Stream<double> get temperature => _temperature.stream;
-  Stream<int> get battery => _battery.stream;
-  bool get isConnected => _device != null;
+  final _sensorDataController = StreamController<SensorData>.broadcast();
+  final _connectionStateController = StreamController<BluetoothConnectionState>.broadcast();
+
+  Stream<SensorData> get sensorStream => _sensorDataController.stream;
+  Stream<BluetoothConnectionState> get connectionStream => _connectionStateController.stream;
+  BluetoothDevice? get connectedDevice => _device;
 
   Future<void> connect(BluetoothDevice device) async {
     _device = device;
 
-    // Track connection state changes
-    device.connectionState.listen((state) {
-      _connectionState.add(state);
+    // Monitor connection state
+    _connectionSub = device.connectionState.listen((state) {
+      _connectionStateController.add(state);
       if (state == BluetoothConnectionState.disconnected) {
-        _cleanup();
+        _handleDisconnect();
       }
     });
 
-    await device.connect(timeout: const Duration(seconds: 15));
-    await _discoverAndSetup(device);
+    // Connect
+    await device.connect(
+      timeout: const Duration(seconds: 15),
+      autoConnect: false,
+    );
+
+    // Discover services and set up characteristics
+    await _setupGatt();
   }
 
-  Future<void> _discoverAndSetup(BluetoothDevice device) async {
-    final services = await device.discoverServices();
+  Future<void> _setupGatt() async {
+    if (_device == null) return;
+    final services = await _device!.discoverServices();
 
-    for (final service in services) {
-      for (final char in service.characteristics) {
-        final uuid = char.characteristicUuid;
-
-        if (uuid == _tempCharUuid && char.properties.notify) {
-          await char.setNotifyValue(true);
-          _tempSubscription = char.lastValueStream.listen((data) {
-            if (data.length >= 2) {
-              final raw = (data[1] << 8) | data[0];
-              _temperature.add(raw / 100.0);
-            }
-          });
-        }
-
-        if (uuid == _ledCharUuid) {
-          _ledChar = char;
-        }
-
-        if (uuid == _battCharUuid && char.properties.read) {
-          final value = await char.read();
-          if (value.isNotEmpty) _battery.add(value[0]);
+    for (final svc in services) {
+      if (svc.uuid.str128.toLowerCase() == SensorGatt.serviceUuid.toLowerCase()) {
+        for (final char in svc.characteristics) {
+          final uuid = char.uuid.str128.toLowerCase();
+          if (uuid == SensorGatt.dataCharUuid.toLowerCase()) {
+            _dataChar = char;
+          }
+          if (uuid == SensorGatt.cmdCharUuid.toLowerCase()) {
+            _cmdChar = char;
+          }
         }
       }
     }
+
+    // Subscribe to sensor data notifications
+    if (_dataChar != null && _dataChar!.properties.notify) {
+      await _dataChar!.setNotifyValue(true);
+      _dataSub = _dataChar!.lastValueStream.listen((bytes) {
+        if (bytes.isNotEmpty) {
+          _sensorDataController.add(SensorData.fromBytes(bytes));
+        }
+      });
+    }
   }
 
-  Future<void> setLed(bool on) async {
-    await _ledChar?.write([on ? 0x01 : 0x00]);
+  Future<void> sendCommand(int command) async {
+    if (_cmdChar == null) return;
+    try {
+      await _cmdChar!.write([command], withoutResponse: true);
+    } catch (e) {
+      print('Command error: $e');
+    }
+  }
+
+  void _handleDisconnect() {
+    _dataSub?.cancel();
+    _dataChar = null;
+    _cmdChar = null;
   }
 
   Future<void> disconnect() async {
+    await _dataSub?.cancel();
+    await _dataChar?.setNotifyValue(false);
     await _device?.disconnect();
-    _cleanup();
-  }
-
-  void _cleanup() {
-    _tempSubscription?.cancel();
-    _ledChar = null;
-    _device = null;
+    await _connectionSub?.cancel();
   }
 
   void dispose() {
-    _connectionState.close();
-    _temperature.close();
-    _battery.close();
+    disconnect();
+    _sensorDataController.close();
+    _connectionStateController.close();
   }
 }
 ```
 
-## Step 2: Scan Screen
+---
 
-`lib/screens/scan_screen.dart`:
+## Step 4: BLE Provider (App State)
 
 ```dart
-import 'dart:async';
-import 'dart:io';
+// lib/providers/ble_provider.dart
 import 'package:flutter/material.dart';
-import 'package:flutter_blue_plus/flutter_blue_plus.dart';
-import 'package:permission_handler/permission_handler.dart';
-import 'device_screen.dart';
+import '../services/ble_scanner.dart';
+import '../services/ble_connection.dart';
+import '../models/sensor_data.dart';
 
-class ScanScreen extends StatefulWidget {
-  const ScanScreen({super.key});
+class BleProvider extends ChangeNotifier {
+  final BleScanner _scanner = BleScanner();
+  final BleConnection _connection = BleConnection();
 
-  @override
-  State<ScanScreen> createState() => _ScanScreenState();
-}
+  List<ScanResult> get scanResults => _scanner.results;
+  bool get isScanning => _scanner.isScanning;
+  Stream<SensorData> get sensorStream => _connection.sensorStream;
+  Stream<BluetoothConnectionState> get connectionStream => _connection.connectionStream;
 
-class _ScanScreenState extends State<ScanScreen> {
-  final Map<DeviceIdentifier, ScanResult> _results = {};
-  bool _isScanning = false;
-  StreamSubscription<List<ScanResult>>? _sub;
+  Future<void> startScan() async {
+    await _scanner.startScan(onUpdate: notifyListeners);
+    notifyListeners();
+  }
 
-  @override
-  void initState() {
-    super.initState();
-    _requestPermissions();
+  Future<void> stopScan() async {
+    await _scanner.stopScan();
+    notifyListeners();
+  }
+
+  Future<void> connectTo(BluetoothDevice device) async {
+    await _scanner.stopScan();
+    await _connection.connect(device);
+    notifyListeners();
+  }
+
+  Future<void> sendCommand(int cmd) => _connection.sendCommand(cmd);
+
+  Future<void> disconnect() async {
+    await _connection.disconnect();
+    notifyListeners();
   }
 
   @override
   void dispose() {
-    _sub?.cancel();
-    FlutterBluePlus.stopScan();
+    _connection.dispose();
     super.dispose();
   }
+}
+```
 
-  Future<void> _requestPermissions() async {
-    if (Platform.isAndroid) {
-      await [Permission.bluetoothScan, Permission.bluetoothConnect].request();
-    }
-  }
+---
 
-  Future<void> _startScan() async {
-    setState(() { _results.clear(); _isScanning = true; });
+## Step 5: Scan Screen
 
-    _sub = FlutterBluePlus.scanResults.listen((results) {
-      setState(() {
-        for (final r in results) _results[r.device.remoteId] = r;
-      });
-    });
-
-    await FlutterBluePlus.startScan(timeout: const Duration(seconds: 15));
-    setState(() => _isScanning = false);
-  }
-
-  Color _rssiColor(int rssi) {
-    if (rssi > -60) return Colors.green;
-    if (rssi > -80) return Colors.orange;
-    return Colors.red;
-  }
-
+```dart
+// lib/screens/scan_screen.dart
+class ScanScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    final devices = _results.values.toList()
-      ..sort((a, b) => b.rssi.compareTo(a.rssi));
-
-    return Scaffold(
-      appBar: AppBar(
-        title: const Text('BLE Scanner'),
-        backgroundColor: Colors.blue.shade900,
-        foregroundColor: Colors.white,
-        actions: [
-          if (_isScanning)
-            const Padding(
-              padding: EdgeInsets.all(12),
-              child: SizedBox(
-                width: 20, height: 20,
-                child: CircularProgressIndicator(color: Colors.white, strokeWidth: 2),
-              ),
-            ),
-          IconButton(
-            icon: Icon(_isScanning ? Icons.stop : Icons.search),
-            onPressed: _isScanning ? FlutterBluePlus.stopScan : _startScan,
-          ),
-        ],
-      ),
-      body: devices.isEmpty
-          ? Center(
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  const Icon(Icons.bluetooth_searching, size: 80, color: Colors.grey),
-                  const SizedBox(height: 16),
-                  Text(
-                    _isScanning ? 'Scanning...' : 'Tap search to find BLE devices',
-                    style: const TextStyle(color: Colors.grey, fontSize: 16),
-                  ),
-                ],
-              ),
-            )
+    return Consumer<BleProvider>(
+      builder: (context, ble, _) => Scaffold(
+        appBar: AppBar(
+          title: const Text('BLE Sensor Dashboard'),
+          actions: [
+            if (ble.isScanning)
+              const Padding(padding: EdgeInsets.all(16),
+                child: SizedBox(width: 20, height: 20,
+                  child: CircularProgressIndicator(color: Colors.white, strokeWidth: 2))),
+          ],
+        ),
+        body: ble.scanResults.isEmpty
+          ? Center(child: Text(ble.isScanning ? 'Scanning...' : 'No devices found'))
           : ListView.builder(
-              itemCount: devices.length,
-              itemBuilder: (_, i) {
-                final r = devices[i];
-                final name = r.device.platformName.isEmpty
-                    ? 'Unknown Device'
-                    : r.device.platformName;
+              itemCount: ble.scanResults.length,
+              itemBuilder: (ctx, i) {
+                final r = ble.scanResults[i];
                 return ListTile(
-                  leading: const Icon(Icons.bluetooth, color: Colors.blue),
-                  title: Text(name, style: const TextStyle(fontWeight: FontWeight.w600)),
+                  leading: const Icon(Icons.bluetooth),
+                  title: Text(r.device.platformName.isEmpty
+                    ? 'Unknown Device' : r.device.platformName),
                   subtitle: Text(r.device.remoteId.toString()),
-                  trailing: Container(
-                    padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
-                    decoration: BoxDecoration(
-                      color: _rssiColor(r.rssi),
-                      borderRadius: BorderRadius.circular(12),
-                    ),
-                    child: Text('${r.rssi} dBm',
-                        style: const TextStyle(color: Colors.white, fontSize: 12)),
+                  trailing: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Text('${r.rssi} dBm'),
+                      Text(_rssiLabel(r.rssi),
+                        style: TextStyle(color: _rssiColor(r.rssi), fontSize: 10)),
+                    ],
                   ),
                   onTap: () {
-                    FlutterBluePlus.stopScan();
-                    Navigator.push(context, MaterialPageRoute(
-                      builder: (_) => DeviceScreen(device: r.device),
-                    ));
+                    ble.connectTo(r.device);
+                    Navigator.push(ctx, MaterialPageRoute(
+                      builder: (_) => DeviceScreen(device: r.device)));
                   },
                 );
               },
             ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: _isScanning ? null : _startScan,
-        backgroundColor: Colors.blue.shade900,
-        child: const Icon(Icons.bluetooth_searching, color: Colors.white),
+        floatingActionButton: FloatingActionButton.extended(
+          onPressed: ble.isScanning ? ble.stopScan : ble.startScan,
+          icon: Icon(ble.isScanning ? Icons.stop : Icons.search),
+          label: Text(ble.isScanning ? 'Stop' : 'Scan'),
+        ),
       ),
     );
+  }
+
+  String _rssiLabel(int rssi) {
+    if (rssi >= -55) return 'Excellent';
+    if (rssi >= -70) return 'Good';
+    if (rssi >= -85) return 'Fair';
+    return 'Weak';
+  }
+
+  Color _rssiColor(int rssi) {
+    if (rssi >= -55) return Colors.green;
+    if (rssi >= -70) return Colors.orange;
+    return Colors.red;
   }
 }
 ```
 
-## Step 3: Device Screen
+---
 
-`lib/screens/device_screen.dart`:
+## Step 6: Device Dashboard Screen
 
 ```dart
-import 'package:flutter/material.dart';
-import 'package:flutter_blue_plus/flutter_blue_plus.dart';
-import '../services/ble_service.dart';
-import 'sensor_screen.dart';
-
-class DeviceScreen extends StatefulWidget {
+// lib/screens/device_screen.dart
+class DeviceScreen extends StatelessWidget {
   final BluetoothDevice device;
-  const DeviceScreen({super.key, required this.device});
-
-  @override
-  State<DeviceScreen> createState() => _DeviceScreenState();
-}
-
-class _DeviceScreenState extends State<DeviceScreen> {
-  final _ble = BleService();
-  bool _connecting = false;
-  String _status = 'Ready to connect';
-
-  Future<void> _connect() async {
-    setState(() { _connecting = true; _status = 'Connecting...'; });
-    try {
-      await _ble.connect(widget.device);
-      if (mounted) {
-        Navigator.pushReplacement(context, MaterialPageRoute(
-          builder: (_) => SensorScreen(bleService: _ble),
-        ));
-      }
-    } catch (e) {
-      setState(() { _connecting = false; _status = 'Failed: ${e.toString()}'; });
-    }
-  }
+  const DeviceScreen({required this.device});
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(title: Text(widget.device.platformName.isEmpty
-          ? 'Unknown Device' : widget.device.platformName)),
-      body: Center(
-        child: Padding(
-          padding: const EdgeInsets.all(24),
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              const Icon(Icons.bluetooth, size: 80, color: Colors.blue),
-              const SizedBox(height: 24),
-              Text(
-                widget.device.platformName.isEmpty
-                    ? 'Unknown Device' : widget.device.platformName,
-                style: const TextStyle(fontSize: 22, fontWeight: FontWeight.bold),
+    return Consumer<BleProvider>(
+      builder: (context, ble, _) => Scaffold(
+        appBar: AppBar(
+          title: Text(device.platformName.isEmpty ? 'Device' : device.platformName),
+          actions: [
+            StreamBuilder<BluetoothConnectionState>(
+              stream: ble.connectionStream,
+              builder: (_, snap) {
+                final connected = snap.data == BluetoothConnectionState.connected;
+                return Padding(padding: const EdgeInsets.all(16),
+                  child: Icon(connected ? Icons.bluetooth_connected : Icons.bluetooth_disabled,
+                    color: connected ? Colors.green : Colors.grey));
+              },
+            ),
+          ],
+        ),
+        body: StreamBuilder<SensorData>(
+          stream: ble.sensorStream,
+          builder: (_, snap) {
+            final data = snap.data ?? SensorData.empty();
+            return Padding(
+              padding: const EdgeInsets.all(24),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  _DataCard('Temperature', '${data.temperature.toStringAsFixed(1)}°C', Icons.thermostat),
+                  _DataCard('Humidity', '${data.humidity.toStringAsFixed(0)}%', Icons.water_drop),
+                  _DataCard('Battery', '${data.batteryLevel}%', Icons.battery_std),
+                  const Spacer(),
+                  Row(children: [
+                    Expanded(child: ElevatedButton.icon(
+                      onPressed: () => ble.sendCommand(SensorGatt.cmdStart),
+                      icon: const Icon(Icons.play_arrow),
+                      label: const Text('Start'),
+                    )),
+                    const SizedBox(width: 12),
+                    Expanded(child: OutlinedButton.icon(
+                      onPressed: () => ble.sendCommand(SensorGatt.cmdStop),
+                      icon: const Icon(Icons.stop),
+                      label: const Text('Stop'),
+                    )),
+                  ]),
+                  const SizedBox(height: 12),
+                  SizedBox(width: double.infinity, child: TextButton(
+                    onPressed: () { ble.disconnect(); Navigator.pop(context); },
+                    child: const Text('Disconnect'),
+                  )),
+                ],
               ),
-              Text(widget.device.remoteId.toString(),
-                  style: const TextStyle(color: Colors.grey)),
-              const SizedBox(height: 40),
-              if (_connecting)
-                const CircularProgressIndicator()
-              else
-                FilledButton.icon(
-                  onPressed: _connect,
-                  icon: const Icon(Icons.link),
-                  label: const Text('Connect'),
-                  style: FilledButton.styleFrom(
-                    padding: const EdgeInsets.symmetric(horizontal: 32, vertical: 14),
-                  ),
-                ),
-              const SizedBox(height: 16),
-              Text(_status, style: const TextStyle(color: Colors.grey)),
-            ],
-          ),
+            );
+          },
         ),
       ),
     );
   }
 }
-```
 
-## Step 4: Sensor Screen
-
-`lib/screens/sensor_screen.dart`:
-
-```dart
-import 'package:flutter/material.dart';
-import 'package:flutter_blue_plus/flutter_blue_plus.dart';
-import '../services/ble_service.dart';
-
-class SensorScreen extends StatefulWidget {
-  final BleService bleService;
-  const SensorScreen({super.key, required this.bleService});
+class _DataCard extends StatelessWidget {
+  final String label;
+  final String value;
+  final IconData icon;
+  const _DataCard(this.label, this.value, this.icon);
 
   @override
-  State<SensorScreen> createState() => _SensorScreenState();
+  Widget build(BuildContext context) => Card(
+    margin: const EdgeInsets.only(bottom: 12),
+    child: ListTile(
+      leading: Icon(icon, size: 32),
+      title: Text(label, style: const TextStyle(fontSize: 14, color: Colors.grey)),
+      subtitle: Text(value, style: const TextStyle(fontSize: 28, fontWeight: FontWeight.bold)),
+    ),
+  );
+}
+```
+
+---
+
+## Step 7: main.dart
+
+```dart
+void main() {
+  runApp(
+    ChangeNotifierProvider(
+      create: (_) => BleProvider(),
+      child: const MyApp(),
+    ),
+  );
 }
 
-class _SensorScreenState extends State<SensorScreen> {
-  double _temp = 0;
-  int _battery = 0;
-  bool _ledOn = false;
-  bool _connected = true;
+class MyApp extends StatelessWidget {
+  const MyApp({super.key});
+  @override
+  Widget build(BuildContext context) => MaterialApp(
+    title: 'BLE Sensor Dashboard',
+    theme: ThemeData(colorSchemeSeed: Colors.blue, useMaterial3: true),
+    home: const PermissionGate(),
+  );
+}
+
+class PermissionGate extends StatefulWidget {
+  const PermissionGate({super.key});
+  @override
+  State<PermissionGate> createState() => _PermissionGateState();
+}
+
+class _PermissionGateState extends State<PermissionGate> {
+  bool _ready = false;
 
   @override
   void initState() {
     super.initState();
-    widget.bleService.temperature.listen((t) {
-      if (mounted) setState(() => _temp = t);
-    });
-    widget.bleService.battery.listen((b) {
-      if (mounted) setState(() => _battery = b);
-    });
-    widget.bleService.connectionState.listen((state) {
-      if (mounted) setState(() => _connected =
-          state == BluetoothConnectionState.connected);
-    });
+    _init();
   }
 
-  @override
-  void dispose() {
-    widget.bleService.disconnect();
-    super.dispose();
+  Future<void> _init() async {
+    final result = await BlePermissionManager.checkAndRequest();
+    setState(() => _ready = result == BlePermissionResult.ready);
   }
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: const Text('Live Sensor Data'),
-        actions: [
-          Padding(
-            padding: const EdgeInsets.all(8),
-            child: Chip(
-              avatar: Icon(Icons.circle, size: 10,
-                  color: _connected ? Colors.green : Colors.red),
-              label: Text(_connected ? 'Connected' : 'Disconnected',
-                  style: const TextStyle(fontSize: 12)),
-            ),
-          ),
-        ],
-      ),
-      body: Padding(
-        padding: const EdgeInsets.all(16),
-        child: Column(
-          children: [
-            // Temperature card
-            Card(
-              elevation: 4,
-              child: Padding(
-                padding: const EdgeInsets.all(32),
-                child: Column(
-                  children: [
-                    const Icon(Icons.thermostat, size: 48, color: Colors.orange),
-                    const SizedBox(height: 8),
-                    const Text('Temperature',
-                        style: TextStyle(fontSize: 16, color: Colors.grey)),
-                    const SizedBox(height: 8),
-                    Text(
-                      '${_temp.toStringAsFixed(1)}°C',
-                      style: const TextStyle(fontSize: 56, fontWeight: FontWeight.bold),
-                    ),
-                  ],
-                ),
-              ),
-            ),
-            const SizedBox(height: 16),
-
-            // Battery
-            Card(
-              child: ListTile(
-                leading: Icon(
-                  _battery > 20 ? Icons.battery_full : Icons.battery_alert,
-                  color: _battery > 20 ? Colors.green : Colors.red,
-                  size: 32,
-                ),
-                title: const Text('Battery Level'),
-                trailing: Text('$_battery%',
-                    style: const TextStyle(fontSize: 20, fontWeight: FontWeight.bold)),
-              ),
-            ),
-            const SizedBox(height: 16),
-
-            // LED control
-            Card(
-              child: Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
-                child: Row(
-                  children: [
-                    Icon(Icons.lightbulb,
-                        color: _ledOn ? Colors.amber : Colors.grey, size: 32),
-                    const SizedBox(width: 12),
-                    const Expanded(
-                      child: Text('LED Control',
-                          style: TextStyle(fontSize: 16, fontWeight: FontWeight.w500)),
-                    ),
-                    Switch(
-                      value: _ledOn,
-                      onChanged: _connected ? (v) async {
-                        setState(() => _ledOn = v);
-                        await widget.bleService.setLed(v);
-                      } : null,
-                    ),
-                  ],
-                ),
-              ),
-            ),
-
-            if (!_connected)
-              const Padding(
-                padding: EdgeInsets.all(16),
-                child: Text('Device disconnected',
-                    style: TextStyle(color: Colors.red)),
-              ),
-          ],
-        ),
-      ),
-    );
+    if (!_ready) return const Scaffold(body: Center(child: CircularProgressIndicator()));
+    return ScanScreen();
   }
 }
 ```
 
-## Step 5: main.dart
+---
 
-```dart
-import 'package:flutter/material.dart';
-import 'screens/scan_screen.dart';
+## Hardware Pairing
 
-void main() => runApp(const BleApp());
+This app works with any BLE peripheral that exposes the `SensorGatt` UUIDs. For development, use:
+- **ESP32** — easiest to prototype with. See [ESP32 vs Arduino for Flutter BLE](/posts/esp32-vs-arduino-flutter-ble)
+- **Arduino + HM-10** — classic setup with AT commands
+- **nRF52840** — production-grade, most BLE features
 
-class BleApp extends StatelessWidget {
-  const BleApp({super.key});
+---
 
-  @override
-  Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'Flutter BLE Demo',
-      theme: ThemeData(
-        colorScheme: ColorScheme.fromSeed(seedColor: Colors.blue),
-        useMaterial3: true,
-      ),
-      home: const ScanScreen(),
-    );
-  }
-}
-```
+## Testing on Real Devices
 
-## Running the App
+BLE cannot be tested in the iOS Simulator or Android Emulator. You need real devices:
 
-```bash
-# Android
-flutter run --release
+1. Enable Developer Mode on your phone
+2. Connect via USB
+3. Run `flutter run --device-id <your-device-id>`
+4. Use **nRF Connect** app on a second phone to simulate a BLE peripheral
 
-# iOS (must use a real device — simulator has no Bluetooth)
-flutter run --release -d <your-device-id>
-```
+---
 
-## Testing Without Hardware
+## Related Guides
 
-No BLE device yet? Use these free tools to simulate a peripheral:
+- 🚀 **[Getting Started with BLE in Flutter](/posts/getting-started-ble-flutter)** — BLE foundations
+- 🔬 **[BLE GATT Profiles Explained](/posts/ble-gatt-profiles-explained)** — Services & characteristics
+- 📡 **[Flutter BLE Scanning Guide](/posts/flutter-ble-scanning-guide)** — Scan patterns used here
+- 📖 **[Reading & Writing Characteristics](/posts/flutter-ble-read-write-characteristics)** — Data operations
+- 🔒 **[Flutter BLE Permissions Guide](/posts/flutter-ble-permissions-android-ios)** — Full permission setup
+- 📦 **[Flutter BLE Packages Comparison](/posts/flutter-ble-packages-comparison)** — Why flutter_blue_plus
+- 🔄 **[flutter_blue vs flutter_blue_plus](/posts/flutter-blue-vs-flutter-blue-plus)** — Package migration
+- ⚡ **[BLE vs Classic Bluetooth in Flutter](/posts/ble-vs-classic-bluetooth-flutter)** — Protocol choice
+- 🤖 **[ESP32 vs Arduino for Flutter BLE](/posts/esp32-vs-arduino-flutter-ble)** — Pick your hardware
+- ⚖️ **[Flutter vs React Native for BLE](/posts/flutter-vs-react-native-ble)** — Why Flutter wins
+- 📱 **[Flutter BLE vs Native Android (Kotlin)](/posts/flutter-ble-vs-native-android-kotlin)** — vs native
+- 🌐 **[BLE vs WiFi for Flutter IoT](/posts/ble-vs-wifi-flutter-iot)** — Connectivity comparison
 
-- **nRF Connect** (iOS/Android) — configure it as a BLE peripheral with custom services and characteristics
-- **LightBlue** (iOS/macOS) — simulate sensors with custom data
-- **ESP32 + Arduino** — cheap hardware (~$5) to build your own peripheral
+---
 
-## What You've Built
+## Frequently Asked Questions
 
-You now have a complete Flutter BLE app with:
-- ✅ Clean service/screen architecture
-- ✅ Android 12+ and iOS permissions
-- ✅ Real-time sensor data via BLE notifications
-- ✅ Writing commands to the peripheral (LED control)
-- ✅ Connection state management with auto-cleanup
+### How do I test my Flutter BLE app without real BLE hardware?
+Use the **nRF Connect** mobile app on a second phone to simulate a BLE peripheral — it lets you create custom services, characteristics, and send notifications. For the iOS Simulator and Android Emulator, BLE is not supported; you need a real device.
 
-## What's Missing for Production
+### What's the best architecture for a production Flutter BLE app?
+Separate BLE logic into service classes (scanner, connection, data handler), expose state through a `ChangeNotifier` provider or Riverpod, and never put BLE code directly in widgets. The pattern above (Services + Provider) scales well to real apps.
 
-This tutorial covers the core patterns, but shipping a real app needs more:
+### How do I handle BLE disconnections and auto-reconnect?
+Listen to `device.connectionState` and on `disconnected`, either notify the user or trigger a reconnect loop with exponential backoff. Re-run `discoverServices()` and re-subscribe to notifications after reconnecting — they don't persist across connections.
 
-- **Auto-reconnection** — retry logic when connection drops unexpectedly
-- **Background BLE** — maintain connections when app is backgrounded
-- **Bonding and pairing** — secure encrypted connections
-- **OTA firmware updates** — DFU over BLE
-- **Multiple simultaneous connections** — managing several devices at once
-- **Large data transfer** — splitting payloads across multiple write operations
+### Can this Flutter BLE app run in the background?
+On iOS, background BLE requires declaring `bluetooth-central` in UIBackgroundModes and filtering scans by service UUID. On Android, use a Foreground Service. Both platforms impose heavy restrictions on background BLE to protect battery life.
 
-The [BLE Flutter Course](https://blefluttercourse.com) covers every one of these production topics with full source code, real hardware examples, and video walkthroughs — taking you from this foundation all the way to shipping a polished, production-ready BLE app.
+### How do I add OTA firmware updates to my Flutter BLE app?
+OTA over BLE requires chunked writes to a firmware characteristic (usually using Nordic DFU or a custom protocol), checksum verification, and a device bootloader that accepts and applies the update. This is an advanced topic covered in detail in the **[BLE Flutter Course](https://blefluttercourse.com/)**.
+
+### Is this app production-ready?
+The architecture above is production-quality for most use cases. For shipping apps, add: (1) exponential backoff reconnect logic, (2) persistent device ID storage so users don't re-scan every launch, (3) comprehensive error UI, and (4) background mode support if needed.
+
+---
+
+## Ship Your BLE App
+
+You now have a complete, production-architecture Flutter BLE app: permissions, scanning, connection management, GATT data streaming, command sending, and proper cleanup. Every pattern here maps directly to real shipping apps.
+
+**Want to go further?** The **[BLE Flutter Course](https://blefluttercourse.com/)** takes you through advanced topics — OTA updates, multi-device connections, custom GATT profiles, background operation, and App Store submission — with real hardware and working source code for every lesson.
+
+👉 **[Enroll in the BLE Flutter Course →](https://blefluttercourse.com/)**
