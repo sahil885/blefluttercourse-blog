@@ -1,7 +1,7 @@
 ---
 title: "Flutter BLE Permissions Guide: Android & iOS Setup for flutter_blue_plus"
 date: "2026-04-05"
-description: "Complete guide to Bluetooth permissions for Flutter BLE apps. Covers Android 12+ BLUETOOTH_SCAN/CONNECT, iOS Info.plist, runtime permission requests, and common errors."
+excerpt: "Complete guide to Bluetooth permissions for Flutter BLE apps. Covers Android 12+ BLUETOOTH_SCAN/CONNECT, iOS Info.plist, runtime permission requests, and common errors."
 tags: ["Flutter", "BLE", "permissions", "Android", "iOS", "flutter_blue_plus"]
 ---
 

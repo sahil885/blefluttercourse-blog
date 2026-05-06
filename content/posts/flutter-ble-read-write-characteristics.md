@@ -1,7 +1,7 @@
 ---
 title: "Flutter BLE Read & Write Characteristics: Complete Guide with flutter_blue_plus"
 date: "2026-04-01"
-description: "Learn how to read, write, and subscribe to BLE characteristics in Flutter using flutter_blue_plus. Covers data parsing, chunked writes, notifications, error handling, and production patterns."
+excerpt: "Learn how to read, write, and subscribe to BLE characteristics in Flutter using flutter_blue_plus. Covers data parsing, chunked writes, notifications, error handling, and production patterns."
 tags: ["Flutter", "BLE", "characteristics", "flutter_blue_plus", "GATT"]
 ---
 

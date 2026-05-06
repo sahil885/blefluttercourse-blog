@@ -11,11 +11,11 @@ export const metadata: Metadata = {
   },
   description:
     'Practical tutorials and guides for Flutter developers working with Bluetooth Low Energy. Master BLE scanning, GATT profiles, real device communication, and more.',
-  metadataBase: new URL('https://blefluttercourse.com'),
+  metadataBase: new URL('https://blog.blefluttercourse.com'),
   openGraph: {
     type: 'website',
     locale: 'en_US',
-    url: 'https://blefluttercourse.com',
+    url: 'https://blog.blefluttercourse.com',
     siteName: 'BLE Flutter Course',
     title: 'BLE Flutter Course — Learn Bluetooth Low Energy with Flutter',
     description:

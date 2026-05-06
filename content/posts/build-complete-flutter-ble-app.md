@@ -1,7 +1,7 @@
 ---
 title: "Build a Complete Flutter BLE App: End-to-End Guide with flutter_blue_plus"
 date: "2026-04-10"
-description: "Build a complete, production-ready Flutter BLE app from scratch. Covers architecture, scanning, connection management, GATT operations, state management, error recovery, and real-device testing."
+excerpt: "Build a complete, production-ready Flutter BLE app from scratch. Covers architecture, scanning, connection management, GATT operations, state management, error recovery, and real-device testing."
 tags: ["Flutter", "BLE", "app development", "flutter_blue_plus", "architecture"]
 ---
 

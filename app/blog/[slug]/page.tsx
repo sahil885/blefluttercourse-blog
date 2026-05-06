@@ -20,11 +20,20 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     return {
       title: post.title,
       description: post.excerpt,
+      alternates: {
+        canonical: `/blog/${params.slug}`,
+      },
       openGraph: {
         title: post.title,
         description: post.excerpt,
         type: 'article',
         publishedTime: post.date,
+        url: `/blog/${params.slug}`,
+      },
+      twitter: {
+        card: 'summary_large_image',
+        title: post.title,
+        description: post.excerpt,
       },
     }
   } catch {
@@ -114,4 +123,3 @@ export default function BlogPostPage({ params }: Props) {
     </div>
   )
 }
-
