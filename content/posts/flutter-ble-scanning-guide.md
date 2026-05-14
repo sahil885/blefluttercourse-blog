@@ -1,7 +1,7 @@
 ---
 title: "Flutter BLE Scanning Guide: Discover & Filter BLE Devices with flutter_blue_plus"
 date: "2026-03-28"
-description: "Master BLE device scanning in Flutter. Learn to scan, filter by name/UUID/RSSI, handle permissions, manage battery drain, and implement robust scanning UI patterns with flutter_blue_plus."
+excerpt: "Master BLE device scanning in Flutter. Learn to scan, filter by name/UUID/RSSI, handle permissions, manage battery drain, and implement robust scanning UI patterns with flutter_blue_plus."
 tags: ["Flutter", "BLE", "scanning", "flutter_blue_plus", "Bluetooth"]
 ---
 

@@ -1,7 +1,7 @@
 ---
 title: "BLE GATT Profiles Explained: Services, Characteristics & Descriptors for Flutter Developers"
 date: "2026-03-20"
-description: "A deep dive into BLE GATT profiles, services, characteristics, and descriptors — and how to work with them using flutter_blue_plus in your Flutter apps."
+excerpt: "A deep dive into BLE GATT profiles, services, characteristics, and descriptors — and how to work with them using flutter_blue_plus in your Flutter apps."
 tags: ["BLE", "GATT", "Flutter", "Bluetooth", "flutter_blue_plus"]
 ---
 

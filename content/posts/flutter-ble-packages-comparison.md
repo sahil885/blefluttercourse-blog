@@ -1,7 +1,7 @@
 ---
 title: "Flutter BLE Packages Comparison 2026: flutter_blue_plus vs Alternatives"
 date: "2026-03-25"
-description: "An honest, in-depth comparison of every Flutter BLE package in 2026 — flutter_blue_plus, quick_blue, bluetooth_low_energy, and others. Which one should you use?"
+excerpt: "An honest, in-depth comparison of every Flutter BLE package in 2026 — flutter_blue_plus, quick_blue, bluetooth_low_energy, and others. Which one should you use?"
 tags: ["Flutter", "BLE", "packages", "flutter_blue_plus", "comparison"]
 ---
 
