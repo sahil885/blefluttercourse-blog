@@ -1,5 +1,5 @@
 ---
-title: "flutter_blue vs flutter_blue_plus: Why You Need to Migrate in 2026"
+title: "flutter_blue vs flutter_blue_plus: Complete Migration Guide (2026)"
 date: "2026-04-05"
 excerpt: "flutter_blue is deprecated and unmaintained. flutter_blue_plus is the active successor with Android 12+ support, a modern API, and ongoing maintenance. Here's exactly what changed, why it matters, and what to expect from the migration."
 tags: ["Comparison", "flutter_blue_plus", "Migration", "Packages"]

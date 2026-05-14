@@ -1,8 +1,17 @@
 ---
-title: "BLE GATT Profiles Explained: Services, Characteristics & Descriptors for Flutter Developers"
+title: "BLE GATT Profiles Explained: Services, Characteristics & Descriptors [Flutter 2026]"
 date: "2026-03-20"
 excerpt: "A deep dive into BLE GATT profiles, services, characteristics, and descriptors — and how to work with them using flutter_blue_plus in your Flutter apps."
 tags: ["BLE", "GATT", "Flutter", "Bluetooth", "flutter_blue_plus"]
+faqs:
+  - question: "What is a GATT service in BLE?"
+    answer: "A GATT Service is a logical grouping of related BLE data. Each service has a UUID and contains one or more Characteristics. For example, the Heart Rate Service (UUID 0x180D) contains the Heart Rate Measurement Characteristic. Standard services are defined by the Bluetooth SIG; custom hardware uses vendor-defined 128-bit UUIDs."
+  - question: "What is the difference between a BLE service and a characteristic?"
+    answer: "A Service is a container that groups related data — think of it as a category. A Characteristic is the actual data point inside a service — it holds a value you can read, write, or subscribe to. A BLE device can have multiple services, each with multiple characteristics."
+  - question: "How do I discover GATT services in Flutter with flutter_blue_plus?"
+    answer: "After connecting to a device, call await device.discoverServices(). This returns a List<BluetoothService>. Each service has a .characteristics list. Access a specific characteristic by matching its UUID. Always wrap in try/catch as discovery can fail if the device disconnects."
+  - question: "What is a BLE notification vs indication?"
+    answer: "Both push data from peripheral to central without the central polling. Notifications are unacknowledged (faster, lower overhead). Indications are acknowledged — the peripheral waits for confirmation before sending the next value. Enable either by calling characteristic.setNotifyValue(true) in flutter_blue_plus."
 ---
 
 > **TL;DR:** GATT (Generic Attribute Profile) is the data communication backbone of BLE. Every BLE device exposes a hierarchy: **Profile → Services → Characteristics → Descriptors**. In Flutter, you use `flutter_blue_plus` to discover services, read/write characteristics, and subscribe to notifications. This article explains every layer of GATT and shows you exactly how to interact with it in Dart code.
@@ -28,7 +37,7 @@ Many developers confuse GATT and GAP (Generic Access Profile). Here's the distin
 | **GAP** | Controls advertising, discovery, and connection establishment |
 | **GATT** | Controls data exchange after connection |
 
-GAP gets you connected. GATT is what you do once connected. If you're reading this after learning to [scan and connect to BLE devices in Flutter](/posts/flutter-ble-scanning-guide), GATT is your natural next step.
+GAP gets you connected. GATT is what you do once connected. If you're reading this after learning to [scan and connect to BLE devices in Flutter](/blog/flutter-ble-scanning-guide), GATT is your natural next step.
 
 ---
 
@@ -154,7 +163,7 @@ if (targetChar.properties.read) {
 }
 ```
 
-For a complete guide to reading and writing, see our [Flutter BLE Read/Write Characteristics guide](/posts/flutter-ble-read-write-characteristics).
+For a complete guide to reading and writing, see our [Flutter BLE Read/Write Characteristics guide](/blog/flutter-ble-read-write-characteristics).
 
 ---
 
@@ -305,7 +314,7 @@ class BleManager {
 }
 ```
 
-This is the pattern you'll use in an [ESP32 + Flutter BLE project](/posts/esp32-vs-arduino-flutter-ble) where you define your own GATT services.
+This is the pattern you'll use in an [ESP32 + Flutter BLE project](/blog/esp32-vs-arduino-flutter-ble) where you define your own GATT services.
 
 ---
 
@@ -396,18 +405,18 @@ Future<void> writeChunked(BluetoothCharacteristic char, List<int> data) async {
 
 Expand your Flutter BLE knowledge with these related guides:
 
-- 🚀 **[Getting Started with BLE in Flutter](/posts/getting-started-ble-flutter)** — Foundations before diving into GATT
-- 📡 **[Flutter BLE Scanning & Device Discovery](/posts/flutter-ble-scanning-guide)** — Find devices before connecting
-- 📖 **[Reading & Writing BLE Characteristics in Flutter](/posts/flutter-ble-read-write-characteristics)** — Deep dive into GATT data operations
-- 🔧 **[Flutter BLE Permissions for Android & iOS](/posts/flutter-ble-permissions-android-ios)** — Handle permissions properly
-- 🏗️ **[Build a Complete Flutter BLE App](/posts/build-complete-flutter-ble-app)** — Put it all together
-- 📦 **[flutter_blue_plus vs flutter_blue: Which Package to Use?](/posts/flutter-blue-vs-flutter-blue-plus)** — Package comparison
-- ⚖️ **[Flutter BLE Packages Comparison](/posts/flutter-ble-packages-comparison)** — All BLE packages compared
-- ⚡ **[BLE vs Classic Bluetooth in Flutter](/posts/ble-vs-classic-bluetooth-flutter)** — When to use which protocol
-- 🤖 **[ESP32 vs Arduino for Flutter BLE Projects](/posts/esp32-vs-arduino-flutter-ble)** — Best hardware for custom GATT
-- 📱 **[Flutter vs React Native for BLE Development](/posts/flutter-vs-react-native-ble)** — Cross-platform comparison
-- 🤖 **[Flutter BLE vs Native Android (Kotlin)](/posts/flutter-ble-vs-native-android-kotlin)** — Flutter vs native approach
-- 🌐 **[BLE vs WiFi for Flutter IoT Projects](/posts/ble-vs-wifi-flutter-iot)** — Connectivity protocol comparison
+- 🚀 **[Getting Started with BLE in Flutter](/blog/getting-started-ble-flutter)** — Foundations before diving into GATT
+- 📡 **[Flutter BLE Scanning & Device Discovery](/blog/flutter-ble-scanning-guide)** — Find devices before connecting
+- 📖 **[Reading & Writing BLE Characteristics in Flutter](/blog/flutter-ble-read-write-characteristics)** — Deep dive into GATT data operations
+- 🔧 **[Flutter BLE Permissions for Android & iOS](/blog/flutter-ble-permissions-android-ios)** — Handle permissions properly
+- 🏗️ **[Build a Complete Flutter BLE App](/blog/build-complete-flutter-ble-app)** — Put it all together
+- 📦 **[flutter_blue_plus vs flutter_blue: Which Package to Use?](/blog/flutter-blue-vs-flutter-blue-plus)** — Package comparison
+- ⚖️ **[Flutter BLE Packages Comparison](/blog/flutter-ble-packages-comparison)** — All BLE packages compared
+- ⚡ **[BLE vs Classic Bluetooth in Flutter](/blog/ble-vs-classic-bluetooth-flutter)** — When to use which protocol
+- 🤖 **[ESP32 vs Arduino for Flutter BLE Projects](/blog/esp32-vs-arduino-flutter-ble)** — Best hardware for custom GATT
+- 📱 **[Flutter vs React Native for BLE Development](/blog/flutter-vs-react-native-ble)** — Cross-platform comparison
+- 🤖 **[Flutter BLE vs Native Android (Kotlin)](/blog/flutter-ble-vs-native-android-kotlin)** — Flutter vs native approach
+- 🌐 **[BLE vs WiFi for Flutter IoT Projects](/blog/ble-vs-wifi-flutter-iot)** — Connectivity protocol comparison
 
 ---
 
@@ -423,7 +432,7 @@ Use a BLE scanner app like **nRF Connect** (iOS/Android) to discover and inspect
 Both push data from the peripheral to your app, but **Notify** is fire-and-forget (no acknowledgment from the central), while **Indicate** requires the central to acknowledge each packet. Use Notify for high-speed streaming data; use Indicate for critical commands that must be confirmed.
 
 ### Why does `discoverServices()` sometimes throw an error?
-Service discovery can fail if: (1) the device disconnects during discovery, (2) the GATT server is not ready, or (3) you call it too quickly after connecting. Add a short delay after connection and wrap in try/catch with reconnection logic. See [Flutter BLE permissions and connection guide](/posts/flutter-ble-permissions-android-ios) for full setup patterns.
+Service discovery can fail if: (1) the device disconnects during discovery, (2) the GATT server is not ready, or (3) you call it too quickly after connecting. Add a short delay after connection and wrap in try/catch with reconnection logic. See [Flutter BLE permissions and connection guide](/blog/flutter-ble-permissions-android-ios) for full setup patterns.
 
 ### Can I communicate with any BLE device using Flutter?
 Yes, as long as you know the service and characteristic UUIDs. Standard Bluetooth SIG profiles (heart rate, battery, etc.) have published UUIDs. Custom devices (like ESP32 projects) require you to define and document your own UUIDs.
@@ -441,7 +450,7 @@ Understanding GATT transforms BLE development from guesswork into a systematic p
 1. Connect to a BLE device and run `discoverServices()` — explore the raw GATT structure
 2. Identify whether your device uses standard or custom UUIDs
 3. Implement read, write, and notify operations
-4. Build your [complete Flutter BLE app](/posts/build-complete-flutter-ble-app)
+4. Build your [complete Flutter BLE app](/blog/build-complete-flutter-ble-app)
 
 Ready to go deeper? The **[BLE Flutter Course](https://blefluttercourse.com/)** walks you through building real projects with real BLE hardware — ESP32, Arduino, and more. Every GATT concept in this article is covered with hands-on labs and working source code.
 

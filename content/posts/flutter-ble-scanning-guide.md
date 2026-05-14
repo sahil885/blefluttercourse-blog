@@ -1,8 +1,17 @@
 ---
-title: "Flutter BLE Scanning Guide: Discover & Filter BLE Devices with flutter_blue_plus"
+title: "Flutter BLE Scanning: Discover & Filter Devices with flutter_blue_plus [2026 Guide]"
 date: "2026-03-28"
 excerpt: "Master BLE device scanning in Flutter. Learn to scan, filter by name/UUID/RSSI, handle permissions, manage battery drain, and implement robust scanning UI patterns with flutter_blue_plus."
 tags: ["Flutter", "BLE", "scanning", "flutter_blue_plus", "Bluetooth"]
+faqs:
+  - question: "How do I scan for BLE devices in Flutter?"
+    answer: "Use FlutterBluePlus.startScan() with an optional timeout. Listen to FlutterBluePlus.onScanResults stream to receive ScanResult objects containing device name, RSSI, advertisement data, and services. Always call FlutterBluePlus.stopScan() when done. Ensure Bluetooth permissions are granted first."
+  - question: "How do I filter BLE scan results in Flutter?"
+    answer: "Pass withServices: [Guid(YOUR_UUID)] to startScan() to filter by service UUID — the most reliable filter. You can also filter in your stream listener by device name, RSSI threshold, or manufacturer data. Service UUID filtering is required on iOS for background scanning."
+  - question: "Why does Flutter BLE scanning drain the battery?"
+    answer: "Continuous scanning keeps the radio active. Use a timeout on startScan(), use androidScanMode: AndroidScanMode.lowPower for non-critical scanning, and stop scanning as soon as you find your target device. On iOS, Core Bluetooth automatically manages scan duty cycling."
+  - question: "How long should I scan for BLE devices in Flutter?"
+    answer: "For a typical connect-on-demand flow, 10–15 seconds with a timeout is sufficient. For passive background monitoring, use scan windows with gaps. Always stop scanning before connecting to a device — scanning and connecting simultaneously can cause instability on some Android devices."
 ---
 
 > **TL;DR:** BLE scanning in Flutter uses `FlutterBluePlus.startScan()` and `FlutterBluePlus.scanResults` stream. Always filter by service UUID or device name to avoid noise, stop scanning before connecting, handle Android/iOS permission differences, and implement a scan timeout. This guide covers every scanning pattern you'll need in production.
@@ -16,9 +25,9 @@ Before you can read sensor data, send commands, or build any BLE feature, you ne
 ## Prerequisites
 
 Make sure you've:
-1. Added flutter_blue_plus to your `pubspec.yaml` (see [Flutter BLE packages comparison](/posts/flutter-ble-packages-comparison))
-2. Configured Bluetooth permissions for [Android & iOS](/posts/flutter-ble-permissions-android-ios)
-3. Understood the [BLE fundamentals](/posts/getting-started-ble-flutter)
+1. Added flutter_blue_plus to your `pubspec.yaml` (see [Flutter BLE packages comparison](/blog/flutter-ble-packages-comparison))
+2. Configured Bluetooth permissions for [Android & iOS](/blog/flutter-ble-permissions-android-ios)
+3. Understood the [BLE fundamentals](/blog/getting-started-ble-flutter)
 
 ---
 
@@ -329,7 +338,7 @@ await FlutterBluePlus.startScan(
 
 ## Android 12+ Scanning Permissions
 
-On Android 12+, scanning requires `BLUETOOTH_SCAN` permission. See the [complete Android & iOS permissions guide](/posts/flutter-ble-permissions-android-ios) for the full setup.
+On Android 12+, scanning requires `BLUETOOTH_SCAN` permission. See the [complete Android & iOS permissions guide](/blog/flutter-ble-permissions-android-ios) for the full setup.
 
 ```dart
 // Check and request permissions before scanning
@@ -402,7 +411,7 @@ Future<void> connectToDevice(BluetoothDevice device) async {
   List<BluetoothService> services = await device.discoverServices();
   
   // Step 4: Start interacting with GATT
-  // See: /posts/ble-gatt-profiles-explained
+  // See: /blog/ble-gatt-profiles-explained
 }
 ```
 
@@ -410,18 +419,18 @@ Future<void> connectToDevice(BluetoothDevice device) async {
 
 ## Related Guides
 
-- 🚀 **[Getting Started with BLE in Flutter](/posts/getting-started-ble-flutter)** — BLE foundations
-- 🔬 **[BLE GATT Profiles Explained](/posts/ble-gatt-profiles-explained)** — What to do after scanning
-- 📖 **[Reading & Writing BLE Characteristics](/posts/flutter-ble-read-write-characteristics)** — Data operations
-- 🔒 **[Flutter BLE Permissions: Android & iOS](/posts/flutter-ble-permissions-android-ios)** — Permission setup
-- 🏗️ **[Build a Complete Flutter BLE App](/posts/build-complete-flutter-ble-app)** — End-to-end project
-- 📦 **[Flutter BLE Packages Comparison](/posts/flutter-ble-packages-comparison)** — Package choices
-- 🔄 **[flutter_blue vs flutter_blue_plus](/posts/flutter-blue-vs-flutter-blue-plus)** — Which package?
-- ⚡ **[BLE vs Classic Bluetooth in Flutter](/posts/ble-vs-classic-bluetooth-flutter)** — Protocol differences
-- 🤖 **[ESP32 vs Arduino for Flutter BLE](/posts/esp32-vs-arduino-flutter-ble)** — Hardware to scan for
-- ⚖️ **[Flutter vs React Native for BLE](/posts/flutter-vs-react-native-ble)** — Framework comparison
-- 📱 **[Flutter BLE vs Native Android](/posts/flutter-ble-vs-native-android-kotlin)** — Flutter vs Kotlin scanning
-- 🌐 **[BLE vs WiFi for Flutter IoT](/posts/ble-vs-wifi-flutter-iot)** — Connectivity comparison
+- 🚀 **[Getting Started with BLE in Flutter](/blog/getting-started-ble-flutter)** — BLE foundations
+- 🔬 **[BLE GATT Profiles Explained](/blog/ble-gatt-profiles-explained)** — What to do after scanning
+- 📖 **[Reading & Writing BLE Characteristics](/blog/flutter-ble-read-write-characteristics)** — Data operations
+- 🔒 **[Flutter BLE Permissions: Android & iOS](/blog/flutter-ble-permissions-android-ios)** — Permission setup
+- 🏗️ **[Build a Complete Flutter BLE App](/blog/build-complete-flutter-ble-app)** — End-to-end project
+- 📦 **[Flutter BLE Packages Comparison](/blog/flutter-ble-packages-comparison)** — Package choices
+- 🔄 **[flutter_blue vs flutter_blue_plus](/blog/flutter-blue-vs-flutter-blue-plus)** — Which package?
+- ⚡ **[BLE vs Classic Bluetooth in Flutter](/blog/ble-vs-classic-bluetooth-flutter)** — Protocol differences
+- 🤖 **[ESP32 vs Arduino for Flutter BLE](/blog/esp32-vs-arduino-flutter-ble)** — Hardware to scan for
+- ⚖️ **[Flutter vs React Native for BLE](/blog/flutter-vs-react-native-ble)** — Framework comparison
+- 📱 **[Flutter BLE vs Native Android](/blog/flutter-ble-vs-native-android-kotlin)** — Flutter vs Kotlin scanning
+- 🌐 **[BLE vs WiFi for Flutter IoT](/blog/ble-vs-wifi-flutter-iot)** — Connectivity comparison
 
 ---
 
@@ -451,7 +460,7 @@ The **[BLE Flutter Course](https://blefluttercourse.com/)** walks you through ev
 
 BLE scanning in Flutter is straightforward with flutter_blue_plus, but production apps need careful attention to permissions, filtering, battery management, and iOS quirks. The patterns above handle all the edge cases you'll encounter.
 
-**Ready for the next step?** Now that you can find and connect to devices, learn how to [read and write BLE characteristics](/posts/flutter-ble-read-write-characteristics) and interact with [GATT services](/posts/ble-gatt-profiles-explained).
+**Ready for the next step?** Now that you can find and connect to devices, learn how to [read and write BLE characteristics](/blog/flutter-ble-read-write-characteristics) and interact with [GATT services](/blog/ble-gatt-profiles-explained).
 
 Or dive into the **[BLE Flutter Course](https://blefluttercourse.com/)** for structured learning with real hardware projects.
 

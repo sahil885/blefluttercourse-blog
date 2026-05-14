@@ -1,8 +1,19 @@
 ---
-title: "Flutter BLE Permissions Guide: Android & iOS Setup for flutter_blue_plus"
+title: "Flutter BLE Permissions: Android 12+ & iOS Setup Guide [2026]"
 date: "2026-04-05"
 excerpt: "Complete guide to Bluetooth permissions for Flutter BLE apps. Covers Android 12+ BLUETOOTH_SCAN/CONNECT, iOS Info.plist, runtime permission requests, and common errors."
 tags: ["Flutter", "BLE", "permissions", "Android", "iOS", "flutter_blue_plus"]
+faqs:
+  - question: "Do I need location permission for BLE scanning on Android 12+?"
+    answer: "Not if you add the android:usesPermissionFlags=\"neverForLocation\" flag to BLUETOOTH_SCAN in your AndroidManifest.xml. This tells Android your app does not use scanning to derive location. Without this flag, ACCESS_FINE_LOCATION is also required."
+  - question: "Why does my Flutter BLE scan silently return no results on Android?"
+    answer: "Almost always a missing permission. BLE permission violations fail silently — no crash, no error. Check: (1) BLUETOOTH_SCAN in manifest, (2) runtime permission granted via permission_handler, (3) Bluetooth adapter is on, (4) FlutterBluePlus.adapterState returns BluetoothAdapterState.on."
+  - question: "Does flutter_blue_plus handle iOS Bluetooth permission dialogs automatically?"
+    answer: "Yes. The iOS system permission dialog fires automatically on first Bluetooth use. You only need the correct NSBluetoothAlwaysUsageDescription entry in Info.plist. Use FlutterBluePlus.adapterState to detect the unauthorized state if the user denies."
+  - question: "What happens if I forget NSBluetoothAlwaysUsageDescription in Info.plist?"
+    answer: "Your app will crash on iOS the moment it first tries to use Bluetooth with an error about accessing privacy-sensitive data without a usage description. Always add both NSBluetoothAlwaysUsageDescription and NSBluetoothPeripheralUsageDescription before testing on a real device."
+  - question: "What is the minimum Android SDK version for BLE with flutter_blue_plus?"
+    answer: "minSdkVersion 21 (Android 5.0). For Android 12+ BLE features (BLUETOOTH_SCAN, BLUETOOTH_CONNECT), set targetSdkVersion 31 or higher in your build.gradle."
 ---
 
 > **TL;DR:** Android 12+ requires `BLUETOOTH_SCAN`, `BLUETOOTH_CONNECT`, and optionally `ACCESS_FINE_LOCATION` in your manifest, plus runtime requests via `permission_handler`. iOS requires `NSBluetoothAlwaysUsageDescription` in Info.plist. Always check adapter state before scanning. Missing permissions cause silent failures — not crash logs.
@@ -326,18 +337,18 @@ Apple reviews background Bluetooth usage carefully — your app description must
 
 ## Related Guides
 
-- 🚀 **[Getting Started with BLE in Flutter](/posts/getting-started-ble-flutter)** — BLE fundamentals
-- 🔬 **[BLE GATT Profiles Explained](/posts/ble-gatt-profiles-explained)** — Services & characteristics
-- 📡 **[Flutter BLE Scanning Guide](/posts/flutter-ble-scanning-guide)** — Using permissions to scan
-- 📖 **[Reading & Writing BLE Characteristics](/posts/flutter-ble-read-write-characteristics)** — Data operations
-- 🏗️ **[Build a Complete Flutter BLE App](/posts/build-complete-flutter-ble-app)** — Full app with permissions
-- 📦 **[Flutter BLE Packages Comparison](/posts/flutter-ble-packages-comparison)** — Package choices
-- 🔄 **[flutter_blue vs flutter_blue_plus](/posts/flutter-blue-vs-flutter-blue-plus)** — Package migration
-- ⚡ **[BLE vs Classic Bluetooth in Flutter](/posts/ble-vs-classic-bluetooth-flutter)** — Protocol comparison
-- 🤖 **[ESP32 vs Arduino for Flutter BLE](/posts/esp32-vs-arduino-flutter-ble)** — Hardware pairing
-- ⚖️ **[Flutter vs React Native for BLE](/posts/flutter-vs-react-native-ble)** — Framework comparison
-- 📱 **[Flutter BLE vs Native Android (Kotlin)](/posts/flutter-ble-vs-native-android-kotlin)** — vs native
-- 🌐 **[BLE vs WiFi for Flutter IoT](/posts/ble-vs-wifi-flutter-iot)** — Connectivity comparison
+- 🚀 **[Getting Started with BLE in Flutter](/blog/getting-started-ble-flutter)** — BLE fundamentals
+- 🔬 **[BLE GATT Profiles Explained](/blog/ble-gatt-profiles-explained)** — Services & characteristics
+- 📡 **[Flutter BLE Scanning Guide](/blog/flutter-ble-scanning-guide)** — Using permissions to scan
+- 📖 **[Reading & Writing BLE Characteristics](/blog/flutter-ble-read-write-characteristics)** — Data operations
+- 🏗️ **[Build a Complete Flutter BLE App](/blog/build-complete-flutter-ble-app)** — Full app with permissions
+- 📦 **[Flutter BLE Packages Comparison](/blog/flutter-ble-packages-comparison)** — Package choices
+- 🔄 **[flutter_blue vs flutter_blue_plus](/blog/flutter-blue-vs-flutter-blue-plus)** — Package migration
+- ⚡ **[BLE vs Classic Bluetooth in Flutter](/blog/ble-vs-classic-bluetooth-flutter)** — Protocol comparison
+- 🤖 **[ESP32 vs Arduino for Flutter BLE](/blog/esp32-vs-arduino-flutter-ble)** — Hardware pairing
+- ⚖️ **[Flutter vs React Native for BLE](/blog/flutter-vs-react-native-ble)** — Framework comparison
+- 📱 **[Flutter BLE vs Native Android (Kotlin)](/blog/flutter-ble-vs-native-android-kotlin)** — vs native
+- 🌐 **[BLE vs WiFi for Flutter IoT](/blog/ble-vs-wifi-flutter-iot)** — Connectivity comparison
 
 ---
 
@@ -367,7 +378,7 @@ The **[BLE Flutter Course](https://blefluttercourse.com/)** includes a project s
 
 Bluetooth permissions are a one-time setup that unlocks every other BLE feature. With the manifest entries, plist keys, and runtime request code above, you'll never hit a permission-related scan failure again.
 
-**Next step:** Start [scanning for BLE devices](/posts/flutter-ble-scanning-guide) or jump straight to the [complete app build guide](/posts/build-complete-flutter-ble-app).
+**Next step:** Start [scanning for BLE devices](/blog/flutter-ble-scanning-guide) or jump straight to the [complete app build guide](/blog/build-complete-flutter-ble-app).
 
 Or learn everything end-to-end in the **[BLE Flutter Course](https://blefluttercourse.com/)** — structured, hardware-driven BLE development from setup to shipping.
 

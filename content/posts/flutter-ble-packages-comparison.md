@@ -170,7 +170,7 @@ The original package is **deprecated and unmaintained**. Do not use it in new pr
 - No desktop support
 - No active maintenance
 
-If you're on flutter_blue, see our full [flutter_blue vs flutter_blue_plus migration guide](/posts/flutter-blue-vs-flutter-blue-plus).
+If you're on flutter_blue, see our full [flutter_blue vs flutter_blue_plus migration guide](/blog/flutter-blue-vs-flutter-blue-plus).
 
 ### flutter_ble_lib
 **Archived** on GitHub. Do not use.
@@ -223,7 +223,7 @@ dependencies:
   flutter_blue_plus: ^1.31.0
 ```
 
-For the complete setup including permissions, see our [Flutter BLE permissions guide for Android & iOS](/posts/flutter-ble-permissions-android-ios).
+For the complete setup including permissions, see our [Flutter BLE permissions guide for Android & iOS](/blog/flutter-ble-permissions-android-ios).
 
 ### Android Setup
 
@@ -250,8 +250,8 @@ For the complete setup including permissions, see our [Flutter BLE permissions g
 ## Should Flutter or Native Handle Your BLE?
 
 If you're debating whether to use Flutter for BLE at all vs. going native, see our comparison articles:
-- [Flutter BLE vs Native Android (Kotlin)](/posts/flutter-ble-vs-native-android-kotlin) — when Flutter wins, when Kotlin wins
-- [Flutter vs React Native for BLE Development](/posts/flutter-vs-react-native-ble) — cross-platform framework comparison
+- [Flutter BLE vs Native Android (Kotlin)](/blog/flutter-ble-vs-native-android-kotlin) — when Flutter wins, when Kotlin wins
+- [Flutter vs React Native for BLE Development](/blog/flutter-vs-react-native-ble) — cross-platform framework comparison
 
 ---
 
@@ -259,18 +259,18 @@ If you're debating whether to use Flutter for BLE at all vs. going native, see o
 
 Build on this foundation with the rest of the blog:
 
-- 🚀 **[Getting Started with BLE in Flutter](/posts/getting-started-ble-flutter)** — BLE fundamentals for Flutter devs
-- 🔬 **[BLE GATT Profiles Explained](/posts/ble-gatt-profiles-explained)** — Understand services & characteristics
-- 📡 **[Flutter BLE Scanning & Device Discovery](/posts/flutter-ble-scanning-guide)** — Scanning best practices
-- 📖 **[Reading & Writing BLE Characteristics](/posts/flutter-ble-read-write-characteristics)** — Data operations
-- 🔒 **[Flutter BLE Permissions Guide](/posts/flutter-ble-permissions-android-ios)** — Android & iOS permissions
-- 🏗️ **[Build a Complete Flutter BLE App](/posts/build-complete-flutter-ble-app)** — End-to-end project
-- 🔄 **[flutter_blue vs flutter_blue_plus](/posts/flutter-blue-vs-flutter-blue-plus)** — Migration guide
-- ⚡ **[BLE vs Classic Bluetooth in Flutter](/posts/ble-vs-classic-bluetooth-flutter)** — Protocol comparison
-- 🤖 **[ESP32 vs Arduino for Flutter BLE](/posts/esp32-vs-arduino-flutter-ble)** — Hardware choice
-- ⚖️ **[Flutter vs React Native for BLE](/posts/flutter-vs-react-native-ble)** — Framework choice
-- 🤖 **[Flutter BLE vs Native Android](/posts/flutter-ble-vs-native-android-kotlin)** — vs Kotlin
-- 🌐 **[BLE vs WiFi for Flutter IoT](/posts/ble-vs-wifi-flutter-iot)** — Connectivity choice
+- 🚀 **[Getting Started with BLE in Flutter](/blog/getting-started-ble-flutter)** — BLE fundamentals for Flutter devs
+- 🔬 **[BLE GATT Profiles Explained](/blog/ble-gatt-profiles-explained)** — Understand services & characteristics
+- 📡 **[Flutter BLE Scanning & Device Discovery](/blog/flutter-ble-scanning-guide)** — Scanning best practices
+- 📖 **[Reading & Writing BLE Characteristics](/blog/flutter-ble-read-write-characteristics)** — Data operations
+- 🔒 **[Flutter BLE Permissions Guide](/blog/flutter-ble-permissions-android-ios)** — Android & iOS permissions
+- 🏗️ **[Build a Complete Flutter BLE App](/blog/build-complete-flutter-ble-app)** — End-to-end project
+- 🔄 **[flutter_blue vs flutter_blue_plus](/blog/flutter-blue-vs-flutter-blue-plus)** — Migration guide
+- ⚡ **[BLE vs Classic Bluetooth in Flutter](/blog/ble-vs-classic-bluetooth-flutter)** — Protocol comparison
+- 🤖 **[ESP32 vs Arduino for Flutter BLE](/blog/esp32-vs-arduino-flutter-ble)** — Hardware choice
+- ⚖️ **[Flutter vs React Native for BLE](/blog/flutter-vs-react-native-ble)** — Framework choice
+- 🤖 **[Flutter BLE vs Native Android](/blog/flutter-ble-vs-native-android-kotlin)** — vs Kotlin
+- 🌐 **[BLE vs WiFi for Flutter IoT](/blog/ble-vs-wifi-flutter-iot)** — Connectivity choice
 
 ---
 
@@ -283,7 +283,7 @@ Yes. flutter_blue_plus is open source under the MIT license and free for commerc
 Absolutely. That's one of its biggest advantages. The same Dart API works on both platforms with platform-specific configurations handled internally.
 
 ### How do I migrate from flutter_blue to flutter_blue_plus?
-The APIs are similar but not identical. Key changes: the package is `FlutterBluePlus` instead of `FlutterBlue`, scanning API has changed slightly, and device connection methods have been updated. See our [full migration guide](/posts/flutter-blue-vs-flutter-blue-plus).
+The APIs are similar but not identical. Key changes: the package is `FlutterBluePlus` instead of `FlutterBlue`, scanning API has changed slightly, and device connection methods have been updated. See our [full migration guide](/blog/flutter-blue-vs-flutter-blue-plus).
 
 ### Does flutter_blue_plus support BLE peripherals (acting as a server)?
 As of 2026, flutter_blue_plus focuses on the central role (client). For peripheral mode, you'd need a different package or native code. Most Flutter BLE apps are clients connecting to IoT hardware.

@@ -3,6 +3,15 @@ title: "Build a Complete Flutter BLE App: End-to-End Guide with flutter_blue_plu
 date: "2026-04-10"
 excerpt: "Build a complete, production-ready Flutter BLE app from scratch. Covers architecture, scanning, connection management, GATT operations, state management, error recovery, and real-device testing."
 tags: ["Flutter", "BLE", "app development", "flutter_blue_plus", "architecture"]
+faqs:
+  - question: "What architecture should I use for a Flutter BLE app?"
+    answer: "A service-layer architecture works best: isolate all BLE logic in a dedicated BleService class, expose streams for device state and data, and consume those streams in your UI with Riverpod or BLoC. This keeps BLE code testable and prevents resource leaks when the user navigates away."
+  - question: "How do I handle BLE disconnections gracefully in Flutter?"
+    answer: "Listen to device.connectionState stream and implement automatic reconnection with exponential backoff. Set a max retry count (typically 3), show clear UI feedback for each state change, and cancel all pending operations before attempting to reconnect. Always clean up stream subscriptions on disconnection to prevent memory leaks."
+  - question: "Can Flutter BLE apps run in the background?"
+    answer: "Yes, with platform-specific setup. iOS requires the bluetooth-central UIBackgroundMode in Info.plist and service UUID filtering on scans. Android requires a foreground service with a visible notification. Both platforms impose significant battery and connectivity restrictions on background BLE."
+  - question: "How do I test a Flutter BLE app without physical hardware?"
+    answer: "Use the nRF Connect app (free on iOS and Android) to simulate a BLE peripheral with custom GATT services. For automated testing, mock the flutter_blue_plus API. For CI/CD pipelines, conditional compilation flags let you skip BLE-specific tests that require hardware."
 ---
 
 > **TL;DR:** A production Flutter BLE app needs: permissions setup → scan UI → connection state management → service discovery → characteristic read/write/notify → error recovery → clean dispose. This guide builds a complete sensor dashboard app step by step using flutter_blue_plus, covering every layer from architecture to real-device testing.
@@ -24,11 +33,11 @@ A **BLE Sensor Dashboard** app that:
 - Cleans up all resources properly
 
 **Prerequisite reading:**
-- [BLE Fundamentals for Flutter](/posts/getting-started-ble-flutter)
-- [GATT Profiles Explained](/posts/ble-gatt-profiles-explained)
-- [Flutter BLE Permissions Setup](/posts/flutter-ble-permissions-android-ios)
-- [Scanning & Device Discovery](/posts/flutter-ble-scanning-guide)
-- [Reading & Writing Characteristics](/posts/flutter-ble-read-write-characteristics)
+- [BLE Fundamentals for Flutter](/blog/getting-started-ble-flutter)
+- [GATT Profiles Explained](/blog/ble-gatt-profiles-explained)
+- [Flutter BLE Permissions Setup](/blog/flutter-ble-permissions-android-ios)
+- [Scanning & Device Discovery](/blog/flutter-ble-scanning-guide)
+- [Reading & Writing Characteristics](/blog/flutter-ble-read-write-characteristics)
 
 ---
 
@@ -63,7 +72,7 @@ dependencies:
 <string>This app connects to BLE sensors to display real-time data.</string>
 ```
 
-See the [complete permissions guide](/posts/flutter-ble-permissions-android-ios) for all edge cases.
+See the [complete permissions guide](/blog/flutter-ble-permissions-android-ios) for all edge cases.
 
 ---
 
@@ -551,7 +560,7 @@ class _PermissionGateState extends State<PermissionGate> {
 ## Hardware Pairing
 
 This app works with any BLE peripheral that exposes the `SensorGatt` UUIDs. For development, use:
-- **ESP32** — easiest to prototype with. See [ESP32 vs Arduino for Flutter BLE](/posts/esp32-vs-arduino-flutter-ble)
+- **ESP32** — easiest to prototype with. See [ESP32 vs Arduino for Flutter BLE](/blog/esp32-vs-arduino-flutter-ble)
 - **Arduino + HM-10** — classic setup with AT commands
 - **nRF52840** — production-grade, most BLE features
 
@@ -570,18 +579,18 @@ BLE cannot be tested in the iOS Simulator or Android Emulator. You need real dev
 
 ## Related Guides
 
-- 🚀 **[Getting Started with BLE in Flutter](/posts/getting-started-ble-flutter)** — BLE foundations
-- 🔬 **[BLE GATT Profiles Explained](/posts/ble-gatt-profiles-explained)** — Services & characteristics
-- 📡 **[Flutter BLE Scanning Guide](/posts/flutter-ble-scanning-guide)** — Scan patterns used here
-- 📖 **[Reading & Writing Characteristics](/posts/flutter-ble-read-write-characteristics)** — Data operations
-- 🔒 **[Flutter BLE Permissions Guide](/posts/flutter-ble-permissions-android-ios)** — Full permission setup
-- 📦 **[Flutter BLE Packages Comparison](/posts/flutter-ble-packages-comparison)** — Why flutter_blue_plus
-- 🔄 **[flutter_blue vs flutter_blue_plus](/posts/flutter-blue-vs-flutter-blue-plus)** — Package migration
-- ⚡ **[BLE vs Classic Bluetooth in Flutter](/posts/ble-vs-classic-bluetooth-flutter)** — Protocol choice
-- 🤖 **[ESP32 vs Arduino for Flutter BLE](/posts/esp32-vs-arduino-flutter-ble)** — Pick your hardware
-- ⚖️ **[Flutter vs React Native for BLE](/posts/flutter-vs-react-native-ble)** — Why Flutter wins
-- 📱 **[Flutter BLE vs Native Android (Kotlin)](/posts/flutter-ble-vs-native-android-kotlin)** — vs native
-- 🌐 **[BLE vs WiFi for Flutter IoT](/posts/ble-vs-wifi-flutter-iot)** — Connectivity comparison
+- 🚀 **[Getting Started with BLE in Flutter](/blog/getting-started-ble-flutter)** — BLE foundations
+- 🔬 **[BLE GATT Profiles Explained](/blog/ble-gatt-profiles-explained)** — Services & characteristics
+- 📡 **[Flutter BLE Scanning Guide](/blog/flutter-ble-scanning-guide)** — Scan patterns used here
+- 📖 **[Reading & Writing Characteristics](/blog/flutter-ble-read-write-characteristics)** — Data operations
+- 🔒 **[Flutter BLE Permissions Guide](/blog/flutter-ble-permissions-android-ios)** — Full permission setup
+- 📦 **[Flutter BLE Packages Comparison](/blog/flutter-ble-packages-comparison)** — Why flutter_blue_plus
+- 🔄 **[flutter_blue vs flutter_blue_plus](/blog/flutter-blue-vs-flutter-blue-plus)** — Package migration
+- ⚡ **[BLE vs Classic Bluetooth in Flutter](/blog/ble-vs-classic-bluetooth-flutter)** — Protocol choice
+- 🤖 **[ESP32 vs Arduino for Flutter BLE](/blog/esp32-vs-arduino-flutter-ble)** — Pick your hardware
+- ⚖️ **[Flutter vs React Native for BLE](/blog/flutter-vs-react-native-ble)** — Why Flutter wins
+- 📱 **[Flutter BLE vs Native Android (Kotlin)](/blog/flutter-ble-vs-native-android-kotlin)** — vs native
+- 🌐 **[BLE vs WiFi for Flutter IoT](/blog/ble-vs-wifi-flutter-iot)** — Connectivity comparison
 
 ---
 

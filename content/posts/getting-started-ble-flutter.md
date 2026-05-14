@@ -1,8 +1,19 @@
 ---
-title: "Getting Started with Bluetooth Low Energy in Flutter (2026 Complete Guide)"
+title: "Flutter Bluetooth Low Energy: Complete Beginner Guide with flutter_blue_plus [2026]"
 date: "2025-04-10"
 excerpt: "The complete beginner's guide to Bluetooth Low Energy in Flutter. Learn what BLE is, how the GATT protocol works, and how to scan, connect, and read data from BLE devices using flutter_blue_plus — with code examples for Android and iOS."
 tags: ["BLE Basics", "flutter_blue_plus", "Beginner", "flutter bluetooth tutorial"]
+faqs:
+  - question: "What is the best Flutter package for Bluetooth Low Energy in 2026?"
+    answer: "flutter_blue_plus is the best Flutter BLE package in 2026. It is the actively maintained successor to the deprecated flutter_blue, with full Android 12+ support, a modern async API, and strong community backing. Avoid flutter_blue — it is no longer maintained."
+  - question: "Does Flutter support BLE on both Android and iOS?"
+    answer: "Yes. flutter_blue_plus supports Android API 21+ and iOS 12+, covering the vast majority of active devices. The Dart API is unified — the same code works on both platforms with only minor platform-specific permission setup differences."
+  - question: "What is GATT in Bluetooth Low Energy?"
+    answer: "GATT (Generic Attribute Profile) is the data model BLE uses to organise device information. Devices expose Services, which contain Characteristics (the actual data values), which have Descriptors (metadata). Your Flutter app scans for devices, connects, discovers services, then reads, writes, or subscribes to characteristics."
+  - question: "Why is my BLE app not working on Android 12?"
+    answer: "Android 12 introduced two new required permissions: BLUETOOTH_SCAN and BLUETOOTH_CONNECT. Apps that only declare the old BLUETOOTH and BLUETOOTH_ADMIN permissions will silently fail to scan on Android 12+ devices. Add both new permissions to your AndroidManifest.xml and request them at runtime with permission_handler."
+  - question: "Is there a complete Flutter BLE course for developers?"
+    answer: "Yes — the BLE Flutter Course at blefluttercourse.com is a dedicated course for Flutter developers building BLE apps. It covers everything from fundamentals and GATT to production deployment with real hardware, including full source code and edge-case handling."
 ---
 
 # Getting Started with Bluetooth Low Energy in Flutter

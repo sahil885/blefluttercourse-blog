@@ -41,6 +41,23 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   }
 }
 
+function splitHtmlAtHeading(html: string, headingIndex: number): [string, string] {
+  // Split after the Nth </h2> tag so CourseCallout appears mid-article
+  let count = 0
+  let splitPos = -1
+  const pattern = /<\/h2>/gi
+  let match
+  while ((match = pattern.exec(html)) !== null) {
+    count++
+    if (count === headingIndex) {
+      splitPos = match.index + match[0].length
+      break
+    }
+  }
+  if (splitPos === -1) return [html, '']
+  return [html.slice(0, splitPos), html.slice(splitPos)]
+}
+
 export default function BlogPostPage({ params }: Props) {
   let post
   try {
@@ -50,6 +67,7 @@ export default function BlogPostPage({ params }: Props) {
   }
 
   const htmlContent = marked(post.content) as string
+  const [firstHalf, secondHalf] = splitHtmlAtHeading(htmlContent, 3)
 
   const formattedDate = new Date(post.date).toLocaleDateString('en-US', {
     year: 'numeric',
@@ -57,8 +75,55 @@ export default function BlogPostPage({ params }: Props) {
     day: 'numeric',
   })
 
+  // Build FAQ JSON-LD schema
+  const faqSchema = post.faqs && post.faqs.length > 0
+    ? {
+        '@context': 'https://schema.org',
+        '@type': 'FAQPage',
+        mainEntity: post.faqs.map((faq) => ({
+          '@type': 'Question',
+          name: faq.question,
+          acceptedAnswer: {
+            '@type': 'Answer',
+            text: faq.answer,
+          },
+        })),
+      }
+    : null
+
+  // Article schema
+  const articleSchema = {
+    '@context': 'https://schema.org',
+    '@type': 'TechArticle',
+    headline: post.title,
+    description: post.excerpt,
+    datePublished: post.date,
+    author: {
+      '@type': 'Organization',
+      name: 'BLE Flutter Course',
+      url: 'https://blefluttercourse.com',
+    },
+    publisher: {
+      '@type': 'Organization',
+      name: 'BLE Flutter Course',
+      url: 'https://blog.blefluttercourse.com',
+    },
+  }
+
   return (
     <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+      {/* Structured data */}
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(articleSchema) }}
+      />
+      {faqSchema && (
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }}
+        />
+      )}
+
       <div className="max-w-3xl mx-auto">
         {/* Breadcrumb */}
         <nav className="flex items-center gap-2 text-sm text-slate-500 mb-8">
@@ -95,13 +160,24 @@ export default function BlogPostPage({ params }: Props) {
           <span>{post.readTime}</span>
         </div>
 
-        {/* Content */}
+        {/* First half of content */}
         <article
           className="prose"
-          dangerouslySetInnerHTML={{ __html: htmlContent }}
+          dangerouslySetInnerHTML={{ __html: firstHalf }}
         />
 
-        {/* Course CTA */}
+        {/* Mid-article Course CTA (only shown when article is long enough) */}
+        {secondHalf && <CourseCallout />}
+
+        {/* Second half of content */}
+        {secondHalf && (
+          <article
+            className="prose"
+            dangerouslySetInnerHTML={{ __html: secondHalf }}
+          />
+        )}
+
+        {/* End-of-article Course CTA */}
         <CourseCallout />
 
         {/* Free Guide CTA */}

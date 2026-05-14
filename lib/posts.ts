@@ -4,6 +4,11 @@ import matter from 'gray-matter'
 
 const postsDirectory = path.join(process.cwd(), 'content/posts')
 
+export interface FAQ {
+  question: string
+  answer: string
+}
+
 export interface Post {
   slug: string
   title: string
@@ -12,6 +17,7 @@ export interface Post {
   content: string
   readTime: string
   tags: string[]
+  faqs: FAQ[]
 }
 
 export function getAllPosts(): Omit<Post, 'content'>[] {
@@ -32,6 +38,7 @@ export function getAllPosts(): Omit<Post, 'content'>[] {
         excerpt: data.excerpt as string,
         readTime,
         tags: (data.tags as string[]) || [],
+        faqs: (data.faqs as FAQ[]) || [],
       }
     })
     .sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime())
@@ -54,6 +61,7 @@ export function getPostBySlug(slug: string): Post {
     content,
     readTime,
     tags: (data.tags as string[]) || [],
+    faqs: (data.faqs as FAQ[]) || [],
   }
 }
 

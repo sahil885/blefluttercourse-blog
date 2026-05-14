@@ -16,9 +16,9 @@ Once you've scanned, connected, and discovered services, the real work begins: r
 ## Prerequisites
 
 Before reading or writing, you need a connected device with discovered services:
-- [Getting Started with BLE in Flutter](/posts/getting-started-ble-flutter) — BLE fundamentals
-- [Flutter BLE Scanning Guide](/posts/flutter-ble-scanning-guide) — find and connect to devices
-- [BLE GATT Profiles Explained](/posts/ble-gatt-profiles-explained) — understand services and characteristics
+- [Getting Started with BLE in Flutter](/blog/getting-started-ble-flutter) — BLE fundamentals
+- [Flutter BLE Scanning Guide](/blog/flutter-ble-scanning-guide) — find and connect to devices
+- [BLE GATT Profiles Explained](/blog/ble-gatt-profiles-explained) — understand services and characteristics
 
 ---
 
@@ -258,18 +258,18 @@ Future<List<int>?> safeRead(BluetoothCharacteristic char) async {
 
 ## Related Guides
 
-- 🚀 **[Getting Started with BLE in Flutter](/posts/getting-started-ble-flutter)** — BLE foundations
-- 🔬 **[BLE GATT Profiles Explained](/posts/ble-gatt-profiles-explained)** — Services & characteristics hierarchy
-- 📡 **[Flutter BLE Scanning & Discovery](/posts/flutter-ble-scanning-guide)** — Find devices first
-- 🔒 **[Flutter BLE Permissions: Android & iOS](/posts/flutter-ble-permissions-android-ios)** — Permission setup
-- 🏗️ **[Build a Complete Flutter BLE App](/posts/build-complete-flutter-ble-app)** — Everything together
-- 📦 **[Flutter BLE Packages Comparison](/posts/flutter-ble-packages-comparison)** — Package choices
-- 🔄 **[flutter_blue vs flutter_blue_plus](/posts/flutter-blue-vs-flutter-blue-plus)** — Package migration
-- ⚡ **[BLE vs Classic Bluetooth in Flutter](/posts/ble-vs-classic-bluetooth-flutter)** — Protocol comparison
-- 🤖 **[ESP32 vs Arduino for Flutter BLE](/posts/esp32-vs-arduino-flutter-ble)** — Hardware pairing
-- ⚖️ **[Flutter vs React Native for BLE](/posts/flutter-vs-react-native-ble)** — Framework comparison
-- 📱 **[Flutter BLE vs Native Android (Kotlin)](/posts/flutter-ble-vs-native-android-kotlin)** — vs native
-- 🌐 **[BLE vs WiFi for Flutter IoT](/posts/ble-vs-wifi-flutter-iot)** — Connectivity comparison
+- 🚀 **[Getting Started with BLE in Flutter](/blog/getting-started-ble-flutter)** — BLE foundations
+- 🔬 **[BLE GATT Profiles Explained](/blog/ble-gatt-profiles-explained)** — Services & characteristics hierarchy
+- 📡 **[Flutter BLE Scanning & Discovery](/blog/flutter-ble-scanning-guide)** — Find devices first
+- 🔒 **[Flutter BLE Permissions: Android & iOS](/blog/flutter-ble-permissions-android-ios)** — Permission setup
+- 🏗️ **[Build a Complete Flutter BLE App](/blog/build-complete-flutter-ble-app)** — Everything together
+- 📦 **[Flutter BLE Packages Comparison](/blog/flutter-ble-packages-comparison)** — Package choices
+- 🔄 **[flutter_blue vs flutter_blue_plus](/blog/flutter-blue-vs-flutter-blue-plus)** — Package migration
+- ⚡ **[BLE vs Classic Bluetooth in Flutter](/blog/ble-vs-classic-bluetooth-flutter)** — Protocol comparison
+- 🤖 **[ESP32 vs Arduino for Flutter BLE](/blog/esp32-vs-arduino-flutter-ble)** — Hardware pairing
+- ⚖️ **[Flutter vs React Native for BLE](/blog/flutter-vs-react-native-ble)** — Framework comparison
+- 📱 **[Flutter BLE vs Native Android (Kotlin)](/blog/flutter-ble-vs-native-android-kotlin)** — vs native
+- 🌐 **[BLE vs WiFi for Flutter IoT](/blog/ble-vs-wifi-flutter-iot)** — Connectivity comparison
 
 ---
 
@@ -299,6 +299,6 @@ The **[BLE Flutter Course](https://blefluttercourse.com/)** teaches every read/w
 
 You now have everything needed for robust BLE data pipelines: reading sensor values, writing commands, streaming real-time notifications, handling errors, and transferring large payloads.
 
-**Next step:** See [Build a Complete Flutter BLE App](/posts/build-complete-flutter-ble-app) to put every pattern together, or enroll in the **[BLE Flutter Course](https://blefluttercourse.com/)** for structured hands-on learning.
+**Next step:** See [Build a Complete Flutter BLE App](/blog/build-complete-flutter-ble-app) to put every pattern together, or enroll in the **[BLE Flutter Course](https://blefluttercourse.com/)** for structured hands-on learning.
 
 👉 **[Enroll in the BLE Flutter Course →](https://blefluttercourse.com/)**
