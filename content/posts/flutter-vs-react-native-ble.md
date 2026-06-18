@@ -11,6 +11,8 @@ If you're evaluating frameworks for a Bluetooth Low Energy app in 2026, this is 
 
 This article is written from the perspective of developers who have shipped production BLE apps on both platforms. The verdict isn't close.
 
+> **Free guide:** Struggling with dropped connections? Grab *The 7 BLE Mistakes That Make Flutter Apps Disconnect* — production-ready fixes you can apply today. [**Download the free guide →**](https://blog.blefluttercourse.com/free-guide)
+
 ## TL;DR
 
 **Flutter wins for BLE development.** The package ecosystem is more mature, the developer experience is smoother, the performance on data-intensive BLE streams is better, and the community producing BLE-specific knowledge is significantly larger. If you are starting a BLE project in 2026, choose Flutter.
