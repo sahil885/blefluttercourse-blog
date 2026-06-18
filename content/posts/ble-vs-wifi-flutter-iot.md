@@ -13,6 +13,8 @@ This guide gives you the complete picture and a clear decision framework.
 
 ---
 
+> **Free guide:** Struggling with dropped connections? Grab *The 7 BLE Mistakes That Make Flutter Apps Disconnect* — production-ready fixes you can apply today. [**Download the free guide →**](https://blog.blefluttercourse.com/free-guide)
+
 ## TL;DR
 
 **BLE and WiFi serve different roles — choose based on your device's power source and whether it needs internet access independently.** BLE is optimal for battery-powered devices communicating with a nearby smartphone. WiFi is optimal for mains-powered devices that need persistent internet connectivity or high-throughput data. Many production IoT products use both — BLE for initial setup and local control, WiFi for cloud connectivity.
