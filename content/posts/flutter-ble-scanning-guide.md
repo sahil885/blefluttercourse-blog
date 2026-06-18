@@ -22,6 +22,8 @@ Before you can read sensor data, send commands, or build any BLE feature, you ne
 
 ---
 
+> **Free guide:** Struggling with dropped connections? Grab *The 7 BLE Mistakes That Make Flutter Apps Disconnect* — production-ready fixes you can apply today. [**Download the free guide →**](https://blog.blefluttercourse.com/free-guide)
+
 ## Prerequisites
 
 Make sure you've:
