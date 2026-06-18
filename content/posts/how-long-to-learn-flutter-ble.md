@@ -24,6 +24,8 @@ Here's what the journey actually looks like.
 
 ---
 
+> **Free guide:** Struggling with dropped connections? Grab *The 7 BLE Mistakes That Make Flutter Apps Disconnect* — production-ready fixes you can apply today. [**Download the free guide →**](https://blog.blefluttercourse.com/free-guide)
+
 ## Week 1: Fundamentals + First Working App
 
 **Days 1–2: Understanding BLE**
