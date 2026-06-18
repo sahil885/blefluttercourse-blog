@@ -13,6 +13,8 @@ The single biggest mistake Flutter developers make when debugging BLE is treatin
 
 That is exactly what **nRF Connect for Mobile** gives you. This guide walks through the triage workflow we use on real projects: how to use nRF Connect as a reference central, how to turn on verbose `flutter_blue_plus` logging, how to capture and read HCI snoop logs, and how to fix the handful of errors that cause most BLE pain.
 
+> **Free guide:** Struggling with dropped connections? Grab *The 7 BLE Mistakes That Make Flutter Apps Disconnect* — production-ready fixes you can apply today. [**Download the free guide →**](https://blog.blefluttercourse.com/free-guide)
+
 ## Why nRF Connect is always your first stop
 
 nRF Connect for Mobile is a free, generic BLE central app from Nordic Semiconductor, available on both iOS and Android. It can scan for devices, parse advertisement data, plot an RSSI graph, connect, discover services and characteristics, read and write values, subscribe to notifications and indications, and — crucially — show you a timestamped **Logger** view of every single operation.
