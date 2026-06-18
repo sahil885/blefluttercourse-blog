@@ -22,6 +22,8 @@ Here are 10 practical project ideas, ordered from beginner to advanced, each one
 
 ---
 
+> **Free guide:** Struggling with dropped connections? Grab *The 7 BLE Mistakes That Make Flutter Apps Disconnect* — production-ready fixes you can apply today. [**Download the free guide →**](https://blog.blefluttercourse.com/free-guide)
+
 ## 1. LED Controller (Beginner)
 
 **What you build:** A Flutter app with a toggle button that turns an LED on an ESP32 on and off over BLE.
