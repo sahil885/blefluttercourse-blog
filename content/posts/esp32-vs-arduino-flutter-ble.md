@@ -13,6 +13,8 @@ This comparison is written for Flutter developers who are comfortable with Dart 
 
 ---
 
+> **Free guide:** Struggling with dropped connections? Grab *The 7 BLE Mistakes That Make Flutter Apps Disconnect* — production-ready fixes you can apply today. [**Download the free guide →**](https://blog.blefluttercourse.com/free-guide)
+
 ## TL;DR
 
 **Use ESP32 for any new Flutter BLE project.** It has native BLE hardware built in, costs roughly the same or less than a BLE-capable Arduino, has better documentation for BLE-specific work, and offers significantly more processing power for applications that need it. Arduino (specifically the Arduino Nano 33 BLE or MKR series) is a solid alternative for simpler projects or if you're already in the Arduino ecosystem.
