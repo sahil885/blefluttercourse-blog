@@ -15,6 +15,8 @@ Background BLE is one of the most misunderstood topics in Flutter development. D
 
 ---
 
+> **Free guide:** Struggling with dropped connections? Grab *The 7 BLE Mistakes That Make Flutter Apps Disconnect* — production-ready fixes you can apply today. [**Download the free guide →**](https://blog.blefluttercourse.com/free-guide)
+
 ## What "Background BLE" Actually Means
 
 There are three different things developers usually mean when they say "background BLE," and each has different platform support:
