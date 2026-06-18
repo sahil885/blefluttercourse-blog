@@ -24,6 +24,8 @@ Permissions are where most Flutter BLE projects get stuck. A missing declaration
 
 ---
 
+> **Free guide:** Struggling with dropped connections? Grab *The 7 BLE Mistakes That Make Flutter Apps Disconnect* — production-ready fixes you can apply today. [**Download the free guide →**](https://blog.blefluttercourse.com/free-guide)
+
 ## Why BLE Permissions Are Complex
 
 BLE permissions changed significantly across OS versions:
