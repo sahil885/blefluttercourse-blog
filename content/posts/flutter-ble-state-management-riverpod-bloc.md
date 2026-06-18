@@ -7,6 +7,8 @@ tags: ["Flutter", "BLE", "flutter_blue_plus", "Riverpod", "BLoC", "State Managem
 
 > **TL;DR:** `setState` breaks down fast in BLE apps because scan results, connection state, and characteristic data all need to be shared across many widgets. Riverpod's `StreamProvider` and BLoC's stream-driven events are both excellent fits for the asynchronous, multi-source nature of flutter_blue_plus. This post shows you exactly how to wire them up — and where each approach wins.
 
+> **Free guide:** Struggling with dropped connections? Grab *The 7 BLE Mistakes That Make Flutter Apps Disconnect* — production-ready fixes you can apply today. [**Download the free guide →**](https://blog.blefluttercourse.com/free-guide)
+
 ## Why `setState` Destroys BLE Apps
 
 You start building a Flutter BLE app and everything looks clean. A `StatefulWidget` holds the connected device, `setState` updates the UI when scanning completes, and life is good.
