@@ -13,6 +13,8 @@ The confusion usually starts with terminology. Developers use "pairing" and "bon
 
 This guide walks through how BLE security actually works, how to handle pairing and bonding in flutter_blue_plus, and the gotchas that bite real apps.
 
+> **Free guide:** Struggling with dropped connections? Grab *The 7 BLE Mistakes That Make Flutter Apps Disconnect* — production-ready fixes you can apply today. [**Download the free guide →**](https://blog.blefluttercourse.com/free-guide)
+
 ## Pairing vs Bonding: They're Not the Same Thing
 
 **Pairing** is the process of exchanging temporary security keys to encrypt the current connection. It happens once, at connection time, and the keys are thrown away when the link drops.
