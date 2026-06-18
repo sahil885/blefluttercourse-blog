@@ -22,6 +22,8 @@ Bluetooth Low Energy (BLE) is the wireless protocol powering the modern IoT worl
 
 This guide gives you everything you need to go from zero BLE knowledge to understanding the protocol, the Flutter ecosystem, and the first practical steps to connecting your app to a real device.
 
+> **Free guide:** Struggling with dropped connections? Grab *The 7 BLE Mistakes That Make Flutter Apps Disconnect* — production-ready fixes you can apply today. [**Download the free guide →**](https://blog.blefluttercourse.com/free-guide)
+
 ## TL;DR
 
 BLE in Flutter is handled by **flutter_blue_plus** — the actively maintained successor to the deprecated flutter_blue. BLE uses a hierarchical data model called GATT (Services → Characteristics → Descriptors). Your app scans for advertising devices, connects, discovers services, then reads/writes/subscribes to characteristics. The complete Flutter BLE stack is well-supported in 2026 for Android and iOS.
