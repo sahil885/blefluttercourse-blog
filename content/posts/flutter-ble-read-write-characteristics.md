@@ -13,6 +13,8 @@ Once you've scanned, connected, and discovered services, the real work begins: r
 
 ---
 
+> **Free guide:** Struggling with dropped connections? Grab *The 7 BLE Mistakes That Make Flutter Apps Disconnect* — production-ready fixes you can apply today. [**Download the free guide →**](https://blog.blefluttercourse.com/free-guide)
+
 ## Prerequisites
 
 Before reading or writing, you need a connected device with discovered services:
