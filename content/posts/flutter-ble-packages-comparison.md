@@ -13,6 +13,8 @@ Choosing the right BLE package for your Flutter app is one of the most consequen
 
 ---
 
+> **Free guide:** Struggling with dropped connections? Grab *The 7 BLE Mistakes That Make Flutter Apps Disconnect* — production-ready fixes you can apply today. [**Download the free guide →**](https://blog.blefluttercourse.com/free-guide)
+
 ## The Flutter BLE Package Landscape in 2026
 
 The Flutter BLE ecosystem has consolidated significantly. Here's the current state:
