@@ -22,6 +22,8 @@ You've read the individual guides — scanning, GATT, permissions, read/write. N
 
 ---
 
+> **Free guide:** Struggling with dropped connections? Grab *The 7 BLE Mistakes That Make Flutter Apps Disconnect* — production-ready fixes you can apply today. [**Download the free guide →**](https://blog.blefluttercourse.com/free-guide)
+
 ## What We're Building
 
 A **BLE Sensor Dashboard** app that:
