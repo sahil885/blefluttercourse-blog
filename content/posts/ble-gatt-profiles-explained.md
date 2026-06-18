@@ -22,6 +22,8 @@ If you've ever connected to a BLE device in Flutter and wondered what to do next
 
 ---
 
+> **Free guide:** Struggling with dropped connections? Grab *The 7 BLE Mistakes That Make Flutter Apps Disconnect* — production-ready fixes you can apply today. [**Download the free guide →**](https://blog.blefluttercourse.com/free-guide)
+
 ## What Is GATT?
 
 **GATT** stands for **Generic Attribute Profile**. It's the protocol that defines how two BLE devices transfer data once a connection has been established. GATT sits on top of the ATT (Attribute Protocol) layer and provides a structured way to organize and access data.
