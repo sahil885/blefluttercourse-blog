@@ -13,6 +13,8 @@ Choosing the wrong one at the start of a project costs weeks of rework. This gui
 
 ---
 
+> **Free guide:** Struggling with dropped connections? Grab *The 7 BLE Mistakes That Make Flutter Apps Disconnect* — production-ready fixes you can apply today. [**Download the free guide →**](https://blog.blefluttercourse.com/free-guide)
+
 ## TL;DR
 
 **Use BLE for almost everything in Flutter in 2026.** BLE has superior Flutter package support, lower power consumption, works on all modern smartphones, and suits the majority of IoT, sensor, wearable, and device control use cases. Classic Bluetooth is only necessary for audio streaming (headphones, speakers) or legacy serial port communication — and Flutter's support for Classic Bluetooth is limited enough that these are better handled natively.
