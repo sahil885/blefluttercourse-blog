@@ -15,6 +15,8 @@ The culprit is almost always MTU.
 
 ---
 
+> **Free guide:** Struggling with dropped connections? Grab *The 7 BLE Mistakes That Make Flutter Apps Disconnect* — production-ready fixes you can apply today. [**Download the free guide →**](https://blog.blefluttercourse.com/free-guide)
+
 ## What MTU Is (and Why It Catches Everyone)
 
 **MTU** (Maximum Transmission Unit) is the largest number of bytes that can travel in a single BLE packet. The default ATT MTU is 23 bytes — but 3 bytes are consumed by the protocol header, leaving you **20 bytes of usable payload**.
