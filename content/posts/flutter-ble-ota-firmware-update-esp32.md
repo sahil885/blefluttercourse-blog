@@ -9,6 +9,8 @@ tags: ["Flutter", "BLE", "flutter_blue_plus", "ESP32", "OTA", "firmware update",
 
 ---
 
+> **Free guide:** Struggling with dropped connections? Grab *The 7 BLE Mistakes That Make Flutter Apps Disconnect* — production-ready fixes you can apply today. [**Download the free guide →**](https://blog.blefluttercourse.com/free-guide)
+
 ## Why BLE OTA for ESP32 Matters
 
 If you've ever shipped an ESP32-based IoT product to a customer — or even just deployed a device somewhere inconvenient — you already know the pain: a bug shows up in production, and your only option is to physically access the device, plug in a USB cable, and reflash it.
