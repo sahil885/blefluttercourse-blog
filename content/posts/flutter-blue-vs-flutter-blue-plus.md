@@ -13,6 +13,8 @@ If your Flutter project is still using `flutter_blue`, you are building on aband
 
 ---
 
+> **Free guide:** Struggling with dropped connections? Grab *The 7 BLE Mistakes That Make Flutter Apps Disconnect* — production-ready fixes you can apply today. [**Download the free guide →**](https://blog.blefluttercourse.com/free-guide)
+
 ## TL;DR
 
 **Migrate to flutter_blue_plus immediately.** The original flutter_blue is deprecated, does not support Android 12+ Bluetooth permissions, and has unresolved bugs that will affect your users. flutter_blue_plus has an almost identical API, active maintenance, and full modern platform support. The migration typically takes under two hours.
