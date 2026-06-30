@@ -1,7 +1,7 @@
 ---
-title: "Flutter BLE Scanning: Discover & Filter Devices with flutter_blue_plus [2026 Guide]"
+title: "Flutter BLE Scanning with flutter_blue_plus: startScan & scanResults [2026]"
 date: "2026-03-28"
-excerpt: "Master BLE device scanning in Flutter. Learn to scan, filter by name/UUID/RSSI, handle permissions, manage battery drain, and implement robust scanning UI patterns with flutter_blue_plus."
+excerpt: "Scan BLE devices in Flutter with flutter_blue_plus — startScan, the scanResults stream, ScanResult.device.platformName, and filtering by name, UUID & RSSI."
 tags: ["Flutter", "BLE", "scanning", "flutter_blue_plus", "Bluetooth"]
 faqs:
   - question: "How do I scan for BLE devices in Flutter?"
