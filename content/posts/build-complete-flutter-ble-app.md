@@ -349,6 +349,8 @@ class BleProvider extends ChangeNotifier {
 
 ---
 
+> **Want the production-grade version of this app?** This walkthrough gets you a working prototype. The BLE Flutter Course takes it to production — error handling, auto-reconnect, background mode, and patterns proven on real hardware. **[Join the waitlist → blefluttercourse.com](https://blefluttercourse.com/)**
+
 ## Step 5: Scan Screen
 
 ```dart
