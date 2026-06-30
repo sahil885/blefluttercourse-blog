@@ -1,7 +1,7 @@
 ---
-title: "Flutter BLE Permissions: Android 12+ & iOS Setup Guide [2026]"
+title: "Flutter BLE Permissions with permission_handler: Android 12+ & iOS [2026]"
 date: "2026-04-05"
-excerpt: "Complete guide to Bluetooth permissions for Flutter BLE apps. Covers Android 12+ BLUETOOTH_SCAN/CONNECT, iOS Info.plist, runtime permission requests, and common errors."
+excerpt: "Set up Bluetooth permissions for Flutter BLE with permission_handler — Android 12+ BLUETOOTH_SCAN/CONNECT, iOS Info.plist, runtime requests, plus common errors."
 tags: ["Flutter", "BLE", "permissions", "Android", "iOS", "flutter_blue_plus"]
 faqs:
   - question: "Do I need location permission for BLE scanning on Android 12+?"
