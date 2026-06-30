@@ -1,7 +1,7 @@
 ---
-title: "Flutter Bluetooth Low Energy: Complete Beginner Guide with flutter_blue_plus [2026]"
+title: "Flutter Bluetooth Low Energy Tutorial: A Beginner BLE Example [2026]"
 date: "2025-04-10"
-excerpt: "The complete beginner's guide to Bluetooth Low Energy in Flutter. Learn what BLE is, how the GATT protocol works, and how to scan, connect, and read data from BLE devices using flutter_blue_plus — with code examples for Android and iOS."
+excerpt: "A beginner's Flutter BLE tutorial with flutter_blue_plus: what BLE is, how GATT works, and a full example to scan, connect, and read data on Android & iOS."
 tags: ["BLE Basics", "flutter_blue_plus", "Beginner", "flutter bluetooth tutorial"]
 faqs:
   - question: "What is the best Flutter package for Bluetooth Low Energy in 2026?"
