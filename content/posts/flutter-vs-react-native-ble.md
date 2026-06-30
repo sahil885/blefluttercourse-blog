@@ -92,6 +92,8 @@ For simple BLE apps (scan, connect, read a characteristic occasionally), this di
 
 ---
 
+> **Decided on Flutter for BLE?** Skip months of trial-and-error. The BLE Flutter Course gives you a complete, production-ready BLE architecture — scanning, connection, reconnection, and robust data handling — with copy-paste-ready code. **[Join the waitlist → blefluttercourse.com](https://blefluttercourse.com/)**
+
 ## Community and Learning Resources
 
 This is an underrated factor when choosing a framework for a specialised domain like BLE.
