@@ -43,7 +43,17 @@ export default function Footer() {
                   The Course →
                 </a>
               </li>
-            </ul>
+              <li>
+                <a href="https://start.sahilbora.com/consultcall" target="_blank" rel="noopener noreferrer" className="text-slate-400 hover:text-sky-400 transition-colors text-sm">
+                  Book a Consult Call
+                </a>
+              </li>
+              <li>
+                <a href="https://start.sahilbora.com/booking" target="_blank" rel="noopener noreferrer" className="text-slate-400 hover:text-sky-400 transition-colors text-sm">
+                  Done-For-You BLE App Development
+                </a>
+              </li>
+              </ul>
           </div>
 
           <div>
