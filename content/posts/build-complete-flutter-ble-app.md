@@ -627,3 +627,10 @@ You now have a complete, production-architecture Flutter BLE app: permissions, s
 **Want to go further?** The **[BLE Flutter Course](https://blefluttercourse.com/)** takes you through advanced topics — OTA updates, multi-device connections, custom GATT profiles, background operation, and App Store submission — with real hardware and working source code for every lesson.
 
 👉 **[Enroll in the BLE Flutter Course →](https://blefluttercourse.com/)**
+
+## Work with Me on Your BLE App
+
+Need a hand beyond the tutorials?
+
+- **[Book a consult call](https://start.sahilbora.com/consultcall)** — 1:1 help with your BLE architecture, debugging, or roadmap.
+- **[Done-For-You BLE App Development](https://start.sahilbora.com/booking)** — hand off the build and ship a production-ready BLE app.
