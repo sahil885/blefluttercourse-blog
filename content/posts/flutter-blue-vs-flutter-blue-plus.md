@@ -221,3 +221,10 @@ No. The package is officially deprecated and the maintainers have directed users
 
 **What version of flutter_blue_plus should I use in 2026?**
 Check pub.dev for the latest stable release of flutter_blue_plus. As of early 2026, the 1.x series is stable and production-ready. Always pin to a specific version in your pubspec.yaml.
+
+## Work with Me on Your BLE App
+
+Need a hand beyond the tutorials?
+
+- **[Book a consult call](https://start.sahilbora.com/consultcall)** — 1:1 help with your BLE architecture, debugging, or roadmap.
+- **[Done-For-You BLE App Development](https://start.sahilbora.com/booking)** — hand off the build and ship a production-ready BLE app.
