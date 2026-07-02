@@ -239,3 +239,10 @@ ESP32 for custom projects (cheap, powerful, built-in BLE+WiFi). Arduino Nano 33 
 
 **Is there a Flutter BLE course?**
 Yes — the [BLE Flutter Course](https://blefluttercourse.com) is a dedicated course for Flutter developers building BLE apps, covering everything from fundamentals to production deployment with real hardware examples.
+
+## Work with Me on Your BLE App
+
+Need a hand beyond the tutorials?
+
+- **[Book a consult call](https://start.sahilbora.com/consultcall)** — 1:1 help with your BLE architecture, debugging, or roadmap.
+- **[Done-For-You BLE App Development](https://start.sahilbora.com/booking)** — hand off the build and ship a production-ready BLE app.
