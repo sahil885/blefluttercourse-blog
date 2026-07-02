@@ -467,3 +467,10 @@ BLE scanning in Flutter is straightforward with flutter_blue_plus, but productio
 Or dive into the **[BLE Flutter Course](https://blefluttercourse.com/)** for structured learning with real hardware projects.
 
 👉 **[Enroll in the BLE Flutter Course →](https://blefluttercourse.com/)**
+
+## Work with Me on Your BLE App
+
+Need a hand beyond the tutorials?
+
+- **[Book a consult call](https://start.sahilbora.com/consultcall)** — 1:1 help with your BLE architecture, debugging, or roadmap.
+- **[Done-For-You BLE App Development](https://start.sahilbora.com/booking)** — hand off the build and ship a production-ready BLE app.
