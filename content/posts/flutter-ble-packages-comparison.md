@@ -305,3 +305,10 @@ Picking flutter_blue_plus in 2026 is the safe, well-supported choice for virtual
 Want to learn how to use flutter_blue_plus properly, from setup to building production-grade BLE apps? The **[BLE Flutter Course](https://blefluttercourse.com/)** uses flutter_blue_plus exclusively and covers real-world patterns that go far beyond what any package documentation covers.
 
 👉 **[Enroll in the BLE Flutter Course →](https://blefluttercourse.com/)**
+
+## Work with Me on Your BLE App
+
+Need a hand beyond the tutorials?
+
+- **[Book a consult call](https://start.sahilbora.com/consultcall)** — 1:1 help with your BLE architecture, debugging, or roadmap.
+- **[Done-For-You BLE App Development](https://start.sahilbora.com/booking)** — hand off the build and ship a production-ready BLE app.
