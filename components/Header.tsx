@@ -22,7 +22,13 @@ export default function Header() {
                 <span className="bg-sky-500/20 text-sky-400 text-[10px] font-bold px-1.5 py-0.5 rounded uppercase tracking-wide">Free</span>
                 Guide
               </Link>
-            </nav>
+            <Link href="https://start.sahilbora.com/consultcall" target="_blank" rel="noopener noreferrer" className="text-slate-400 hover:text-white transition-colors text-sm font-medium">
+                Consult Call
+              </Link>
+              <Link href="https://start.sahilbora.com/booking" target="_blank" rel="noopener noreferrer" className="text-slate-400 hover:text-white transition-colors text-sm font-medium">
+                Hire Me
+              </Link>
+              </nav>
           </div>
           <Link
             href="https://blefluttercourse.com"
