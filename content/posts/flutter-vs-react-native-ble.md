@@ -155,3 +155,10 @@ Start with understanding the GATT hierarchy (Services, Characteristics, Descript
 
 **Is there a structured course for learning Flutter BLE?**
 Yes — the [BLE Flutter Course](https://blefluttercourse.com) is a dedicated course covering everything from BLE fundamentals to shipping production apps with flutter_blue_plus. It's the fastest path from zero to production-ready Flutter BLE developer.
+
+## Work with Me on Your BLE App
+
+Need a hand beyond the tutorials?
+
+- **[Book a consult call](https://start.sahilbora.com/consultcall)** — 1:1 help with your BLE architecture, debugging, or roadmap.
+- **[Done-For-You BLE App Development](https://start.sahilbora.com/booking)** — hand off the build and ship a production-ready BLE app.
