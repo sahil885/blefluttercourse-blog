@@ -385,3 +385,10 @@ Bluetooth permissions are a one-time setup that unlocks every other BLE feature.
 Or learn everything end-to-end in the **[BLE Flutter Course](https://blefluttercourse.com/)** — structured, hardware-driven BLE development from setup to shipping.
 
 👉 **[Enroll in the BLE Flutter Course →](https://blefluttercourse.com/)**
+
+## Work with Me on Your BLE App
+
+Need a hand beyond the tutorials?
+
+- **[Book a consult call](https://start.sahilbora.com/consultcall)** — 1:1 help with your BLE architecture, debugging, or roadmap.
+- **[Done-For-You BLE App Development](https://start.sahilbora.com/booking)** — hand off the build and ship a production-ready BLE app.
