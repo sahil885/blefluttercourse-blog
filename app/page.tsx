@@ -120,6 +120,50 @@ export default function HomePage() {
           </div>
         </div>
       </section>
+
+      {/* Work-with-me CTAs */}
+      <section className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 pb-20">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+          <div className="relative overflow-hidden rounded-3xl bg-gradient-to-br from-emerald-900 to-teal-900 border border-emerald-700/50 p-8 text-center">
+            <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,_rgba(16,185,129,0.15)_0%,_transparent_70%)]" />
+            <div className="relative">
+              <h2 className="text-2xl font-extrabold text-white mb-3">
+                Stuck on a BLE problem?
+              </h2>
+              <p className="text-emerald-100 mb-8 max-w-md mx-auto">
+                Book a 1:1 consult call for expert help with your BLE architecture, a stubborn bug, or your product roadmap — and leave with a clear path forward.
+              </p>
+              <a
+                href="https://start.sahilbora.com/consultcall"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center gap-2 bg-white text-emerald-900 hover:bg-emerald-50 font-bold px-8 py-4 rounded-xl transition-all shadow-xl text-base"
+              >
+                Book a Consult Call →
+              </a>
+            </div>
+          </div>
+          <div className="relative overflow-hidden rounded-3xl bg-gradient-to-br from-violet-900 to-purple-900 border border-violet-700/50 p-8 text-center">
+            <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,_rgba(139,92,246,0.15)_0%,_transparent_70%)]" />
+            <div className="relative">
+              <h2 className="text-2xl font-extrabold text-white mb-3">
+                Want it built for you?
+              </h2>
+              <p className="text-violet-100 mb-8 max-w-md mx-auto">
+                Done-For-You BLE app development: I'll design and ship your production-ready Bluetooth app — connection handling, firmware integration, and all the hard parts done right.
+              </p>
+              <a
+                href="https://start.sahilbora.com/booking"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center gap-2 bg-white text-violet-900 hover:bg-violet-50 font-bold px-8 py-4 rounded-xl transition-all shadow-xl text-base"
+              >
+                Get It Built For You →
+              </a>
+            </div>
+          </div>
+        </div>
+      </section>
     </>
   )
 }
