@@ -11,7 +11,7 @@ export default function FreeGuideCTA() {
             Free Download
           </div>
           <h3 className="text-white text-xl font-bold mb-2">Why Your BLE App Keeps Disconnecting</h3>
-          <p className="text-slate-400 text-sm leading-relaxed">Get the free guide covering the 7 most common BLE disconnect causes — with clean, production-ready fixes you can apply today. Join 1,000+ Flutter developers who have already grabbed it.</p>
+          <p className="text-slate-400 text-sm leading-relaxed">Get the free guide covering the 7 most common BLE disconnect causes — with clean, production-ready fixes you can apply today. Written from six years of shipping production BLE apps.</p>
         </div>
         <Link href="/free-guide" className="shrink-0 inline-flex items-center gap-2 bg-emerald-500 hover:bg-emerald-400 text-white font-semibold px-5 py-3 rounded-lg transition-all text-sm shadow-lg shadow-emerald-500/20 hover:shadow-emerald-400/30 whitespace-nowrap">
           Get the Free Guide

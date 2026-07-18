@@ -88,7 +88,7 @@ export default function FreeGuidePage() {
                 <img src="https://d1yei2z3i6k35z.cloudfront.net/15235605/6926e86795d82_Untitled_design__4_-removebg-preview.png" alt="Free BLE Flutter Guide" style={{ maxWidth:'190px', width:'100%' }} />
               </div>
               <p style={{ textAlign:'center', fontSize:'13px', color:'#666', marginBottom:'24px', fontWeight:500 }}>
-                Join 1,000+ Flutter developers who&apos;ve solved their BLE issues
+                Built from six years of shipping production BLE apps
               </p>
               <form onSubmit={handleSubmit}>
                 <div style={{ marginBottom:'14px' }}>

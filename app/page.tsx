@@ -33,17 +33,15 @@ export default function HomePage() {
           </p>
 
           <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
-            <a
-              href="https://blefluttercourse.com"
-              target="_blank"
-              rel="noopener noreferrer"
+            <Link
+              href="/free-guide"
               className="inline-flex items-center gap-2 bg-sky-500 hover:bg-sky-400 text-white font-bold px-7 py-3.5 rounded-xl transition-all shadow-xl shadow-sky-500/25 hover:-translate-y-0.5 text-base"
             >
-              Join the Full Course
+              Get the Free BLE Guide
               <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
               </svg>
-            </a>
+            </Link>
             <Link
               href="/blog"
               className="inline-flex items-center gap-2 border border-slate-700 hover:border-slate-500 text-slate-300 hover:text-white font-semibold px-7 py-3.5 rounded-xl transition-all text-base"
@@ -107,7 +105,9 @@ export default function HomePage() {
             </h2>
             <p className="text-sky-200 mb-8 max-w-xl mx-auto text-lg">
               The complete BLE Flutter Mastery course covers everything you need to build
-              professional Bluetooth-powered apps — from fundamentals to shipping real products.
+              professional Bluetooth-powered apps — from fundamentals to shipping real
+              products. It&apos;s in production now: join the waitlist to lock in
+              founding-member pricing.
             </p>
             <a
               href="https://blefluttercourse.com"
@@ -115,7 +115,7 @@ export default function HomePage() {
               rel="noopener noreferrer"
               className="inline-flex items-center gap-2 bg-white text-sky-900 hover:bg-sky-50 font-bold px-8 py-4 rounded-xl transition-all shadow-xl text-base"
             >
-              Explore the Course →
+              Join the Course Waitlist →
             </a>
           </div>
         </div>
