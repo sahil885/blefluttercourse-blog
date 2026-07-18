@@ -4,6 +4,7 @@ import Link from 'next/link'
 import { marked } from 'marked'
 import { getAllSlugs, getPostBySlug } from '@/lib/posts'
 import CourseCallout from '@/components/CourseCallout'
+import InlineOptIn from '@/components/InlineOptIn'
 import FreeGuideCTA from '@/components/FreeGuideCTA'
 
 interface Props {
@@ -166,8 +167,8 @@ export default function BlogPostPage({ params }: Props) {
           dangerouslySetInnerHTML={{ __html: firstHalf }}
         />
 
-        {/* Mid-article Course CTA (only shown when article is long enough) */}
-        {secondHalf && <CourseCallout />}
+        {/* Mid-article opt-in (only shown when article is long enough) */}
+        {secondHalf && <InlineOptIn />}
 
         {/* Second half of content */}
         {secondHalf && (
@@ -177,11 +178,11 @@ export default function BlogPostPage({ params }: Props) {
           />
         )}
 
-        {/* End-of-article Course CTA */}
-        <CourseCallout />
-
         {/* Free Guide CTA */}
         <FreeGuideCTA />
+
+        {/* End-of-article Course CTA */}
+        <CourseCallout />
 
         {/* Back to blog */}
         <div className="mt-10 pt-8 border-t border-slate-800">
