@@ -8,7 +8,7 @@ export const metadata: Metadata = {
   },
   openGraph: {
     title: 'Free Flutter BLE Guide: Why Your App Keeps Disconnecting',
-    description: 'Join 1,000+ Flutter developers who fixed their BLE connection issues with this free guide. Instant download.',
+    description: 'Free guide: the 7 BLE architecture mistakes behind unstable Flutter connections — with production-ready fixes. Instant download.',
     type: 'website',
     url: '/free-guide',
   },
