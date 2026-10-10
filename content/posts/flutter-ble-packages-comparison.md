@@ -2,16 +2,18 @@
 title: "Flutter BLE Packages Comparison 2026: flutter_blue_plus vs Alternatives"
 date: "2026-03-25"
 updated: "2026-10-10"
-excerpt: "flutter_blue_plus vs universal_ble, flutter_reactive_ble and bluetooth_low_energy in 2026: licences, platforms, maintenance, and which to use."
+excerpt: "flutter_blue_plus vs universal_ble, flutter_reactive_ble, flutter_blue_ultra and bluebird in 2026: licences, platforms, maintenance, and which to use."
 tags: ["Flutter", "BLE", "packages", "flutter_blue_plus", "comparison"]
 faqs:
   - question: "Is flutter_blue_plus free to use in commercial apps?"
     answer: "Not since version 2.0. It's released under the FlutterBluePlus License, which requires a paid commercial licence for any for-profit organisation, including during development and testing. Personal users, registered nonprofits and accredited educational institutions can use it free, and version 1.36.8, the last 1.x release, is BSD-3-Clause licensed."
   - question: "Which Flutter BLE packages are free for commercial use?"
-    answer: "universal_ble, flutter_reactive_ble and quick_blue are BSD-3-Clause licensed, and bluetooth_low_energy is MIT licensed. All of them allow commercial use with no licence fee. Of these, universal_ble covers the most platforms: Android, iOS, macOS, Windows, Linux and Web."
+    answer: "universal_ble, flutter_reactive_ble, flutter_blue_ultra, bluebird and quick_blue are BSD-3-Clause licensed, and bluetooth_low_energy is MIT licensed. All of them allow commercial use with no licence fee. Of these, universal_ble covers the most platforms: Android, iOS, macOS, Windows, Linux and Web."
+  - question: "Is there a free drop-in replacement for flutter_blue_plus?"
+    answer: "The closest are flutter_blue_ultra and bluebird. Both are BSD-3-Clause licensed and keep flutter_blue_plus's API shape, so switching is mostly a find-and-replace. flutter_blue_ultra describes itself as a community continuation of flutter_blue_plus 1.x, and bluebird began as a rework of flutter_blue_plus. Both are young: in the 30 days to 10 October 2026 each had under 1,000 downloads, against about 259,000 for flutter_blue_plus."
 ---
 
-> **TL;DR:** **flutter_blue_plus** still has the largest community, but since version 2.0 it needs a paid licence for any for-profit use, even during development. For a commercial app, **universal_ble** (BSD-3-Clause) is the closest free alternative and runs on Android, iOS, macOS, Windows, Linux and Web. **flutter_reactive_ble** (BSD-3-Clause) is a mature, maintained choice for Android and iOS only. The original flutter_blue and quick_blue haven't had a release in years.
+> **TL;DR:** **flutter_blue_plus** still has the largest community, but since version 2.0 it needs a paid licence for any for-profit use, even during development. For a commercial app, **universal_ble** (BSD-3-Clause) is the closest free alternative and runs on Android, iOS, macOS, Windows, Linux and Web. **flutter_reactive_ble** (BSD-3-Clause) is a mature, maintained choice for Android and iOS only. If you'd rather keep your flutter_blue_plus code, **flutter_blue_ultra** and **bluebird** are new BSD-3-Clause forks with the same API shape, though both are young. The original flutter_blue and quick_blue haven't had a release in years.
 
 # Flutter BLE Packages Comparison 2026: Which Package Should You Use?
 
@@ -29,6 +31,8 @@ The Flutter BLE ecosystem has consolidated, and the biggest change in the last y
 | **universal_ble** | BSD-3-Clause | 2.3.0, Sep 2026 | Android, iOS, macOS, Windows, Linux, Web |
 | **flutter_reactive_ble** | BSD-3-Clause | 5.6.0, Sep 2026 | Android, iOS |
 | **bluetooth_low_energy** | MIT | 6.2.1, Jan 2026 | Android, iOS, macOS, Windows, Linux |
+| **flutter_blue_ultra** | BSD-3-Clause | 2.2.0, Jun 2026 | Android, iOS, macOS, Linux, Web |
+| **bluebird** | BSD-3-Clause | 0.6.0, Oct 2026 | Android, iOS, macOS, Web |
 | **quick_blue** | BSD-3-Clause | 0.4.1+1, Mar 2022 | Android, iOS, macOS, Windows, Linux |
 | **flutter_blue** | BSD-3-Clause | 0.8.0, Mar 2021 | Android, iOS |
 | **flutter_ble_lib** | Apache-2.0 | 2.3.2, Feb 2021 | Android, iOS |
@@ -106,6 +110,8 @@ characteristic.lastValueStream.listen((value) => handleData(value));
 ### When to use universal_ble
 - New commercial apps that need a free licence
 - Apps that must run on desktop or the web as well as mobile
+
+Moving an existing flutter_blue_plus app? Follow our [step-by-step migration guide to universal_ble](/blog/migrate-flutter-blue-plus-to-universal-ble).
 
 ---
 
@@ -192,6 +198,34 @@ Published by Philips Hue, **flutter_reactive_ble** is a mature, BSD-3-Clause lic
 ### When to use reactive_ble
 - Commercial mobile apps that need a free licence and only target Android and iOS
 - Teams comfortable with reactive, stream-based code
+
+---
+
+## The New Forks: flutter_blue_ultra and bluebird
+
+Since the licence change, two BSD-3-Clause packages have appeared that keep flutter_blue_plus's API shape, so switching to them is mostly a find-and-replace rather than a rewrite. Both are young: in the 30 days to 10 October 2026, flutter_blue_ultra had 561 downloads and bluebird 794, against about 259,000 for flutter_blue_plus.
+
+### flutter_blue_ultra
+
+**flutter_blue_ultra**, published by Intent, describes itself as "a community continuation of flutter_blue_plus 1.x."
+- BSD-3-Clause, on Android, iOS, macOS, Linux and Web (central role only)
+- Latest release: 2.2.0, June 2026
+- To switch, replace `flutter_blue_plus` with `flutter_blue_ultra` in your imports and `FlutterBluePlus` with `FlutterBlueUltra` in your code. A compatibility layer also keeps the old `FlutterBluePlus` name working while you migrate file by file.
+- You can't install it alongside flutter_blue_plus.
+
+### bluebird
+
+**bluebird**, by Nebojša Cvetković, began as a rework of flutter_blue_plus, and most of its `BluetoothDevice`, `BluetoothService` and `BluetoothCharacteristic` API works the same way.
+- BSD-3-Clause, on Android, iOS, macOS and Web
+- Pre-1.0: the latest release is 0.6.0, from October 2026
+- Needs Flutter 3.44 or newer
+- Comes with a [migration guide from flutter_blue_plus](https://github.com/nebkat/flutter-bluebird/blob/main/MIGRATION.md). The main change is that you get characteristics by discovering services, not by constructing them yourself.
+
+### When to use a fork
+- You have a working flutter_blue_plus app and want to avoid the licence with the fewest code changes
+- You're comfortable depending on a young project with a small user base, and you'll check its activity before you commit
+
+For a new app, universal_ble and flutter_reactive_ble have far larger user bases.
 
 ---
 
@@ -301,6 +335,7 @@ Build on this foundation with the rest of the blog:
 - 🔒 **[Flutter BLE Permissions Guide](/blog/flutter-ble-permissions-android-ios)** — Android & iOS permissions
 - 🏗️ **[Build a Complete Flutter BLE App](/blog/build-complete-flutter-ble-app)** — End-to-end project
 - 🔄 **[flutter_blue vs flutter_blue_plus](/blog/flutter-blue-vs-flutter-blue-plus)** — Migration guide
+- 🧭 **[Migrate from flutter_blue_plus to universal_ble](/blog/migrate-flutter-blue-plus-to-universal-ble)** — Step-by-step code migration
 - ⚡ **[BLE vs Classic Bluetooth in Flutter](/blog/ble-vs-classic-bluetooth-flutter)** — Protocol comparison
 - 🤖 **[ESP32 vs Arduino for Flutter BLE](/blog/esp32-vs-arduino-flutter-ble)** — Hardware choice
 - ⚖️ **[Flutter vs React Native for BLE](/blog/flutter-vs-react-native-ble)** — Framework choice
@@ -315,7 +350,10 @@ Build on this foundation with the rest of the blog:
 Not since version 2.0. It's released under the FlutterBluePlus License, which requires a paid commercial licence for any for-profit organisation, including during development and testing. Personal users, registered nonprofits and accredited educational institutions can use it free, and version 1.36.8, the last 1.x release, is BSD-3-Clause licensed.
 
 ### Which Flutter BLE packages are free for commercial use?
-universal_ble, flutter_reactive_ble and quick_blue are BSD-3-Clause licensed, and bluetooth_low_energy is MIT licensed. All of them allow commercial use with no licence fee. Of these, universal_ble covers the most platforms: Android, iOS, macOS, Windows, Linux and Web.
+universal_ble, flutter_reactive_ble, flutter_blue_ultra, bluebird and quick_blue are BSD-3-Clause licensed, and bluetooth_low_energy is MIT licensed. All of them allow commercial use with no licence fee. Of these, universal_ble covers the most platforms: Android, iOS, macOS, Windows, Linux and Web.
+
+### Is there a free drop-in replacement for flutter_blue_plus?
+The closest are flutter_blue_ultra and bluebird. Both are BSD-3-Clause licensed and keep flutter_blue_plus's API shape, so switching is mostly a find-and-replace. flutter_blue_ultra describes itself as a community continuation of flutter_blue_plus 1.x, and bluebird began as a rework of flutter_blue_plus. Both are young: in the 30 days to 10 October 2026 each had under 1,000 downloads, against about 259,000 for flutter_blue_plus.
 
 ### Can I use flutter_blue_plus for both Android and iOS in the same codebase?
 Absolutely. That's one of its biggest advantages. The same Dart API works on both platforms with platform-specific configurations handled internally.
@@ -336,6 +374,6 @@ The package adds minimal overhead to your app size. The BLE stack is part of the
 
 ## Make the Right Choice from Day One
 
-For personal, nonprofit and education projects, flutter_blue_plus is still the easiest choice: the largest community and the most examples. For a commercial app, weigh its licence fee against the cost of using a free package. universal_ble is the closest free alternative and runs on every Flutter platform, and flutter_reactive_ble is a solid free option if you only need Android and iOS.
+For personal, nonprofit and education projects, flutter_blue_plus is still the easiest choice: the largest community and the most examples. For a commercial app, weigh its licence fee against the cost of using a free package. universal_ble is the closest free alternative and runs on every Flutter platform, and flutter_reactive_ble is a solid free option if you only need Android and iOS. If you want to keep your flutter_blue_plus code, flutter_blue_ultra and bluebird are the quickest switch, as long as you're comfortable with young projects.
 
 If you'd rather not build the production layer yourself, [BLE Starter](https://blestarter.com/?utm_source=blog&utm_medium=referral&utm_campaign=ble_starter&utm_content=flutter-ble-packages-comparison&utm_term=text) is a Flutter starter kit built on universal_ble, with flutter_reactive_ble as a backup engine: permissions, scanning, auto-reconnect, GATT data, ESP32 OTA updates and tests, already working together. It's in a founding pre-sale.
