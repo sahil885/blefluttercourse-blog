@@ -107,27 +107,27 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* Course CTA banner */}
+      {/* BLE Starter banner */}
       <section className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 pb-20">
         <div className="relative overflow-hidden rounded-3xl bg-gradient-to-r from-sky-900 to-blue-900 border border-sky-700/50 p-10 text-center">
           <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,_rgba(14,165,233,0.15)_0%,_transparent_70%)]" />
           <div className="relative">
             <h2 className="text-3xl font-extrabold text-white mb-3">
-              Ready to go deeper?
+              Ready to ship your BLE app?
             </h2>
             <p className="text-sky-200 mb-8 max-w-xl mx-auto text-lg">
-              The complete BLE Flutter Mastery course covers everything you need to build
-              professional Bluetooth-powered apps — from fundamentals to shipping real
-              products. It&apos;s in production now: join the waitlist to lock in
-              founding-member pricing.
+              BLE Starter is a production-ready Flutter starter kit with permissions, scanning,
+              auto-reconnect, GATT data, ESP32 OTA updates and tests, built on BSD-licensed
+              libraries. Founding price $99 for the first 20 builders.
             </p>
             <a
-              href="https://blefluttercourse.com"
+              href={starterUrl('home', 'banner', 'join')}
               target="_blank"
-              rel="noopener noreferrer"
+              rel="noopener"
               className="inline-flex items-center gap-2 bg-white text-sky-900 hover:bg-sky-50 font-bold px-8 py-4 rounded-xl transition-all shadow-xl text-base"
             >
-              Join the Course Waitlist →
+              <StarterMark className="w-4 h-4" />
+              Join the founding list →
             </a>
           </div>
         </div>
