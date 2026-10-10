@@ -13,8 +13,6 @@ This is not a puff piece for either platform. It's a practical comparison writte
 
 ---
 
-> **Free guide:** Struggling with dropped connections? Grab *The 7 BLE Mistakes That Make Flutter Apps Disconnect* — production-ready fixes you can apply today. [**Download the free guide →**](https://blog.blefluttercourse.com/free-guide)
-
 ## TL;DR
 
 **For most teams in 2026, Flutter is the better choice for BLE app development.** The productivity advantage of a single codebase for Android and iOS, combined with flutter_blue_plus's mature BLE support, outweighs the raw platform access advantages of native Kotlin — unless you have specific requirements that flutter_blue_plus cannot satisfy (primarily background BLE services that need to outlive the app process, or highly specialised Android BLE APIs).
@@ -151,7 +149,7 @@ This is how many production Flutter BLE apps are built. It gives you Flutter's p
 
 If Flutter is your path forward, having a structured learning resource matters more than people often admit. BLE has real complexity — the GATT hierarchy, Android permission changes, iOS background modes, connection state management, and the production edge cases that only appear in real deployments.
 
-Our [Getting Started with BLE in Flutter](/blog/getting-started-ble-flutter) series covers the fundamentals. For a complete path from beginner to production, the [BLE Flutter Course](https://blefluttercourse.com) is structured to take Flutter developers from first scan to shipping production apps with confidence.
+Our [Getting Started with BLE in Flutter](/blog/getting-started-ble-flutter) series covers the fundamentals.
 
 ---
 

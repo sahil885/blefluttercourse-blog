@@ -9,8 +9,6 @@ tags: ["Flutter", "BLE", "flutter_blue_plus", "ESP32", "OTA", "firmware update",
 
 ---
 
-> **Free guide:** Struggling with dropped connections? Grab *The 7 BLE Mistakes That Make Flutter Apps Disconnect* — production-ready fixes you can apply today. [**Download the free guide →**](https://blog.blefluttercourse.com/free-guide)
-
 ## Why BLE OTA for ESP32 Matters
 
 If you've ever shipped an ESP32-based IoT product to a customer — or even just deployed a device somewhere inconvenient — you already know the pain: a bug shows up in production, and your only option is to physically access the device, plug in a USB cable, and reflash it.
@@ -136,8 +134,6 @@ await otaControlChar.write([0x04], withoutResponse: false);
 // Listen for device disconnect as your confirmation signal
 ```
 
-> 🚀 **Want the complete, production-hardened implementation?** The code above shows the core concept — but a real OTA system needs write throttling, checksum verification, automatic retry on failure, connection drop recovery, and a proper state machine on both the Flutter and ESP32 sides. [The BLE Flutter Course](https://blefluttercourse.com/) covers the full end-to-end OTA system, including the ESP32 Arduino/IDF firmware and the complete Flutter implementation with progress UI.
-
 ---
 
 ## The ESP32 Side: What Your Firmware Must Do
@@ -240,5 +236,3 @@ Expose a "firmware version" characteristic on the ESP32 (commonly under the stan
 Flutter BLE OTA firmware updates for ESP32 are entirely achievable, but they require careful attention to the full stack: GATT service design, MTU negotiation, chunked writes with proper flow control, checksum validation, and graceful handling of the post-OTA disconnect and reboot cycle. Platform differences between iOS and Android add another layer of complexity that surprises most developers the first time they test on both.
 
 The concepts covered here will get you started with a working prototype. But shipping OTA updates in a production product — with retry logic, rollback support, background mode handling, and a reliable state machine on both sides — is a substantially deeper challenge.
-
-If you're building a real Flutter + ESP32 product and want to get OTA right from day one, [the BLE Flutter Course](https://blefluttercourse.com/) walks you through the complete production implementation: ESP32 firmware, Flutter app architecture, OTA state machine, and the edge cases that will bite you in production. Join hundreds of developers who've shipped BLE-enabled Flutter apps with confidence.

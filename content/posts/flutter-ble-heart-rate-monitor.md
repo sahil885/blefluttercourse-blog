@@ -158,8 +158,6 @@ HeartRateReading parseHeartRate(List<int> data) {
 
 Note the field order is fixed by the spec — flags, BPM, energy, RR — but each field's *presence* is conditional. That's exactly why the moving `offset` matters. All multi-byte fields are little-endian.
 
-> **Want the production version?** The parser above is the core, but a shippable heart rate app needs a lot more: a reconnect state machine that survives backgrounding, RR-interval buffering for real HRV metrics (RMSSD, SDNN), dropped-packet detection, and a tested repository layer you can mock. The **[BLE Flutter Course](https://blefluttercourse.com/)** walks through the complete implementation, module by module, with the full source.
-
 ## RR-intervals and HRV
 
 RR-intervals are the interesting part of the payload — they're the time between consecutive R-waves in the ECG, in units of 1/1024 second. Divide by 1024 to get seconds.
@@ -238,5 +236,3 @@ Roughly once per second for most hardware, governed by the connection interval. 
 The Heart Rate Service is one of the friendliest BLE profiles to work with, precisely because it's standardised — no reverse engineering, no vendor SDKs, no guessing at byte layouts. What it does demand is respect for the variable-length payload. Decode the flags byte, walk the buffer with a moving offset, check sensor-contact bits in pairs, and treat RR-intervals as a stream you accumulate rather than a value you sample.
 
 Get those four things right and your app works with every compliant strap on the market, first try.
-
-If you want the complete production implementation — reconnect handling, HRV computation, background operation, and a fully testable architecture around it — that's exactly what the **[BLE Flutter Course](https://blefluttercourse.com/)** is built to teach. It takes you from a working parser to an app you'd actually ship.

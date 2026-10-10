@@ -117,8 +117,6 @@ void main() {
 
 No radio. No adapter. No `MissingPluginException`. The test runs in milliseconds and, crucially, lets you assert on the *logic* — that you filtered by the `0x180D` service UUID, that you called `startScan` exactly once, that you stopped scanning afterward.
 
-> **Ready to build the real thing?** These snippets show the shape of a testable BLE layer, but a production app needs the full mock harness — fake devices that emit connection-state transitions, simulated notification streams, error injection, and a reusable test fixture library. That's exactly what we build, step by step, inside the [BLE Flutter Course](https://blefluttercourse.com/). Stop fighting `MissingPluginException` and start shipping tested BLE code.
-
 ## Testing streams: the part everyone gets wrong
 
 BLE in Flutter is stream-heavy. Connection state, adapter state, and notifications all arrive as `Stream`s, and that's where naive tests fall apart. A mock that returns `Stream.value(...)` emits once and closes — but your reconnection logic probably expects a *sequence* of states over time.
@@ -202,5 +200,3 @@ Model the characteristic's value stream as a `StreamController` in your mock and
 ## Summary
 
 Testing Flutter BLE apps isn't hard once you accept the core constraint: `flutter_blue_plus` is static, so you have to build your own seam. Wrap the plugin behind an interface, inject that interface, and the entire universe of hardware-dependent scenarios — disconnects, malformed packets, adapter state changes — becomes something you can reproduce on demand in a millisecond-fast test. Save real devices for a thin integration layer that proves the plugin boundary works.
-
-These patterns are the foundation, but a production-grade BLE test suite needs more than snippets — a complete fake-device harness, reusable fixtures, error injection, and CI wiring that runs on every commit. That's exactly what we build together, end to end, in the **[BLE Flutter Course](https://blefluttercourse.com/)**. If you're serious about shipping reliable Bluetooth apps, [start the course today](https://blefluttercourse.com/) and turn "it works on my device" into "it's covered by tests."

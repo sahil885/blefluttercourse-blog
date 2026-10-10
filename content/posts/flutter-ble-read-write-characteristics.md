@@ -13,8 +13,6 @@ Once you've scanned, connected, and discovered services, the real work begins: r
 
 ---
 
-> **Free guide:** Struggling with dropped connections? Grab *The 7 BLE Mistakes That Make Flutter Apps Disconnect* — production-ready fixes you can apply today. [**Download the free guide →**](https://blog.blefluttercourse.com/free-guide)
-
 ## Prerequisites
 
 Before reading or writing, you need a connected device with discovered services:
@@ -293,7 +291,7 @@ Most likely the device disconnected. Always listen to `device.connectionState` a
 BLE ATT operations are serialized — flutter_blue_plus queues them internally. Don't try to fire parallel operations on the same characteristic; use sequential `async/await` chains.
 
 ### What's the best way to learn BLE data operations with real devices?
-The **[BLE Flutter Course](https://blefluttercourse.com/)** teaches every read/write/notify pattern in this guide using actual BLE hardware — ESP32, Arduino, and commercial sensors — so theory immediately becomes working code.
+Pair the patterns in this guide with real hardware: an ESP32 running a small GATT server, or a commercial sensor such as a heart rate strap. Then inspect every read, write and notification in nRF Connect, as shown in our [nRF Connect debugging guide](/blog/debugging-flutter-ble-nrf-connect).
 
 ---
 
@@ -301,6 +299,4 @@ The **[BLE Flutter Course](https://blefluttercourse.com/)** teaches every read/w
 
 You now have everything needed for robust BLE data pipelines: reading sensor values, writing commands, streaming real-time notifications, handling errors, and transferring large payloads.
 
-**Next step:** See [Build a Complete Flutter BLE App](/blog/build-complete-flutter-ble-app) to put every pattern together, or enroll in the **[BLE Flutter Course](https://blefluttercourse.com/)** for structured hands-on learning.
-
-👉 **[Enroll in the BLE Flutter Course →](https://blefluttercourse.com/)**
+**Next step:** See [Build a Complete Flutter BLE App](/blog/build-complete-flutter-ble-app) to put every pattern together.

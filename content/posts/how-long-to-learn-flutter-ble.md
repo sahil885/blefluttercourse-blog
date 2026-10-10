@@ -125,8 +125,6 @@ The fastest way to learn Flutter BLE:
 2. **Fix permissions immediately** — don't skip this step on real devices
 3. **Get hardware early** — even a $5 ESP32 makes everything more real
 4. **Build something, break it, fix it** — debugging real issues is where the learning happens
-5. **Follow a structured course** — the [BLE Flutter Course](https://blefluttercourse.com) compresses months of trial and error into a focused curriculum with real hardware, source code, and production patterns
+5. **Follow a structured path** — work through this blog in order: [getting started](/blog/getting-started-ble-flutter), [scanning](/blog/flutter-ble-scanning-guide), [reading and writing characteristics](/blog/flutter-ble-read-write-characteristics), then [a complete app](/blog/build-complete-flutter-ble-app)
 
-The blog articles cover all the foundational topics for free. A structured course gets you to production-ready in weeks instead of months.
-
-👉 **[Start the BLE Flutter Course →](https://blefluttercourse.com)**
+The blog articles cover all the foundational topics for free.

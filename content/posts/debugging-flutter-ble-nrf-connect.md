@@ -13,8 +13,6 @@ The single biggest mistake Flutter developers make when debugging BLE is treatin
 
 That is exactly what **nRF Connect for Mobile** gives you. This guide walks through the triage workflow we use on real projects: how to use nRF Connect as a reference central, how to turn on verbose `flutter_blue_plus` logging, how to capture and read HCI snoop logs, and how to fix the handful of errors that cause most BLE pain.
 
-> **Free guide:** Struggling with dropped connections? Grab *The 7 BLE Mistakes That Make Flutter Apps Disconnect* — production-ready fixes you can apply today. [**Download the free guide →**](https://blog.blefluttercourse.com/free-guide)
-
 ## Why nRF Connect is always your first stop
 
 nRF Connect for Mobile is a free, generic BLE central app from Nordic Semiconductor, available on both iOS and Android. It can scan for devices, parse advertisement data, plot an RSSI graph, connect, discover services and characteristics, read and write values, subscribe to notifications and indications, and — crucially — show you a timestamped **Logger** view of every single operation.
@@ -81,8 +79,6 @@ try {
 }
 ```
 
-> **Stuck on a bug that only reproduces on one specific phone?** That is exactly the kind of platform-stack edge case we dissect in the [BLE Flutter course](https://blefluttercourse.com/) — with a complete, production-ready logging and error-handling layer you can drop into any app. [**Get the full debugging toolkit →**](https://blefluttercourse.com/)
-
 ## When the app log is not enough: HCI snoop captures
 
 Sometimes you need to know whether a packet even left the phone. That is what an **HCI snoop log** answers — it records the raw Host Controller Interface traffic between the OS and the Bluetooth radio, below your app and below the framework.
@@ -128,8 +124,6 @@ When a BLE issue lands on your desk, work it in this order:
 5. Compare the **raw bytes** and the **negotiated MTU** on both sides.
 6. Still stuck? Capture an **HCI snoop log** and read the ATT layer in Wireshark.
 
-> **Want the whole workflow as a ready-to-use harness?** The [Complete Flutter BLE Course](https://blefluttercourse.com/) ships a production debugging layer — structured logging, typed error handling, and a reconnect-safe GATT wrapper — plus the firmware-side test rig so you can isolate bugs in seconds. [**Start building reliable BLE apps →**](https://blefluttercourse.com/)
-
 ## Related guides
 
 - [Read, Write & Notify Characteristics in Flutter](https://blog.blefluttercourse.com/blog/flutter-ble-read-write-characteristics)
@@ -161,5 +155,3 @@ No. On Android, the Developer Options "Bluetooth HCI snoop log" toggle plus a bu
 ## Summary
 
 Debugging Flutter BLE does not have to be guesswork. Use **nRF Connect for Mobile** as a reference central to instantly split app bugs from firmware bugs, mirror it inside your app with **verbose `flutter_blue_plus` logging**, and drop down to an **HCI snoop capture in Wireshark** when you need to see the raw packets. With those three tools and the triage checklist above, the usual suspects — error 133, missing notifications, stale services, and truncated data — become quick, repeatable fixes instead of all-day mysteries.
-
-If you want the complete, production-grade version of this workflow — a reusable logging and error-handling layer, a reconnect-safe GATT wrapper, and the firmware test rig that makes isolation trivial — that is exactly what we build, end to end, in the [**Complete Flutter BLE Course**](https://blefluttercourse.com/). [**Join the course and ship reliable BLE apps →**](https://blefluttercourse.com/)

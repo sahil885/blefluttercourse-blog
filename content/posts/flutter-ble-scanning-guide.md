@@ -22,8 +22,6 @@ Before you can read sensor data, send commands, or build any BLE feature, you ne
 
 ---
 
-> **Free guide:** Struggling with dropped connections? Grab *The 7 BLE Mistakes That Make Flutter Apps Disconnect* — production-ready fixes you can apply today. [**Download the free guide →**](https://blog.blefluttercourse.com/free-guide)
-
 ## Prerequisites
 
 Make sure you've:
@@ -454,7 +452,7 @@ Yes. On Android, you can use the `withNames` parameter in `startScan()`. On iOS,
 Use the `r.rssi` value from `ScanResult`. RSSI of -40 to -55 dBm is very close (< 1m), -55 to -70 dBm is close (1–5m), -70 to -85 dBm is moderate (5–15m), below -85 dBm is far. Exact distance calculation requires knowing the TX power level.
 
 ### What's the fastest way to learn BLE scanning and beyond?
-The **[BLE Flutter Course](https://blefluttercourse.com/)** walks you through every BLE scanning pattern shown in this article, plus connecting, GATT, notifications, and building complete projects with real hardware.
+Practise on a device you control: flash an ESP32 to advertise a custom service, filter for it by service UUID, and watch the RSSI change as you move it. Then move on to [reading and writing characteristics](/blog/flutter-ble-read-write-characteristics).
 
 ---
 
@@ -463,14 +461,3 @@ The **[BLE Flutter Course](https://blefluttercourse.com/)** walks you through ev
 BLE scanning in Flutter is straightforward with flutter_blue_plus, but production apps need careful attention to permissions, filtering, battery management, and iOS quirks. The patterns above handle all the edge cases you'll encounter.
 
 **Ready for the next step?** Now that you can find and connect to devices, learn how to [read and write BLE characteristics](/blog/flutter-ble-read-write-characteristics) and interact with [GATT services](/blog/ble-gatt-profiles-explained).
-
-Or dive into the **[BLE Flutter Course](https://blefluttercourse.com/)** for structured learning with real hardware projects.
-
-👉 **[Enroll in the BLE Flutter Course →](https://blefluttercourse.com/)**
-
-## Work with Me on Your BLE App
-
-Need a hand beyond the tutorials?
-
-- **[Book a consult call](https://start.sahilbora.com/consultcall)** — 1:1 help with your BLE architecture, debugging, or roadmap.
-- **[Done-For-You BLE App Development](https://start.sahilbora.com/booking)** — hand off the build and ship a production-ready BLE app.

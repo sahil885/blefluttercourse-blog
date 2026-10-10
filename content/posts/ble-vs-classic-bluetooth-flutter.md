@@ -116,7 +116,7 @@ These are all BLE improvements. Bluetooth 5 didn't meaningfully change the Class
 
 ## Common Misconceptions
 
-**"BLE can't handle large data transfers"** — With MTU negotiation, Bluetooth 5 PHY, and proper chunking, BLE can transfer firmware images, configuration files, and even compressed audio in reasonable timeframes. It requires more careful implementation than Classic Bluetooth SPP, but it is absolutely feasible. The [BLE Flutter Course](https://blefluttercourse.com) covers large data transfer patterns in depth.
+**"BLE can't handle large data transfers"** — With MTU negotiation, Bluetooth 5 PHY, and proper chunking, BLE can transfer firmware images, configuration files, and even compressed audio in reasonable timeframes. It requires more careful implementation than Classic Bluetooth SPP, but it is absolutely feasible. Our [MTU and large data transfer guide](/blog/flutter-ble-mtu-negotiation-large-data-transfer) shows how.
 
 **"My device uses Bluetooth so I need flutter_bluetooth_serial"** — Not necessarily. Check whether your device uses BLE (GATT) or Classic Bluetooth SPP. Most hardware made after 2015 that isn't an audio device uses BLE. Use nRF Connect app to scan and check whether your device appears as a GATT device.
 
@@ -144,8 +144,6 @@ If you've confirmed BLE is the right protocol for your project, the next steps a
 2. Learn [BLE scanning with flutter_blue_plus](/blog/flutter-ble-scanning-guide)
 3. Set up [permissions correctly on Android and iOS](/blog/flutter-ble-permissions-android-ios)
 4. [Read and write GATT characteristics](/blog/flutter-ble-read-write-characteristics)
-
-Or, if you want a structured path from zero to shipping a production BLE app, the [BLE Flutter Course](https://blefluttercourse.com) covers all of this in a logical sequence with real hardware examples and production-ready code.
 
 ---
 

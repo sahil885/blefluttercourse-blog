@@ -11,8 +11,6 @@ If you're evaluating frameworks for a Bluetooth Low Energy app in 2026, this is 
 
 This article is written from the perspective of developers who have shipped production BLE apps on both platforms. The verdict isn't close.
 
-> **Free guide:** Struggling with dropped connections? Grab *The 7 BLE Mistakes That Make Flutter Apps Disconnect* — production-ready fixes you can apply today. [**Download the free guide →**](https://blog.blefluttercourse.com/free-guide)
-
 ## TL;DR
 
 **Flutter wins for BLE development.** The package ecosystem is more mature, the developer experience is smoother, the performance on data-intensive BLE streams is better, and the community producing BLE-specific knowledge is significantly larger. If you are starting a BLE project in 2026, choose Flutter.
@@ -92,8 +90,6 @@ For simple BLE apps (scan, connect, read a characteristic occasionally), this di
 
 ---
 
-> **Decided on Flutter for BLE?** Skip months of trial-and-error. The BLE Flutter Course gives you a complete, production-ready BLE architecture — scanning, connection, reconnection, and robust data handling — with copy-paste-ready code. **[Join the waitlist → blefluttercourse.com](https://blefluttercourse.com/)**
-
 ## Community and Learning Resources
 
 This is an underrated factor when choosing a framework for a specialised domain like BLE.
@@ -102,7 +98,6 @@ The Flutter BLE community is producing more content, more consistently, in 2026:
 - More YouTube tutorials specifically on flutter_blue_plus
 - More active GitHub discussions on flutter_blue_plus
 - More Stack Overflow answers for Flutter BLE questions
-- Dedicated courses like the [BLE Flutter Course](https://blefluttercourse.com) providing structured learning paths
 
 React Native BLE content tends to be older, more scattered, and frequently references deprecated packages. This means more time debugging and less time building.
 
@@ -120,7 +115,7 @@ But if BLE is a core feature of your product — real-time sensor data, continuo
 
 BLE apps in production face challenges that simple tutorials don't address: handling connection drops, reconnecting automatically, managing state across background/foreground transitions, supporting a wide range of Android manufacturers (Samsung, Xiaomi, Huawei all have Bluetooth quirks), and handling iOS's strict background execution limits.
 
-Flutter's ecosystem has more documented solutions to all of these problems. The [BLE Flutter Course](https://blefluttercourse.com) dedicates entire modules to production edge cases — reconnection logic, background BLE, platform-specific bugs — because that's where real app development happens.
+Flutter's ecosystem has more documented solutions to all of these problems.
 
 ---
 
@@ -152,13 +147,3 @@ Flutter supports BLE on Android and iOS — which covers 99%+ of mobile BLE use 
 
 **What should I learn first for Flutter BLE development?**
 Start with understanding the GATT hierarchy (Services, Characteristics, Descriptors) and then learn scanning and connection patterns. Our [Getting Started with BLE in Flutter](/blog/getting-started-ble-flutter) guide is a good first step.
-
-**Is there a structured course for learning Flutter BLE?**
-Yes — the [BLE Flutter Course](https://blefluttercourse.com) is a dedicated course covering everything from BLE fundamentals to shipping production apps with flutter_blue_plus. It's the fastest path from zero to production-ready Flutter BLE developer.
-
-## Work with Me on Your BLE App
-
-Need a hand beyond the tutorials?
-
-- **[Book a consult call](https://start.sahilbora.com/consultcall)** — 1:1 help with your BLE architecture, debugging, or roadmap.
-- **[Done-For-You BLE App Development](https://start.sahilbora.com/booking)** — hand off the build and ship a production-ready BLE app.

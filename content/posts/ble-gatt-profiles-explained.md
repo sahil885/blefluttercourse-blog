@@ -440,7 +440,7 @@ Service discovery can fail if: (1) the device disconnects during discovery, (2) 
 Yes, as long as you know the service and characteristic UUIDs. Standard Bluetooth SIG profiles (heart rate, battery, etc.) have published UUIDs. Custom devices (like ESP32 projects) require you to define and document your own UUIDs.
 
 ### What's the fastest way to master BLE GATT in Flutter?
-The fastest path is structured learning rather than piecing together Stack Overflow answers. The **[BLE Flutter Course](https://blefluttercourse.com/)** covers the entire GATT hierarchy with real hardware projects — you'll wire up sensors, read characteristics, and build production apps step by step.
+Learn it hands-on: read a standard service such as Heart Rate (0x180D) from a real device, then define your own custom service on an ESP32 and talk to it from Flutter. Our [heart rate monitor tutorial](/blog/flutter-ble-heart-rate-monitor) and [custom UUID guide](/blog/ble-uuid-custom-service-flutter) walk through both.
 
 ---
 
@@ -453,7 +453,3 @@ Understanding GATT transforms BLE development from guesswork into a systematic p
 2. Identify whether your device uses standard or custom UUIDs
 3. Implement read, write, and notify operations
 4. Build your [complete Flutter BLE app](/blog/build-complete-flutter-ble-app)
-
-Ready to go deeper? The **[BLE Flutter Course](https://blefluttercourse.com/)** walks you through building real projects with real BLE hardware — ESP32, Arduino, and more. Every GATT concept in this article is covered with hands-on labs and working source code.
-
-👉 **[Enroll in the BLE Flutter Course →](https://blefluttercourse.com/)**

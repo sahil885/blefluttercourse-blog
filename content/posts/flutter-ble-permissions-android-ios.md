@@ -24,8 +24,6 @@ Permissions are where most Flutter BLE projects get stuck. A missing declaration
 
 ---
 
-> **Free guide:** Struggling with dropped connections? Grab *The 7 BLE Mistakes That Make Flutter Apps Disconnect* — production-ready fixes you can apply today. [**Download the free guide →**](https://blog.blefluttercourse.com/free-guide)
-
 ## Why BLE Permissions Are Complex
 
 BLE permissions changed significantly across OS versions:
@@ -372,7 +370,7 @@ Yes. The iOS system dialog fires automatically on first Bluetooth use. You just 
 Your app will crash on iOS the first time it tries to use Bluetooth with a message like "This app has crashed because it attempted to access privacy-sensitive data without a usage description." Always add the plist entries before testing on a real device.
 
 ### Is there a shortcut to get all BLE permissions right the first time?
-The **[BLE Flutter Course](https://blefluttercourse.com/)** includes a project starter template with all permissions pre-configured for Android and iOS, so you never have to debug missing permission issues from scratch.
+[BLE Starter](https://blestarter.com/?utm_source=blog&utm_medium=referral&utm_campaign=ble_starter&utm_content=flutter-ble-permissions-android-ios&utm_term=faq) ships these permission flows ready-made for Android 12+ and iOS, including denied and Bluetooth-off screens, so you start from working code instead of debugging missing permissions.
 
 ---
 
@@ -381,14 +379,3 @@ The **[BLE Flutter Course](https://blefluttercourse.com/)** includes a project s
 Bluetooth permissions are a one-time setup that unlocks every other BLE feature. With the manifest entries, plist keys, and runtime request code above, you'll never hit a permission-related scan failure again.
 
 **Next step:** Start [scanning for BLE devices](/blog/flutter-ble-scanning-guide) or jump straight to the [complete app build guide](/blog/build-complete-flutter-ble-app).
-
-Or learn everything end-to-end in the **[BLE Flutter Course](https://blefluttercourse.com/)** — structured, hardware-driven BLE development from setup to shipping.
-
-👉 **[Enroll in the BLE Flutter Course →](https://blefluttercourse.com/)**
-
-## Work with Me on Your BLE App
-
-Need a hand beyond the tutorials?
-
-- **[Book a consult call](https://start.sahilbora.com/consultcall)** — 1:1 help with your BLE architecture, debugging, or roadmap.
-- **[Done-For-You BLE App Development](https://start.sahilbora.com/booking)** — hand off the build and ship a production-ready BLE app.

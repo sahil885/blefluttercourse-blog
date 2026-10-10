@@ -13,8 +13,6 @@ This guide gives you the complete picture and a clear decision framework.
 
 ---
 
-> **Free guide:** Struggling with dropped connections? Grab *The 7 BLE Mistakes That Make Flutter Apps Disconnect* — production-ready fixes you can apply today. [**Download the free guide →**](https://blog.blefluttercourse.com/free-guide)
-
 ## TL;DR
 
 **BLE and WiFi serve different roles — choose based on your device's power source and whether it needs internet access independently.** BLE is optimal for battery-powered devices communicating with a nearby smartphone. WiFi is optimal for mains-powered devices that need persistent internet connectivity or high-throughput data. Many production IoT products use both — BLE for initial setup and local control, WiFi for cloud connectivity.
@@ -163,8 +161,6 @@ If your answers are "battery-powered, phone required, small data" — BLE. If yo
 ## Getting Started with Flutter BLE
 
 If BLE is the right protocol for your project, the ecosystem of tools and learning resources is strong. Start with understanding [BLE vs Classic Bluetooth](/blog/ble-vs-classic-bluetooth-flutter) to confirm you're on the right protocol, then work through the [GATT fundamentals](/blog/ble-gatt-profiles-explained) and [scanning with flutter_blue_plus](/blog/flutter-ble-scanning-guide).
-
-For a comprehensive, structured path to building production Flutter BLE apps — covering everything from first scan to shipping real hardware products — the [BLE Flutter Course](https://blefluttercourse.com) is the fastest route from architectural decision to deployed app.
 
 ---
 

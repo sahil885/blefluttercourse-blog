@@ -76,8 +76,6 @@ FlutterBluePlus.events.onConnectionStateChanged.listen((event) {
 });
 ```
 
-> **Building a production multi-device app?** The complete, battle-tested connection manager — a per-device state machine with reconnection, back-pressure, MTU handling, and clean teardown wired into Riverpod — is exactly what we build step by step in the [BLE Flutter course](https://blefluttercourse.com/). This article shows the shape; the course ships the whole thing.
-
 ## Running operations in parallel (the setting almost everyone misses)
 
 Here is the single biggest performance lever for multi-device apps. By default `flutter_blue_plus` uses a **global** operation queue: every read, write, and notification-subscribe across *all* devices runs one at a time. That's safe, but it means a slow write to a sluggish sensor blocks a snappy read on a completely different device.
@@ -139,5 +137,3 @@ A brief stagger for the initial batch is safest on Android. After the first conn
 ## Summary
 
 Multi-device BLE in Flutter isn't a different API — it's the same `flutter_blue_plus` primitives applied with discipline. Track devices in a map keyed by `remoteId`, give each connection its own `connectionState` subscription with `cancelWhenDisconnected` for cleanup, switch to `OperationQueueMode.perDevice` so operations run in parallel, and design around the platform's connection and bandwidth limits. Nail those and adding the fifth device is no harder than adding the second.
-
-When you're ready to turn these fragments into a robust, production-grade connection manager — reconnection, per-device MTU, structured state, and a clean architecture that scales — that's exactly what we build in the [BLE Flutter course](https://blefluttercourse.com/). Stop stitching together Stack Overflow snippets and learn the whole system end to end.
