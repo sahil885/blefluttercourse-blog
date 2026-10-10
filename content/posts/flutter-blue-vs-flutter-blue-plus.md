@@ -1,8 +1,8 @@
 ---
-title: "flutter_blue vs flutter_blue_plus: Which Should You Use in 2026?"
+title: "flutter_blue_plus License in 2026: Costs and Free Alternatives"
 date: "2026-04-05"
 updated: "2026-10-10"
-excerpt: "flutter_blue is abandoned, and flutter_blue_plus now needs a paid licence for commercial use. What the licence costs, free alternatives, and how to migrate."
+excerpt: "Since version 2.0, flutter_blue_plus needs a paid licence for commercial use. What it costs, who can use it free, the free alternatives, and how to migrate."
 tags: ["Comparison", "flutter_blue_plus", "Migration", "Packages"]
 faqs:
   - question: "Is flutter_blue_plus free for commercial use?"
@@ -13,21 +13,19 @@ faqs:
     answer: "universal_ble (BSD-3-Clause) supports Android, iOS, macOS, Windows, Linux and Web. flutter_reactive_ble (BSD-3-Clause) supports Android and iOS. bluetooth_low_energy is MIT licensed and supports Android, iOS, macOS, Windows and Linux. All three allow commercial use with no licence fee."
 ---
 
-# flutter_blue vs flutter_blue_plus: Why You Need to Migrate in 2026
+# flutter_blue vs flutter_blue_plus in 2026: The Licence Change and Your Options
 
-If your Flutter project is still using `flutter_blue`, you are building on abandoned software. Its last release, 0.8.0, shipped in March 2021, and in 2026 it still has unresolved Android 12+ breakage, unfixed iOS bugs, and no active development.
+Since version 2.0, `flutter_blue_plus` needs a paid licence for commercial use, even while you develop and test. This article covers what the licence costs, who can still use it free, and the free alternatives, so you can pick the right package for your app.
 
-`flutter_blue_plus` is the maintained successor. This article explains exactly what changed, what the migration involves, and why staying on the old package is costing you time on every Android device running API 31 or higher.
-
-There's a catch to plan for: since version 2.0, flutter_blue_plus needs a paid licence for commercial use. This article covers what that costs and the free alternatives, so you can pick the right package before you migrate.
+It also covers moving off the original `flutter_blue`. If your project still uses it, you are building on abandoned software: its last release, 0.8.0, shipped in March 2021, and in 2026 it still has unresolved Android 12+ breakage, unfixed iOS bugs, and no active development. `flutter_blue_plus` is its maintained successor.
 
 ---
 
 ## TL;DR
 
-**Move off flutter_blue now, but check the licence before you choose flutter_blue_plus.** flutter_blue hasn't had a release since March 2021, doesn't support Android 12+ Bluetooth permissions, and has unresolved bugs that will affect your users. flutter_blue_plus has an almost identical API, active maintenance, and full modern platform support, and the migration typically takes a few hours.
+**flutter_blue_plus is no longer free for commercial apps.** Since version 2.0, any for-profit organisation pays a one-off licence fee, from $999 for an individual to $49,999 for 1,000+ employees, even while it develops and tests. Personal, nonprofit and education projects stay free. For a commercial app you can buy the licence, pin the last BSD-licensed release (1.36.8, which gets no further fixes), or move to a free BSD-licensed package such as universal_ble.
 
-Since version 2.0, though, flutter_blue_plus needs a paid commercial licence for any for-profit organisation, even while you develop and test. Personal, nonprofit and education projects stay free. For a commercial app you can buy the licence, pin the last BSD-licensed release (1.36.8, which gets no further fixes), or move to a free BSD-licensed package such as universal_ble.
+**Still on flutter_blue? Move off it now.** It hasn't had a release since March 2021, doesn't support Android 12+ Bluetooth permissions, and has unresolved bugs that will affect your users. flutter_blue_plus has an almost identical API, active maintenance, and full modern platform support, and the migration typically takes a few hours. Check the licence first.
 
 ---
 
