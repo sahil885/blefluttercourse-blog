@@ -1,6 +1,8 @@
 import Link from 'next/link'
 import PostCard from '@/components/PostCard'
 import { getAllPosts } from '@/lib/posts'
+import { starterUrl } from '@/lib/offers'
+import { StarterMark } from '@/components/StarterLinks'
 
 export default function HomePage() {
   const posts = getAllPosts().slice(0, 3)
@@ -33,15 +35,18 @@ export default function HomePage() {
           </p>
 
           <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
-            <Link
-              href="/free-guide"
-              className="inline-flex items-center gap-2 bg-sky-500 hover:bg-sky-400 text-white font-bold px-7 py-3.5 rounded-xl transition-all shadow-xl shadow-sky-500/25 hover:-translate-y-0.5 text-base"
+            <a
+              href={starterUrl('home', 'hero')}
+              target="_blank"
+              rel="noopener"
+              className="inline-flex items-center gap-2 bg-cyan-400 hover:bg-cyan-300 text-slate-950 font-bold px-7 py-3.5 rounded-xl transition-all shadow-xl shadow-cyan-500/25 hover:-translate-y-0.5 text-base"
             >
-              Get the Free BLE Guide
-              <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <StarterMark className="w-4 h-4" />
+              See BLE Starter
+              <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
               </svg>
-            </Link>
+            </a>
             <Link
               href="/blog"
               className="inline-flex items-center gap-2 border border-slate-700 hover:border-slate-500 text-slate-300 hover:text-white font-semibold px-7 py-3.5 rounded-xl transition-all text-base"
@@ -49,6 +54,13 @@ export default function HomePage() {
               Read the Blog
             </Link>
           </div>
+
+          <p className="mt-6 text-sm text-slate-500">
+            BLE Starter is a licence-free Flutter BLE starter kit.{' '}
+            <Link href="/free-guide" className="text-sky-400 hover:text-sky-300 underline-offset-2 hover:underline">
+              Or get the free BLE disconnection guide
+            </Link>
+          </p>
         </div>
       </section>
 
