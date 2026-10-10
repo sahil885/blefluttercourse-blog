@@ -125,6 +125,14 @@ const OFFERS: Record<string, PostOffer> = {
   'flutter-blue-vs-flutter-blue-plus': { kind: 'starter', lead: 'Shipping a commercial app?', pitch: LICENCE_POST_PITCH },
   'flutter-ble-packages-comparison': { kind: 'starter', lead: 'Shipping a commercial app?', pitch: LICENCE_POST_PITCH },
 
+  // Migration guide to universal_ble, the package BLE Starter is built on.
+  'migrate-flutter-blue-plus-to-universal-ble': {
+    kind: 'starter',
+    lead: 'Migrating a commercial app?',
+    pitch:
+      'BLE Starter is a production-ready Flutter BLE kit already built on universal_ble, with permissions, scanning, auto-reconnect, GATT data, OTA updates and tests working together.',
+  },
+
   'flutter-ble-background-mode-ios-android': LICENCE_NOTE,
   'flutter-ble-bonding-pairing-security': LICENCE_NOTE,
 }
