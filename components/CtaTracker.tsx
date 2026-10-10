@@ -6,11 +6,12 @@ export default function CtaTracker() {
   useEffect(() => {
     function handleClick(e: MouseEvent) {
       const target = e.target as HTMLElement | null
-      const anchor = target?.closest('a[href*="start.sahilbora.com"]') as HTMLAnchorElement | null
+      const anchor = target?.closest('a[href*="start.sahilbora.com"], a[href*="blestarter.com"]') as HTMLAnchorElement | null
       if (!anchor) return
       const href = anchor.getAttribute('href') || ''
       let eventName = ''
-      if (href.includes('/consultcall')) eventName = 'consult_call_click'
+      if (href.includes('blestarter.com')) eventName = 'ble_starter_click'
+      else if (href.includes('/consultcall')) eventName = 'consult_call_click'
       else if (href.includes('/booking')) eventName = 'dfy_dev_click'
       else return
       const w = window as Window & { gtag?: (...args: unknown[]) => void }

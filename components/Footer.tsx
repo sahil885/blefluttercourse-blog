@@ -1,4 +1,5 @@
 import Link from 'next/link'
+import { starterUrl } from '@/lib/offers'
 
 export default function Footer() {
   return (
@@ -32,6 +33,16 @@ export default function Footer() {
                 <Link href="/blog" className="text-slate-400 hover:text-sky-400 transition-colors text-sm">
                   Blog
                 </Link>
+              </li>
+              <li>
+                <a
+                  href={starterUrl('footer', 'links')}
+                  target="_blank"
+                  rel="noopener"
+                  className="text-slate-400 hover:text-sky-400 transition-colors text-sm"
+                >
+                  BLE Starter →
+                </a>
               </li>
               <li>
                 <a
