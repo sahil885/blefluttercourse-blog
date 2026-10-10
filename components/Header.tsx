@@ -24,8 +24,8 @@ export default function Header() {
                 <span className="bg-sky-500/20 text-sky-400 text-[10px] font-bold px-1.5 py-0.5 rounded uppercase tracking-wide">Free</span>
                 Guide
               </Link>
-              <a href="https://blefluttercourse.com" target="_blank" rel="noopener noreferrer" className="text-slate-400 hover:text-white transition-colors text-sm font-medium">
-                Course
+              <a href={starterUrl('header', 'nav')} target="_blank" rel="noopener" className="text-slate-400 hover:text-white transition-colors text-sm font-medium">
+                Starter Kit
               </a>
               <Link href="https://start.sahilbora.com/consultcall" target="_blank" rel="noopener noreferrer" className="text-slate-400 hover:text-white transition-colors text-sm font-medium">
                 Consult Call

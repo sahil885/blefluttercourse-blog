@@ -41,17 +41,7 @@ export default function Footer() {
                   rel="noopener"
                   className="text-slate-400 hover:text-sky-400 transition-colors text-sm"
                 >
-                  BLE Starter →
-                </a>
-              </li>
-              <li>
-                <a
-                  href="https://blefluttercourse.com"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="text-slate-400 hover:text-sky-400 transition-colors text-sm"
-                >
-                  The Course →
+                  BLE Starter Kit →
                 </a>
               </li>
               <li>
