@@ -79,7 +79,7 @@ Prices as listed on the [FlutterBluePlus licence store](https://jamcorder.myshop
 | Switch to universal_ble | Free (BSD-3-Clause) | Different API; runs on Android, iOS, macOS, Windows, Linux and Web |
 | Switch to flutter_reactive_ble | Free (BSD-3-Clause) | Different, stream-based API; Android and iOS only |
 
-If you're starting a new commercial app, the free packages deserve a serious look. Our [Flutter BLE packages comparison](/blog/flutter-ble-packages-comparison) shows how they differ.
+If you're starting a new commercial app, the free packages deserve a serious look. Our [Flutter BLE packages comparison](/blog/flutter-ble-packages-comparison) shows how they differ, and our [universal_ble migration guide](/blog/migrate-flutter-blue-plus-to-universal-ble) walks through moving an existing app.
 
 ---
 
@@ -241,6 +241,8 @@ If the licence rules flutter_blue_plus out, three maintained packages allow comm
 - **universal_ble** (BSD-3-Clause, published by Navideck) runs on Android, iOS, macOS, Windows, Linux and Web, with APIs for connections, MTU requests, pairing and peripheral mode. Version 2.3.0 shipped in September 2026.
 - **flutter_reactive_ble** (BSD-3-Clause, published by Philips Hue) is a mature, stream-based plugin for Android and iOS. Version 5.6.0 shipped in September 2026.
 - **bluetooth_low_energy** (MIT) runs on Android, iOS, macOS, Windows and Linux, and supports both the central and peripheral roles.
+
+Two newer BSD-3-Clause packages, **flutter_blue_ultra** and **bluebird**, keep flutter_blue_plus's API shape, so moving to them is mostly a find-and-replace. Both are young, with small user bases.
 
 Moving from flutter_blue to one of these takes more work than moving to flutter_blue_plus, because their APIs differ. For an app you'll sell, that one-off effort can cost less than the licence. For hobby, nonprofit and education projects, flutter_blue_plus remains the easiest move: the biggest community, the most documentation and the most code examples.
 
