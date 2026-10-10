@@ -13,8 +13,6 @@ This comparison is written for Flutter developers who are comfortable with Dart 
 
 ---
 
-> **Free guide:** Struggling with dropped connections? Grab *The 7 BLE Mistakes That Make Flutter Apps Disconnect* — production-ready fixes you can apply today. [**Download the free guide →**](https://blog.blefluttercourse.com/free-guide)
-
 ## TL;DR
 
 **Use ESP32 for any new Flutter BLE project.** It has native BLE hardware built in, costs roughly the same or less than a BLE-capable Arduino, has better documentation for BLE-specific work, and offers significantly more processing power for applications that need it. Arduino (specifically the Arduino Nano 33 BLE or MKR series) is a solid alternative for simpler projects or if you're already in the Arduino ecosystem.
@@ -205,8 +203,6 @@ If the hardware works in nRF Connect, it will work with flutter_blue_plus.
 ## Going Deeper
 
 Understanding how to structure GATT services effectively — choosing the right characteristic properties, handling large data payloads, designing for reconnection — is as important as the firmware/Flutter split. Our [GATT Profiles guide](/blog/ble-gatt-profiles-explained) explains the BLE data model that both boards and your Flutter app share.
-
-For a comprehensive path to building production Flutter BLE apps — including real hardware integration examples with ESP32 — the [BLE Flutter Course](https://blefluttercourse.com) covers the Flutter side in depth so you can focus your hardware time on the firmware rather than debugging the Dart layer.
 
 ---
 

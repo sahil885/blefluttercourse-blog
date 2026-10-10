@@ -3,9 +3,11 @@ import { notFound } from 'next/navigation'
 import Link from 'next/link'
 import { marked } from 'marked'
 import { getAllSlugs, getPostBySlug } from '@/lib/posts'
-import CourseCallout from '@/components/CourseCallout'
+import { getPostOffer } from '@/lib/offers'
 import InlineOptIn from '@/components/InlineOptIn'
 import FreeGuideCTA from '@/components/FreeGuideCTA'
+import StarterBox from '@/components/StarterBox'
+import StarterCallout from '@/components/StarterCallout'
 
 interface Props {
   params: { slug: string }
@@ -29,6 +31,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
         description: post.excerpt,
         type: 'article',
         publishedTime: post.date,
+        ...(post.updated ? { modifiedTime: post.updated } : {}),
         url: `/blog/${params.slug}`,
       },
       twitter: {
@@ -59,6 +62,48 @@ function splitHtmlAtHeading(html: string, headingIndex: number): [string, string
   return [html.slice(0, splitPos), html.slice(splitPos)]
 }
 
+const CONTAINER_TAGS = new Set(['ul', 'ol', 'li', 'blockquote', 'table', 'details'])
+
+// Where the BLE Starter box goes: right after the first top-level code block when it comes
+// early in the post, otherwise before the third section heading, otherwise after the first paragraph.
+function splitHtmlForStarterBox(html: string): [string, string] {
+  const tagPattern = /<(\/?)([a-z0-9]+)\b[^>]*>/gi
+  let depth = 0
+  let firstCodeEnd = -1
+  let firstParagraphEnd = -1
+  const headingStarts: number[] = []
+  let match
+  while ((match = tagPattern.exec(html)) !== null) {
+    const closing = match[1] === '/'
+    const tag = match[2].toLowerCase()
+    if (CONTAINER_TAGS.has(tag)) {
+      depth += closing ? -1 : 1
+      continue
+    }
+    if (depth !== 0) continue
+    const end = match.index + match[0].length
+    if (closing && tag === 'pre' && firstCodeEnd === -1) firstCodeEnd = end
+    if (closing && tag === 'p' && firstParagraphEnd === -1) firstParagraphEnd = end
+    if (!closing && tag === 'h2') headingStarts.push(match.index)
+  }
+
+  let splitPos = firstParagraphEnd
+  if (firstCodeEnd !== -1 && firstCodeEnd <= html.length * 0.4) splitPos = firstCodeEnd
+  else if (headingStarts.length >= 3) splitPos = headingStarts[2]
+  else if (headingStarts.length >= 2) splitPos = headingStarts[1]
+
+  if (splitPos <= 0) return ['', html]
+  return [html.slice(0, splitPos), html.slice(splitPos)]
+}
+
+function formatDate(date: string): string {
+  return new Date(date).toLocaleDateString('en-US', {
+    year: 'numeric',
+    month: 'long',
+    day: 'numeric',
+  })
+}
+
 export default function BlogPostPage({ params }: Props) {
   let post
   try {
@@ -68,13 +113,13 @@ export default function BlogPostPage({ params }: Props) {
   }
 
   const htmlContent = marked(post.content) as string
-  const [firstHalf, secondHalf] = splitHtmlAtHeading(htmlContent, 3)
+  const offer = getPostOffer(params.slug)
+  // Guide posts keep the mid-article free-guide form; every other post gets the BLE Starter box.
+  const [firstHalf, secondHalf] =
+    offer.kind === 'guide' ? splitHtmlAtHeading(htmlContent, 3) : splitHtmlForStarterBox(htmlContent)
 
-  const formattedDate = new Date(post.date).toLocaleDateString('en-US', {
-    year: 'numeric',
-    month: 'long',
-    day: 'numeric',
-  })
+  const formattedDate = formatDate(post.date)
+  const formattedUpdated = post.updated ? formatDate(post.updated) : null
 
   // Build FAQ JSON-LD schema
   const faqSchema = post.faqs && post.faqs.length > 0
@@ -99,6 +144,7 @@ export default function BlogPostPage({ params }: Props) {
     headline: post.title,
     description: post.excerpt,
     datePublished: post.date,
+    ...(post.updated ? { dateModified: post.updated } : {}),
     author: {
       '@type': 'Organization',
       name: 'BLE Flutter Course',
@@ -155,22 +201,32 @@ export default function BlogPostPage({ params }: Props) {
         </h1>
 
         {/* Meta */}
-        <div className="flex items-center gap-4 text-sm text-slate-500 pb-8 border-b border-slate-800 mb-10">
+        <div className="flex flex-wrap items-center gap-x-4 gap-y-1 text-sm text-slate-500 pb-8 border-b border-slate-800 mb-10">
           <span>{formattedDate}</span>
+          {formattedUpdated && (
+            <>
+              <span>·</span>
+              <span>Updated {formattedUpdated}</span>
+            </>
+          )}
           <span>·</span>
           <span>{post.readTime}</span>
         </div>
 
-        {/* First half of content */}
-        <article
-          className="prose"
-          dangerouslySetInnerHTML={{ __html: firstHalf }}
-        />
+        {/* First part of content */}
+        {firstHalf && (
+          <article
+            className="prose"
+            dangerouslySetInnerHTML={{ __html: firstHalf }}
+          />
+        )}
 
-        {/* Mid-article opt-in (only shown when article is long enough) */}
-        {secondHalf && <InlineOptIn />}
+        {/* One main offer per post: the free guide on beginner posts, BLE Starter everywhere else */}
+        {offer.kind === 'guide'
+          ? secondHalf && <InlineOptIn />
+          : <StarterBox slug={params.slug} lead={offer.lead} pitch={offer.pitch} />}
 
-        {/* Second half of content */}
+        {/* Rest of content */}
         {secondHalf && (
           <article
             className="prose"
@@ -178,11 +234,8 @@ export default function BlogPostPage({ params }: Props) {
           />
         )}
 
-        {/* Free Guide CTA */}
-        <FreeGuideCTA />
-
-        {/* End-of-article Course CTA */}
-        <CourseCallout />
+        {/* End-of-article offer */}
+        {offer.kind === 'guide' ? <FreeGuideCTA /> : <StarterCallout slug={params.slug} />}
 
         {/* Back to blog */}
         <div className="mt-10 pt-8 border-t border-slate-800">

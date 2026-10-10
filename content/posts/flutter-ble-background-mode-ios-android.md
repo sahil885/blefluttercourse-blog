@@ -15,8 +15,6 @@ Background BLE is one of the most misunderstood topics in Flutter development. D
 
 ---
 
-> **Free guide:** Struggling with dropped connections? Grab *The 7 BLE Mistakes That Make Flutter Apps Disconnect* — production-ready fixes you can apply today. [**Download the free guide →**](https://blog.blefluttercourse.com/free-guide)
-
 ## What "Background BLE" Actually Means
 
 There are three different things developers usually mean when they say "background BLE," and each has different platform support:
@@ -74,9 +72,6 @@ If you omit the service UUID filter when backgrounded on iOS, no results are del
 ### iOS State Restoration
 
 For apps that need to reconnect to known devices even after being terminated by the OS, iOS offers Core Bluetooth state restoration — where iOS can relaunch your app in the background to handle a Bluetooth event. This requires native iOS code and goes beyond what flutter_blue_plus configures for you out of the box.
-
-> **This is one of the areas the BLE Flutter Course covers in depth** — including how to implement state restoration, what iOS's background execution time limits are, and how to structure a Flutter app that handles the full iOS BLE lifecycle correctly.
-> **[See the full course curriculum →](https://blefluttercourse.com)**
 
 ---
 
@@ -142,9 +137,6 @@ If your use case is "stay connected while the user's phone is in their pocket," 
 
 If your use case is "automatically find and connect to a device in the background," the complexity goes up significantly on both platforms, and the constraints become more relevant.
 
-> The BLE Flutter Course covers the complete background BLE implementation for both platforms — including state restoration on iOS, foreground service architecture in Flutter, and how to handle the edge cases that show up in production.
-> **[Explore the course →](https://blefluttercourse.com)**
-
 ---
 
 ## Related Guides
@@ -181,7 +173,3 @@ No special entitlement is required from Apple. The `bluetooth-central` UIBackgro
 Background BLE in Flutter requires platform-specific configuration beyond flutter_blue_plus. On iOS, declare `bluetooth-central` and always use service UUID filters for background scanning. On Android, implement a Foreground Service — it's the only reliable way to maintain BLE operations when the app isn't in the foreground.
 
 Both platforms have real constraints. Knowing what's possible — and what isn't — saves a lot of debugging time.
-
-For a complete implementation guide including real-world edge cases and production architecture, the **[BLE Flutter Course](https://blefluttercourse.com/)** covers background BLE on both platforms with working code.
-
-👉 **[Explore the BLE Flutter Course →](https://blefluttercourse.com/)**

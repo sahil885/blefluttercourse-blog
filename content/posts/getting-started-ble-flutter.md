@@ -216,8 +216,6 @@ This guide covers the fundamentals. The full journey to production BLE apps invo
 4. **[Read & Write Characteristics](/blog/flutter-ble-read-write-characteristics)** — Notifications, multi-byte data, error handling
 5. **[Build a Complete Flutter BLE App](/blog/build-complete-flutter-ble-app)** — Full project from scratch
 
-For a structured, video-based path from these fundamentals all the way to shipping production hardware apps, the [BLE Flutter Course](https://blefluttercourse.com) covers every step with real hardware, full source code, and production edge cases that tutorials never reach.
-
 ---
 
 ## Frequently Asked Questions
@@ -239,10 +237,3 @@ ESP32 for custom projects (cheap, powerful, built-in BLE+WiFi). Arduino Nano 33 
 
 **Is there a Flutter BLE course?**
 Yes — the [BLE Flutter Course](https://blefluttercourse.com) is a dedicated course for Flutter developers building BLE apps, covering everything from fundamentals to production deployment with real hardware examples.
-
-## Work with Me on Your BLE App
-
-Need a hand beyond the tutorials?
-
-- **[Book a consult call](https://start.sahilbora.com/consultcall)** — 1:1 help with your BLE architecture, debugging, or roadmap.
-- **[Done-For-You BLE App Development](https://start.sahilbora.com/booking)** — hand off the build and ship a production-ready BLE app.

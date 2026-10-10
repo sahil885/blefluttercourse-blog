@@ -22,8 +22,6 @@ You've read the individual guides — scanning, GATT, permissions, read/write. N
 
 ---
 
-> **Free guide:** Struggling with dropped connections? Grab *The 7 BLE Mistakes That Make Flutter Apps Disconnect* — production-ready fixes you can apply today. [**Download the free guide →**](https://blog.blefluttercourse.com/free-guide)
-
 ## What We're Building
 
 A **BLE Sensor Dashboard** app that:
@@ -349,8 +347,6 @@ class BleProvider extends ChangeNotifier {
 
 ---
 
-> **Want the production-grade version of this app?** This walkthrough gets you a working prototype. The BLE Flutter Course takes it to production — error handling, auto-reconnect, background mode, and patterns proven on real hardware. **[Join the waitlist → blefluttercourse.com](https://blefluttercourse.com/)**
-
 ## Step 5: Scan Screen
 
 ```dart
@@ -613,7 +609,7 @@ Listen to `device.connectionState` and on `disconnected`, either notify the user
 On iOS, background BLE requires declaring `bluetooth-central` in UIBackgroundModes and filtering scans by service UUID. On Android, use a Foreground Service. Both platforms impose heavy restrictions on background BLE to protect battery life.
 
 ### How do I add OTA firmware updates to my Flutter BLE app?
-OTA over BLE requires chunked writes to a firmware characteristic (usually using Nordic DFU or a custom protocol), checksum verification, and a device bootloader that accepts and applies the update. This is an advanced topic covered in detail in the **[BLE Flutter Course](https://blefluttercourse.com/)**.
+OTA over BLE requires chunked writes to a firmware characteristic (usually using Nordic DFU or a custom protocol), checksum verification, and a device bootloader that accepts and applies the update. Our [ESP32 OTA over BLE guide](/blog/flutter-ble-ota-firmware-update-esp32) walks through a working implementation.
 
 ### Is this app production-ready?
 The architecture above is production-quality for most use cases. For shipping apps, add: (1) exponential backoff reconnect logic, (2) persistent device ID storage so users don't re-scan every launch, (3) comprehensive error UI, and (4) background mode support if needed.
@@ -623,14 +619,3 @@ The architecture above is production-quality for most use cases. For shipping ap
 ## Ship Your BLE App
 
 You now have a complete, production-architecture Flutter BLE app: permissions, scanning, connection management, GATT data streaming, command sending, and proper cleanup. Every pattern here maps directly to real shipping apps.
-
-**Want to go further?** The **[BLE Flutter Course](https://blefluttercourse.com/)** takes you through advanced topics — OTA updates, multi-device connections, custom GATT profiles, background operation, and App Store submission — with real hardware and working source code for every lesson.
-
-👉 **[Enroll in the BLE Flutter Course →](https://blefluttercourse.com/)**
-
-## Work with Me on Your BLE App
-
-Need a hand beyond the tutorials?
-
-- **[Book a consult call](https://start.sahilbora.com/consultcall)** — 1:1 help with your BLE architecture, debugging, or roadmap.
-- **[Done-For-You BLE App Development](https://start.sahilbora.com/booking)** — hand off the build and ship a production-ready BLE app.

@@ -15,8 +15,6 @@ The culprit is almost always MTU.
 
 ---
 
-> **Free guide:** Struggling with dropped connections? Grab *The 7 BLE Mistakes That Make Flutter Apps Disconnect* — production-ready fixes you can apply today. [**Download the free guide →**](https://blog.blefluttercourse.com/free-guide)
-
 ## What MTU Is (and Why It Catches Everyone)
 
 **MTU** (Maximum Transmission Unit) is the largest number of bytes that can travel in a single BLE packet. The default ATT MTU is 23 bytes — but 3 bytes are consumed by the protocol header, leaving you **20 bytes of usable payload**.
@@ -111,9 +109,6 @@ The basic chunking loop above works for small payloads on a reliable connection.
 
 Handling all of this correctly — particularly for OTA firmware updates — is one of the more technically demanding parts of BLE development. It requires coordinating the Flutter side and the firmware side in ways that go well beyond the write loop.
 
-> The BLE Flutter Course covers large data transfers end-to-end: MTU negotiation, chunked writes with flow control, OTA firmware updates on ESP32, and the firmware-side implementation that makes it work reliably.
-> **[See what's covered in the course →](https://blefluttercourse.com)**
-
 ---
 
 ## Quick Reference: iOS vs Android
@@ -159,7 +154,3 @@ Yes. Notifications sent by the peripheral are also limited to `MTU - 3` bytes. I
 ## Summary
 
 MTU is the most common surprise when moving beyond basic BLE operations. On Android, always call `requestMtu()` after connecting. On iOS, read the auto-negotiated value. Derive your chunk size from `mtu - 3` — never hardcode 20.
-
-The basic chunking loop is straightforward. Building a robust large-data transfer system — with flow control, progress tracking, error recovery, and reliable OTA updates — is what the **[BLE Flutter Course](https://blefluttercourse.com/)** covers in depth.
-
-👉 **[Explore the BLE Flutter Course →](https://blefluttercourse.com/)**

@@ -7,8 +7,6 @@ tags: ["Flutter", "BLE", "flutter_blue_plus", "Riverpod", "BLoC", "State Managem
 
 > **TL;DR:** `setState` breaks down fast in BLE apps because scan results, connection state, and characteristic data all need to be shared across many widgets. Riverpod's `StreamProvider` and BLoC's stream-driven events are both excellent fits for the asynchronous, multi-source nature of flutter_blue_plus. This post shows you exactly how to wire them up — and where each approach wins.
 
-> **Free guide:** Struggling with dropped connections? Grab *The 7 BLE Mistakes That Make Flutter Apps Disconnect* — production-ready fixes you can apply today. [**Download the free guide →**](https://blog.blefluttercourse.com/free-guide)
-
 ## Why `setState` Destroys BLE Apps
 
 You start building a Flutter BLE app and everything looks clean. A `StatefulWidget` holds the connected device, `setState` updates the UI when scanning completes, and life is good.
@@ -134,8 +132,6 @@ connState.when(
 ### Why `autoDispose` Matters Here
 
 Without `autoDispose`, Riverpod holds onto the scan results stream even when the scan screen is gone. Add `.autoDispose` to every BLE provider, or use the `@riverpod` annotation (which applies `autoDispose` by default). This prevents battery drain from scans running in the background and stale streams delivering data to destroyed widgets.
-
-> **Want the complete production-ready Riverpod architecture** — including characteristic read/write providers, service discovery state, and the reconnection logic that wires it all together? It's all covered inside the [BLE Flutter Course](https://blefluttercourse.com/).
 
 ---
 
@@ -400,5 +396,3 @@ BLE apps and `setState` don't mix. The moment your app has more than one screen 
 - **BLoC** gives you explicit event/state modelling, excellent DevTools tracing, and a well-understood pattern for large teams.
 
 Both are solid choices. What matters is choosing one and being consistent — a half-Riverpod, half-setState codebase is worse than either approach alone.
-
-> **Ready to build a production BLE app with clean architecture from the ground up?** The [BLE Flutter Course](https://blefluttercourse.com/) walks you through a complete Riverpod + flutter_blue_plus project — scanning, connecting, service discovery, characteristic reads/writes, notifications, and reconnection — all in a layered, testable architecture. [Start learning today →](https://blefluttercourse.com/)

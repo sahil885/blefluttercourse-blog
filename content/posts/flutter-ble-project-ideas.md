@@ -177,8 +177,6 @@ Background BLE is one of the most requested and least-documented Flutter skills.
 - Firmware/app protocol design for reliability
 - Real-world edge cases: Android fragmentation, iOS Bluetooth state restoration
 
-This is what the [BLE Flutter Course](https://blefluttercourse.com) builds toward — a production-grade BLE-powered Flutter app with real hardware, from architecture design to deployment. If you want to build something real, the course gives you the full structured path.
-
 ---
 
 ## Where to Start
@@ -190,6 +188,3 @@ Pick project 1 or 2 and build it this week. The biggest mistake is spending too 
 2. Set up [permissions](/blog/flutter-ble-permissions-android-ios) and get a [basic scan working](/blog/flutter-ble-scanning-guide)
 3. Build Project 1 (LED controller) with ESP32
 4. Build Project 4 (custom GATT service) to solidify the architecture
-5. Enroll in the [BLE Flutter Course](https://blefluttercourse.com) for the full structured path to production
-
-👉 **[Start building at blefluttercourse.com →](https://blefluttercourse.com)**

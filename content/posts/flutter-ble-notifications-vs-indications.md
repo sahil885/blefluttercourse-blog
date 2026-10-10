@@ -84,8 +84,6 @@ if (characteristic.properties.indicate) { /* supports indications */ }
 
 The data itself arrives on `onValueReceived` (which fires on reads and pushes) or on `lastValueStream` (which fires on reads, writes, *and* pushes). For pure notify/indicate handling, `onValueReceived` is usually the cleaner choice. For more on the underlying read/write model these streams sit on top of, see our [read & write characteristics guide](https://blog.blefluttercourse.com/blog/flutter-ble-read-write-characteristics).
 
-> **Building a real product on BLE notifications?** A robust notification layer has to survive reconnects, dedupe subscriptions, retry transient CCCD failures, and reassemble multi-packet payloads — none of which fits in a blog snippet. The **[BLE Flutter Course](https://blefluttercourse.com/)** ships a complete, production-tested notification manager you can drop into your app today.
-
 ## Choosing the right one
 
 The decision is almost always about **how often** the data changes and **how badly** you can tolerate a dropped packet.
@@ -149,5 +147,3 @@ No. `flutter_blue_plus` handles the `0x2902` descriptor write for you inside `se
 ## Summary
 
 Notifications and indications are the same idea — the peripheral pushing data to your app — separated by one decision: whether each packet is acknowledged. Notifications are fast and lossy; indications are reliable and slow. In `flutter_blue_plus`, both live behind `setNotifyValue(true)`, which defaults to notifications when a characteristic supports both, with `forceIndications` available on Android. Subscribe before you enable, mind the iOS/Android split, and clean up your subscriptions on disconnect.
-
-Getting this right in a demo is easy. Getting it right in a shipping product — across reconnects, flaky Android stacks, multi-packet payloads, and both platforms — is where most BLE apps stall. The **[BLE Flutter Course](https://blefluttercourse.com/)** gives you the complete, production-ready notification and connection architecture so you can stop fighting the transport and start building features.

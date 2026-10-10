@@ -107,9 +107,6 @@ A reconnect manager that's genuinely ready for production needs to handle:
 
 Building this correctly, and integrating it cleanly into Riverpod or BLoC, is exactly the kind of thing that takes an afternoon to get wrong and a day to debug.
 
-> The BLE Flutter Course covers a complete, production-ready reconnect architecture — including the state machine, platform differences, and how to wire it into a clean app architecture with real hardware.
-> **[See what's in the course →](https://blefluttercourse.com)**
-
 ---
 
 ## Common Mistakes to Avoid
@@ -156,7 +153,3 @@ You need a proper connection state model that includes a `reconnecting` state, n
 ## Summary
 
 The basic reconnect loop in Flutter BLE is a handful of lines. A production-ready reconnect system — with proper backoff, state management, platform handling, and full re-initialisation — is a meaningful engineering task. Getting it right is one of the things that separates apps that work in demos from apps that hold up in the real world.
-
-The **[free disconnection guide](https://blog.blefluttercourse.com/free-guide)** covers why BLE apps disconnect. The **[BLE Flutter Course](https://blefluttercourse.com/)** covers how to handle it properly in a production codebase.
-
-👉 **[Explore the BLE Flutter Course →](https://blefluttercourse.com/)**

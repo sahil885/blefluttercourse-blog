@@ -1,23 +1,33 @@
 ---
 title: "flutter_blue vs flutter_blue_plus: Which Should You Use in 2026?"
 date: "2026-04-05"
-excerpt: "flutter_blue is deprecated; flutter_blue_plus is the maintained successor with Android 12+ support and a modern API. Here's which to use and how to migrate."
+updated: "2026-10-10"
+excerpt: "flutter_blue is abandoned, and flutter_blue_plus now needs a paid licence for commercial use. What the licence costs, free alternatives, and how to migrate."
 tags: ["Comparison", "flutter_blue_plus", "Migration", "Packages"]
+faqs:
+  - question: "Is flutter_blue_plus free for commercial use?"
+    answer: "Not since version 2.0. Its FlutterBluePlus License requires a paid commercial licence for any for-profit organisation, including during development and testing. Personal users, registered nonprofits and accredited educational institutions can use it free. Version 1.36.8, the last 1.x release, is BSD-3-Clause licensed."
+  - question: "How much does a flutter_blue_plus commercial licence cost?"
+    answer: "It is a one-off fee per organisation, priced by headcount. On 10 October 2026 the FlutterBluePlus licence store listed $999 for an individual, $2,999 for 1 to 9 employees, $5,999 for 10 to 29 employees, and up to $49,999 for 1,000 or more employees."
+  - question: "What are the free alternatives to flutter_blue_plus?"
+    answer: "universal_ble (BSD-3-Clause) supports Android, iOS, macOS, Windows, Linux and Web. flutter_reactive_ble (BSD-3-Clause) supports Android and iOS. bluetooth_low_energy is MIT licensed and supports Android, iOS, macOS, Windows and Linux. All three allow commercial use with no licence fee."
 ---
 
 # flutter_blue vs flutter_blue_plus: Why You Need to Migrate in 2026
 
-If your Flutter project is still using `flutter_blue`, you are building on abandoned software. The original flutter_blue package was officially deprecated, and in 2026 it sits unmaintained with unresolved Android 12+ breakage, unfixed iOS bugs, and zero active development.
+If your Flutter project is still using `flutter_blue`, you are building on abandoned software. Its last release, 0.8.0, shipped in March 2021, and in 2026 it still has unresolved Android 12+ breakage, unfixed iOS bugs, and no active development.
 
-`flutter_blue_plus` is the community-maintained successor. This article explains exactly what changed, what the migration involves, and why staying on the old package is costing you time on every Android device running API 31 or higher.
+`flutter_blue_plus` is the maintained successor. This article explains exactly what changed, what the migration involves, and why staying on the old package is costing you time on every Android device running API 31 or higher.
+
+There's a catch to plan for: since version 2.0, flutter_blue_plus needs a paid licence for commercial use. This article covers what that costs and the free alternatives, so you can pick the right package before you migrate.
 
 ---
 
-> **Free guide:** Struggling with dropped connections? Grab *The 7 BLE Mistakes That Make Flutter Apps Disconnect* — production-ready fixes you can apply today. [**Download the free guide →**](https://blog.blefluttercourse.com/free-guide)
-
 ## TL;DR
 
-**Migrate to flutter_blue_plus immediately.** The original flutter_blue is deprecated, does not support Android 12+ Bluetooth permissions, and has unresolved bugs that will affect your users. flutter_blue_plus has an almost identical API, active maintenance, and full modern platform support. The migration typically takes under two hours.
+**Move off flutter_blue now, but check the licence before you choose flutter_blue_plus.** flutter_blue hasn't had a release since March 2021, doesn't support Android 12+ Bluetooth permissions, and has unresolved bugs that will affect your users. flutter_blue_plus has an almost identical API, active maintenance, and full modern platform support, and the migration typically takes a few hours.
+
+Since version 2.0, though, flutter_blue_plus needs a paid commercial licence for any for-profit organisation, even while you develop and test. Personal, nonprofit and education projects stay free. For a commercial app you can buy the licence, pin the last BSD-licensed release (1.36.8, which gets no further fixes), or move to a free BSD-licensed package such as universal_ble.
 
 ---
 
@@ -25,7 +35,7 @@ If your Flutter project is still using `flutter_blue`, you are building on aband
 
 flutter_blue was the original, dominant Flutter Bluetooth package for several years. It worked well when Android and iOS Bluetooth APIs were relatively stable. Then Android 12 (API 31) introduced a completely new Bluetooth permission model — `BLUETOOTH_SCAN` and `BLUETOOTH_CONNECT` replaced the old `BLUETOOTH` and location permissions for scanning.
 
-The flutter_blue maintainers did not update the package to support the new permission model. Apps using flutter_blue on Android 12+ devices began failing silently — scans returning nothing, crashes on characteristic access, permissions errors with no clear path to fix. The package was eventually marked deprecated.
+The flutter_blue maintainers did not update the package to support the new permission model. Apps using flutter_blue on Android 12+ devices began failing silently — scans returning nothing, crashes on characteristic access, permissions errors with no clear path to fix. The package hasn't had a release since 0.8.0 in March 2021.
 
 flutter_blue_plus was forked by the community specifically to address this. It added:
 
@@ -35,7 +45,43 @@ flutter_blue_plus was forked by the community specifically to address this. It a
 - A more reactive Dart stream-based API
 - Ongoing bug fixes and active GitHub maintenance
 
-As of 2026, flutter_blue_plus is the de facto standard for Flutter BLE development. See our full breakdown of [Flutter BLE package options](/blog/flutter-ble-packages-comparison).
+As of 2026, flutter_blue_plus is the de facto standard for Flutter BLE development. Since version 2.0, though, it comes with a paid licence for commercial use. See our full breakdown of [Flutter BLE package options](/blog/flutter-ble-packages-comparison).
+
+---
+
+## The flutter_blue_plus Licence Changed in Version 2.0
+
+Version 2.0 moved flutter_blue_plus from the BSD-3-Clause licence to its own FlutterBluePlus License. Under that licence:
+
+- **For-profit organisations need a paid commercial licence.** That includes using the package during development, testing or evaluation, not just in released apps.
+- **Personal users, registered nonprofits and accredited educational institutions** can use it free.
+- **Version 1.36.8**, the last 1.x release, stays under BSD-3-Clause, but it won't get new fixes.
+- **Version 2.3.5 added what the changelog calls a "license ping during build"**, which includes your package name and app name.
+
+The commercial licence is a one-off fee per organisation, priced by headcount:
+
+| Licence tier | Listed price (one-off) |
+|---|---|
+| Individual ("Inventor") | $999 |
+| Company, 1–9 employees | $2,999 |
+| Company, 10–29 employees | $5,999 |
+| Company, 30–99 employees | $9,999 |
+| Company, 100–249 employees | $16,999 |
+| Company, 250–999 employees | $24,999 |
+| Company, 1,000+ employees | $49,999 |
+
+Prices as listed on the [FlutterBluePlus licence store](https://jamcorder.myshopify.com/products/flutterblueplus-commercial-license) on 10 October 2026. Read the [full licence on pub.dev](https://pub.dev/packages/flutter_blue_plus/license) and the [changelog](https://pub.dev/packages/flutter_blue_plus/changelog) before you decide. This isn't legal advice.
+
+### Your options for a commercial app
+
+| Option | Licence cost | Trade-off |
+|---|---|---|
+| Buy the flutter_blue_plus licence | $999–$49,999 one-off | Keeps the biggest community and the API in this guide |
+| Pin flutter_blue_plus 1.36.8 | Free (BSD-3-Clause) | No further fixes or new features |
+| Switch to universal_ble | Free (BSD-3-Clause) | Different API; runs on Android, iOS, macOS, Windows, Linux and Web |
+| Switch to flutter_reactive_ble | Free (BSD-3-Clause) | Different, stream-based API; Android and iOS only |
+
+If you're starting a new commercial app, the free packages deserve a serious look. Our [Flutter BLE packages comparison](/blog/flutter-ble-packages-comparison) shows how they differ.
 
 ---
 
@@ -152,7 +198,8 @@ characteristic.lastValueStream.listen((value) { ... });
 | Notification stream | `characteristic.value` | `characteristic.lastValueStream` |
 | Adapter state stream | `FlutterBlue.instance.state` | `FlutterBluePlus.adapterState` |
 | Android 12+ permissions | ❌ Broken | ✅ Full support |
-| Active maintenance | ❌ Deprecated | ✅ Active |
+| Active maintenance | ❌ No release since 2021 | ✅ Active |
+| Licence | BSD-3-Clause | Paid for commercial use since 2.0 (1.x is BSD-3-Clause) |
 
 ---
 
@@ -172,7 +219,7 @@ iOS is less affected, but flutter_blue_plus still has important iOS fixes that a
 
 ## Migration Checklist
 
-Use this when migrating your project:
+Before you start, decide whether you'll need the commercial licence (see above). Then work through this list:
 
 - [ ] Replace `flutter_blue` with `flutter_blue_plus` in pubspec.yaml
 - [ ] Remove `FlutterBlue.instance` — use static `FlutterBluePlus` methods instead
@@ -189,11 +236,15 @@ For the complete permissions setup on both platforms, see our [Flutter BLE Permi
 
 ---
 
-## flutter_blue_plus vs bluetooth_low_energy: Is There a Newer Alternative?
+## Alternatives to flutter_blue_plus
 
-Yes — `bluetooth_low_energy` is a newer package that has gained attention in 2025-2026 for its cleaner API design. However, flutter_blue_plus remains the more battle-tested choice for production apps in 2026: larger community, more documentation, more GitHub issues resolved, and more code examples available.
+If the licence rules flutter_blue_plus out, three maintained packages allow commercial use with no fee:
 
-For most teams migrating from flutter_blue, going to flutter_blue_plus is the right move. The bluetooth_low_energy package is worth evaluating for greenfield projects where you have time to work through its smaller community knowledge base.
+- **universal_ble** (BSD-3-Clause, published by Navideck) runs on Android, iOS, macOS, Windows, Linux and Web, with APIs for connections, MTU requests, pairing and peripheral mode. Version 2.3.0 shipped in September 2026.
+- **flutter_reactive_ble** (BSD-3-Clause, published by Philips Hue) is a mature, stream-based plugin for Android and iOS. Version 5.6.0 shipped in September 2026.
+- **bluetooth_low_energy** (MIT) runs on Android, iOS, macOS, Windows and Linux, and supports both the central and peripheral roles.
+
+Moving from flutter_blue to one of these takes more work than moving to flutter_blue_plus, because their APIs differ. For an app you'll sell, that one-off effort can cost less than the licence. For hobby, nonprofit and education projects, flutter_blue_plus remains the easiest move: the biggest community, the most documentation and the most code examples.
 
 ---
 
@@ -201,7 +252,7 @@ For most teams migrating from flutter_blue, going to flutter_blue_plus is the ri
 
 Once you're on flutter_blue_plus, the real learning is in using it effectively — scanning with filters, handling [permissions correctly on Android and iOS](/blog/flutter-ble-permissions-android-ios), [reading and writing GATT characteristics](/blog/flutter-ble-read-write-characteristics), setting up reliable notifications, and managing connection state across your app's lifecycle.
 
-The [BLE Flutter Course](https://blefluttercourse.com) covers all of this systematically, using flutter_blue_plus as its foundation. It's designed for Flutter developers who've already learned the basics and want to ship production-quality BLE apps — the kind with robust reconnection logic, background support, and real hardware compatibility.
+Building a commercial app and would rather skip both the licence and the plumbing? [BLE Starter](https://blestarter.com/?utm_source=blog&utm_medium=referral&utm_campaign=ble_starter&utm_content=flutter-blue-vs-flutter-blue-plus&utm_term=text) is a production-ready Flutter starter kit built on universal_ble, with flutter_reactive_ble as a backup engine: permissions, scanning, auto-reconnect, GATT data, ESP32 OTA updates and tests, already working together. It's in a founding pre-sale.
 
 ---
 
@@ -217,14 +268,16 @@ For a typical app with moderate BLE usage, expect two to four hours. The API cha
 Yes, and more. flutter_blue_plus has broader iOS support, Android 12+ support, MTU negotiation, and active bug fixes that flutter_blue never received.
 
 **Will flutter_blue ever be updated again?**
-No. The package is officially deprecated and the maintainers have directed users to flutter_blue_plus. No updates are expected.
+Don't count on it. Its last release, 0.8.0, came out in March 2021, and it was never updated for Android 12's Bluetooth permission model.
 
 **What version of flutter_blue_plus should I use in 2026?**
-Check pub.dev for the latest stable release of flutter_blue_plus. As of early 2026, the 1.x series is stable and production-ready. Always pin to a specific version in your pubspec.yaml.
+The current release is 2.3.14 (October 2026), which needs a commercial licence for for-profit use. If you need a free licence, 1.36.8 is the last BSD-3-Clause release, though it gets no further fixes. Either way, pin a specific version in your pubspec.yaml.
 
-## Work with Me on Your BLE App
+**Is flutter_blue_plus free for commercial use?**
+Not since version 2.0. Its FlutterBluePlus License requires a paid commercial licence for any for-profit organisation, including during development and testing. Personal users, registered nonprofits and accredited educational institutions can use it free. Version 1.36.8, the last 1.x release, is BSD-3-Clause licensed.
 
-Need a hand beyond the tutorials?
+**How much does a flutter_blue_plus commercial licence cost?**
+It is a one-off fee per organisation, priced by headcount. On 10 October 2026 the FlutterBluePlus licence store listed $999 for an individual, $2,999 for 1 to 9 employees, $5,999 for 10 to 29 employees, and up to $49,999 for 1,000 or more employees.
 
-- **[Book a consult call](https://start.sahilbora.com/consultcall)** — 1:1 help with your BLE architecture, debugging, or roadmap.
-- **[Done-For-You BLE App Development](https://start.sahilbora.com/booking)** — hand off the build and ship a production-ready BLE app.
+**What are the free alternatives to flutter_blue_plus?**
+universal_ble (BSD-3-Clause) supports Android, iOS, macOS, Windows, Linux and Web. flutter_reactive_ble (BSD-3-Clause) supports Android and iOS. bluetooth_low_energy is MIT licensed and supports Android, iOS, macOS, Windows and Linux. All three allow commercial use with no licence fee.

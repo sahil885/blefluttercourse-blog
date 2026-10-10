@@ -62,8 +62,6 @@ RX characteristic: 6e400003-b5a3-f393-e0a9-e50e24dcca9e
 
 (That example is Nordic's UART service — a widely-copied pattern.) The exact same 128-bit string must be flashed into your firmware's GATT table and used in your Flutter app. There is no expansion or shorthand for custom UUIDs; what the firmware declares is what Flutter must match, character for character.
 
-> **Building real hardware and a real app together?** Designing a clean custom GATT profile, wiring it into firmware, and matching it reliably from Flutter across both platforms is exactly the kind of end-to-end workflow the [BLE Flutter Course](https://blefluttercourse.com/) walks you through — with the complete, production-tested implementation rather than isolated snippets.
-
 ## Finding and filtering by UUID in flutter_blue_plus
 
 There are two places UUIDs show up in a typical Flutter BLE flow: **scanning** (filtering advertisements) and **discovery** (walking the GATT table after connecting).
@@ -135,5 +133,3 @@ Pass the service `Guid` to `withServices` in `startScan` — but this only works
 ## Summary
 
 BLE UUIDs feel fiddly until the model clicks: one 128-bit number underneath, a 16-bit convenience form on top for standard profiles, and fully random 128-bit values for anything you build yourself. Keep every UUID lowercase, always compare `Guid` objects rather than strings, remember that scan filters read the advertisement while discovery reads the GATT table, and re-run `discoverServices()` on each connection. Do those five things and the "my service disappeared" bug stops happening.
-
-When you're ready to design a custom GATT profile end-to-end — firmware and Flutter app matched, tested, and production-ready — the [BLE Flutter Course](https://blefluttercourse.com/) gives you the complete implementation, not just the concepts.

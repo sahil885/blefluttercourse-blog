@@ -13,8 +13,6 @@ The confusion usually starts with terminology. Developers use "pairing" and "bon
 
 This guide walks through how BLE security actually works, how to handle pairing and bonding in flutter_blue_plus, and the gotchas that bite real apps.
 
-> **Free guide:** Struggling with dropped connections? Grab *The 7 BLE Mistakes That Make Flutter Apps Disconnect* — production-ready fixes you can apply today. [**Download the free guide →**](https://blog.blefluttercourse.com/free-guide)
-
 ## Pairing vs Bonding: They're Not the Same Thing
 
 **Pairing** is the process of exchanging temporary security keys to encrypt the current connection. It happens once, at connection time, and the keys are thrown away when the link drops.
@@ -77,7 +75,7 @@ Future<void> ensureBonded(BluetoothDevice device,
 }
 ```
 
-Apple's own accessory guidelines recommend exactly this — a dedicated encrypted characteristic whose only job is to trigger the pairing flow when read. If your firmware doesn't have one, add one. (This pattern, with full retry handling, reconnection awareness, and the firmware side of the equation, is one of the modules in [the BLE Flutter Course](https://blefluttercourse.com/).)
+Apple's own accessory guidelines recommend exactly this — a dedicated encrypted characteristic whose only job is to trigger the pairing flow when read. If your firmware doesn't have one, add one.
 
 On iOS you'll also see security failures surface as error codes 5 (insufficient authentication) and 15 (insufficient encryption) when pairing was declined or the bond is broken.
 
@@ -107,8 +105,6 @@ try {
 ```
 
 On iOS you can't remove a bond programmatically — the user has to go to Settings → Bluetooth → Forget This Device. Your app should detect the condition and *tell them that*, because nothing else will.
-
-> **Want the complete, production-grade security layer?** The [BLE Flutter Course](https://blefluttercourse.com/) includes the full bonding state machine — automatic stale-bond detection, platform-aware retry logic, encrypted characteristic handling on ESP32 firmware, and the exact UX flow for guiding users through re-pairing on iOS. It's the code this article only sketches.
 
 ## Common Pitfalls
 
@@ -151,5 +147,3 @@ No. The pairing method is negotiated based on the peripheral's IO capabilities a
 ## Summary
 
 BLE security comes down to a handful of rules: know the difference between pairing and bonding, use `createBond()` on Android and encrypted-characteristic reads on iOS, treat GATT errors 5/8/15/137 as security signals rather than random flakiness, and always have a recovery path for stale bonds — including telling iOS users to forget the device manually.
-
-Sketches get you through a demo; production needs the full state machine. The [BLE Flutter Course](https://blefluttercourse.com/) ships the complete implementation — bonding, encrypted characteristics, ESP32 firmware security config, and the reconnect logic that ties it all together. If your app talks to real hardware in real users' hands, it's the fastest way to get security right.
