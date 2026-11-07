@@ -1,6 +1,5 @@
 import Link from 'next/link'
-import { starterUrl } from '@/lib/offers'
-import { StarterMark } from '@/components/StarterLinks'
+import { courseUrl } from '@/lib/offers'
 
 export default function Header() {
   return (
@@ -24,8 +23,8 @@ export default function Header() {
                 <span className="bg-sky-500/20 text-sky-400 text-[10px] font-bold px-1.5 py-0.5 rounded uppercase tracking-wide">Free</span>
                 Guide
               </Link>
-              <a href={starterUrl('header', 'nav')} target="_blank" rel="noopener" className="text-slate-400 hover:text-white transition-colors text-sm font-medium">
-                Starter Kit
+              <a href={courseUrl('header', 'nav')} target="_blank" rel="noopener" className="text-slate-400 hover:text-white transition-colors text-sm font-medium">
+                Course
               </a>
               <Link href="https://start.sahilbora.com/consultcall" target="_blank" rel="noopener noreferrer" className="text-slate-400 hover:text-white transition-colors text-sm font-medium">
                 Consult Call
@@ -36,13 +35,14 @@ export default function Header() {
               </nav>
           </div>
           <a
-            href={starterUrl('header', 'menu')}
+            href={courseUrl('header', 'menu', 'pricing')}
             target="_blank"
             rel="noopener"
-            className="inline-flex items-center gap-1.5 bg-cyan-400 hover:bg-cyan-300 text-slate-950 font-semibold px-4 py-2 rounded-lg transition-all text-sm shadow-lg shadow-cyan-500/20"
+            className="inline-flex items-center gap-1.5 bg-sky-500 hover:bg-sky-400 text-white font-semibold px-4 py-2 rounded-lg transition-all text-sm shadow-lg shadow-sky-500/20"
           >
-            <StarterMark className="w-3.5 h-3.5" />
-            BLE Starter
+            <span>
+              Pre-order<span className="hidden sm:inline"> the Course</span>
+            </span>
             <svg className="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
             </svg>
