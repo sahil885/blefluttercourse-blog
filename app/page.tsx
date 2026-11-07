@@ -1,8 +1,7 @@
 import Link from 'next/link'
 import PostCard from '@/components/PostCard'
 import { getAllPosts } from '@/lib/posts'
-import { starterUrl } from '@/lib/offers'
-import { StarterMark } from '@/components/StarterLinks'
+import { courseUrl, COURSE_NAME, COURSE_PRICE, COURSE_FULL_PRICE, COURSE_LAUNCH } from '@/lib/offers'
 
 export default function HomePage() {
   const posts = getAllPosts().slice(0, 3)
@@ -36,13 +35,12 @@ export default function HomePage() {
 
           <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
             <a
-              href={starterUrl('home', 'hero')}
+              href={courseUrl('home', 'hero', 'pricing')}
               target="_blank"
               rel="noopener"
-              className="inline-flex items-center gap-2 bg-cyan-400 hover:bg-cyan-300 text-slate-950 font-bold px-7 py-3.5 rounded-xl transition-all shadow-xl shadow-cyan-500/25 hover:-translate-y-0.5 text-base"
+              className="inline-flex items-center gap-2 bg-sky-500 hover:bg-sky-400 text-white font-bold px-7 py-3.5 rounded-xl transition-all shadow-xl shadow-sky-500/25 hover:-translate-y-0.5 text-base"
             >
-              <StarterMark className="w-4 h-4" />
-              See BLE Starter
+              Pre-order the Course
               <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
               </svg>
@@ -56,7 +54,7 @@ export default function HomePage() {
           </div>
 
           <p className="mt-6 text-sm text-slate-500">
-            BLE Starter is a licence-free Flutter BLE starter kit.{' '}
+            {COURSE_NAME} is open for pre-orders: {COURSE_PRICE} (normally {COURSE_FULL_PRICE}), out {COURSE_LAUNCH}.{' '}
             <Link href="/free-guide" className="text-sky-400 hover:text-sky-300 underline-offset-2 hover:underline">
               Or get the free BLE disconnection guide
             </Link>
@@ -107,27 +105,26 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* BLE Starter banner */}
+      {/* Course pre-order banner */}
       <section className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 pb-20">
         <div className="relative overflow-hidden rounded-3xl bg-gradient-to-r from-sky-900 to-blue-900 border border-sky-700/50 p-10 text-center">
           <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,_rgba(14,165,233,0.15)_0%,_transparent_70%)]" />
           <div className="relative">
             <h2 className="text-3xl font-extrabold text-white mb-3">
-              Ready to ship your BLE app?
+              Ready to go deeper?
             </h2>
             <p className="text-sky-200 mb-8 max-w-xl mx-auto text-lg">
-              BLE Starter is a production-ready Flutter starter kit with permissions, scanning,
-              auto-reconnect, GATT data, ESP32 OTA updates and tests, built on BSD-licensed
-              libraries. Founding price $99 for the first 20 builders.
+              {COURSE_NAME} is a complete course on building production BLE apps with Flutter,
+              from BLE fundamentals to an OTA firmware updater for ESP32. Pre-order for{' '}
+              {COURSE_PRICE} (normally {COURSE_FULL_PRICE}). It&apos;s out {COURSE_LAUNCH}.
             </p>
             <a
-              href={starterUrl('home', 'banner', 'join')}
+              href={courseUrl('home', 'banner', 'pricing')}
               target="_blank"
               rel="noopener"
               className="inline-flex items-center gap-2 bg-white text-sky-900 hover:bg-sky-50 font-bold px-8 py-4 rounded-xl transition-all shadow-xl text-base"
             >
-              <StarterMark className="w-4 h-4" />
-              Join the founding list →
+              Pre-order the Course →
             </a>
           </div>
         </div>
