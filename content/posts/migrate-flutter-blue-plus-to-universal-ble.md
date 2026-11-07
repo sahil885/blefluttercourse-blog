@@ -317,7 +317,7 @@ If rewriting your BLE calls is too much, there are two other free routes:
 - **Pin flutter_blue_plus 1.36.8**, the last BSD-3-Clause release. It works today but gets no further fixes.
 - **Switch to a fork.** flutter_blue_ultra and bluebird are BSD-3-Clause packages that keep flutter_blue_plus's API shape, so moving to them is mostly a find-and-replace. Both are young, with small user bases. Our [Flutter BLE packages comparison](/blog/flutter-ble-packages-comparison) covers them.
 
-Migrating a commercial app and would rather not rebuild the plumbing? [BLE Starter](https://blestarter.com/?utm_source=blog&utm_medium=referral&utm_campaign=ble_starter&utm_content=migrate-flutter-blue-plus-to-universal-ble&utm_term=text) is a Flutter starter kit already built on universal_ble, with flutter_reactive_ble as a backup engine: permissions, scanning, auto-reconnect, GATT data, ESP32 OTA updates and tests, working together. It's in a founding pre-sale.
+Whichever route you take, the patterns that keep a BLE app stable don't change. [Flutter BLE Mastery](https://blefluttercourse.com/?utm_source=blog&utm_medium=referral&utm_campaign=course_preorder&utm_content=migrate-flutter-blue-plus-to-universal-ble&utm_term=text) is a Flutter course covering reliable connections, auto-reconnect with exponential backoff, GATT communication and OTA firmware updates. Pre-orders are open now.
 
 ---
 

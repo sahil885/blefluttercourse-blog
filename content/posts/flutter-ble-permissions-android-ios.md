@@ -370,7 +370,7 @@ Yes. The iOS system dialog fires automatically on first Bluetooth use. You just 
 Your app will crash on iOS the first time it tries to use Bluetooth with a message like "This app has crashed because it attempted to access privacy-sensitive data without a usage description." Always add the plist entries before testing on a real device.
 
 ### Is there a shortcut to get all BLE permissions right the first time?
-[BLE Starter](https://blestarter.com/?utm_source=blog&utm_medium=referral&utm_campaign=ble_starter&utm_content=flutter-ble-permissions-android-ios&utm_term=faq) ships these permission flows ready-made for Android 12+ and iOS, including denied and Bluetooth-off screens, so you start from working code instead of debugging missing permissions.
+Follow the manifest, plist and runtime steps above in that order, then test on a real device. For a guided walkthrough, [Flutter BLE Mastery](https://blefluttercourse.com/?utm_source=blog&utm_medium=referral&utm_campaign=course_preorder&utm_content=flutter-ble-permissions-android-ios&utm_term=faq) has you set up permissions on Android and iOS while you build a working BLE scanner. Pre-orders are open now.
 
 ---
 

@@ -252,7 +252,7 @@ Moving from flutter_blue to one of these takes more work than moving to flutter_
 
 Once you're on flutter_blue_plus, the real learning is in using it effectively — scanning with filters, handling [permissions correctly on Android and iOS](/blog/flutter-ble-permissions-android-ios), [reading and writing GATT characteristics](/blog/flutter-ble-read-write-characteristics), setting up reliable notifications, and managing connection state across your app's lifecycle.
 
-Building a commercial app and would rather skip both the licence and the plumbing? [BLE Starter](https://blestarter.com/?utm_source=blog&utm_medium=referral&utm_campaign=ble_starter&utm_content=flutter-blue-vs-flutter-blue-plus&utm_term=text) is a production-ready Flutter starter kit built on universal_ble, with flutter_reactive_ble as a backup engine: permissions, scanning, auto-reconnect, GATT data, ESP32 OTA updates and tests, already working together. It's in a founding pre-sale.
+For a structured path through all of that, [Flutter BLE Mastery](https://blefluttercourse.com/?utm_source=blog&utm_medium=referral&utm_campaign=course_preorder&utm_content=flutter-blue-vs-flutter-blue-plus&utm_term=text) is a Flutter course that takes you from BLE fundamentals to reliable connections, GATT communication and OTA firmware updates for ESP32. Pre-orders are open now.
 
 ---
 
