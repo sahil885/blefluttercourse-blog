@@ -6,8 +6,8 @@ import { getAllSlugs, getPostBySlug } from '@/lib/posts'
 import { getPostOffer } from '@/lib/offers'
 import InlineOptIn from '@/components/InlineOptIn'
 import FreeGuideCTA from '@/components/FreeGuideCTA'
-import StarterBox from '@/components/StarterBox'
-import StarterCallout from '@/components/StarterCallout'
+import CourseBox from '@/components/CourseBox'
+import CourseCallout from '@/components/CourseCallout'
 
 interface Props {
   params: { slug: string }
@@ -46,7 +46,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 }
 
 function splitHtmlAtHeading(html: string, headingIndex: number): [string, string] {
-  // Split after the Nth </h2> tag so CourseCallout appears mid-article
+  // Split after the Nth </h2> tag so the free-guide opt-in appears mid-article
   let count = 0
   let splitPos = -1
   const pattern = /<\/h2>/gi
@@ -64,9 +64,9 @@ function splitHtmlAtHeading(html: string, headingIndex: number): [string, string
 
 const CONTAINER_TAGS = new Set(['ul', 'ol', 'li', 'blockquote', 'table', 'details'])
 
-// Where the BLE Starter box goes: right after the first top-level code block when it comes
+// Where the course box goes: right after the first top-level code block when it comes
 // early in the post, otherwise before the third section heading, otherwise after the first paragraph.
-function splitHtmlForStarterBox(html: string): [string, string] {
+function splitHtmlForCourseBox(html: string): [string, string] {
   const tagPattern = /<(\/?)([a-z0-9]+)\b[^>]*>/gi
   let depth = 0
   let firstCodeEnd = -1
@@ -114,9 +114,9 @@ export default function BlogPostPage({ params }: Props) {
 
   const htmlContent = marked(post.content) as string
   const offer = getPostOffer(params.slug)
-  // Guide posts keep the mid-article free-guide form; every other post gets the BLE Starter box.
+  // Guide posts keep the mid-article free-guide form; every other post gets the course box.
   const [firstHalf, secondHalf] =
-    offer.kind === 'guide' ? splitHtmlAtHeading(htmlContent, 3) : splitHtmlForStarterBox(htmlContent)
+    offer.kind === 'guide' ? splitHtmlAtHeading(htmlContent, 3) : splitHtmlForCourseBox(htmlContent)
 
   const formattedDate = formatDate(post.date)
   const formattedUpdated = post.updated ? formatDate(post.updated) : null
@@ -221,10 +221,10 @@ export default function BlogPostPage({ params }: Props) {
           />
         )}
 
-        {/* One main offer per post: the free guide on beginner posts, BLE Starter everywhere else */}
+        {/* One main offer per post: the free guide on beginner posts, the course everywhere else */}
         {offer.kind === 'guide'
           ? secondHalf && <InlineOptIn />
-          : <StarterBox slug={params.slug} lead={offer.lead} pitch={offer.pitch} />}
+          : <CourseBox slug={params.slug} lead={offer.lead} pitch={offer.pitch} />}
 
         {/* Rest of content */}
         {secondHalf && (
@@ -235,7 +235,7 @@ export default function BlogPostPage({ params }: Props) {
         )}
 
         {/* End-of-article offer */}
-        {offer.kind === 'guide' ? <FreeGuideCTA /> : <StarterCallout slug={params.slug} />}
+        {offer.kind === 'guide' ? <FreeGuideCTA /> : <CourseCallout slug={params.slug} />}
 
         {/* Back to blog */}
         <div className="mt-10 pt-8 border-t border-slate-800">

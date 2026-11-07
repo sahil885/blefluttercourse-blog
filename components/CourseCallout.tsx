@@ -1,39 +1,33 @@
-export default function CourseCallout() {
+import { CourseLinks, CourseMark } from '@/components/CourseLinks'
+import { COURSE_NAME, COURSE_PREORDER_NOTE } from '@/lib/offers'
+
+// End-of-article course offer for posts that don't get the free guide.
+export default function CourseCallout({ slug }: { slug: string }) {
   return (
-    <div className="relative overflow-hidden bg-gradient-to-br from-sky-900/40 to-blue-900/40 border border-sky-500/30 rounded-2xl p-8 my-12">
+    <section
+      aria-label={COURSE_NAME}
+      className="relative overflow-hidden bg-gradient-to-br from-sky-900/40 to-blue-900/40 border border-sky-500/30 rounded-2xl p-8 my-12"
+    >
       {/* Decorative glow */}
       <div className="absolute top-0 right-0 w-64 h-64 bg-sky-500/10 rounded-full blur-3xl -translate-y-1/2 translate-x-1/2 pointer-events-none" />
 
       <div className="relative">
         <div className="inline-flex items-center gap-2 bg-sky-500/20 border border-sky-500/30 text-sky-300 text-xs font-semibold px-3 py-1 rounded-full mb-4">
-          <svg className="w-3 h-3" fill="currentColor" viewBox="0 0 20 20">
-            <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
-          </svg>
-          Launching Soon · Founding-Member Pricing
+          <CourseMark />
+          {COURSE_NAME} · Pre-orders open
         </div>
 
         <h3 className="text-2xl font-bold text-white mb-3">
-          Ready to master BLE with Flutter?
+          Ship production-ready BLE apps with Flutter.
         </h3>
-        <p className="text-slate-300 mb-6 leading-relaxed max-w-lg">
-          The complete BLE Flutter Mastery course is in production — scanning, connection
-          management, GATT communication, custom hardware, background BLE, and OTA firmware
-          updates. Join the waitlist to lock in founding-member pricing and get first access
-          at launch.
+        <p className="text-slate-300 mb-2 leading-relaxed max-w-xl">
+          A complete Flutter course on Bluetooth Low Energy: scanning, connection management, GATT communication,
+          a production-ready app architecture and OTA firmware updates for ESP32.
         </p>
+        <p className="text-sm text-slate-400 mb-6">{COURSE_PREORDER_NOTE}</p>
 
-        <a
-          href="https://blefluttercourse.com"
-          target="_blank"
-          rel="noopener noreferrer"
-          className="inline-flex items-center gap-2 bg-sky-500 hover:bg-sky-400 text-white font-bold px-6 py-3 rounded-xl transition-all shadow-lg shadow-sky-500/25 hover:shadow-sky-400/35 hover:-translate-y-0.5"
-        >
-          Join the Course Waitlist
-          <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
-          </svg>
-        </a>
+        <CourseLinks content={slug} term="end" />
       </div>
-    </div>
+    </section>
   )
 }
