@@ -1,53 +1,44 @@
-// Which offer each post makes, and the BLE Starter box copy matched to the post.
-// Posts not listed here get DEFAULT_OFFER (a general BLE Starter box).
+// Which offer each post makes, and the course box copy matched to the post.
+// Posts not listed here get DEFAULT_OFFER (a general course box).
 
 export type PostOffer =
   | { kind: 'guide' }
-  | { kind: 'starter'; lead: string; pitch: string }
+  | { kind: 'course'; lead: string; pitch: string }
 
-const STARTER_SITE = 'https://blestarter.com/'
+// The course pre-order details shown across the blog. Change them here when the
+// price or launch date changes.
+export const COURSE_NAME = 'Flutter BLE Mastery'
+export const COURSE_PRICE = '$297'
+export const COURSE_FULL_PRICE = '$497'
+export const COURSE_LAUNCH = 'early 2027'
+export const COURSE_PREORDER_NOTE = `Pre-order price ${COURSE_PRICE} (normally ${COURSE_FULL_PRICE}). Out ${COURSE_LAUNCH}.`
 
-// Builds a tracked link to blestarter.com. `content` is the post slug or page area,
+const COURSE_SITE = 'https://blefluttercourse.com/'
+
+// Builds a tracked link to the course page. `content` is the post slug or page area,
 // `term` is where on the page the link sits, `anchor` is the section to open.
-export function starterUrl(content: string, term: string, anchor: 'join' | 'inside' | '' = ''): string {
+export function courseUrl(content: string, term: string, anchor: 'pricing' | 'curriculum' | '' = ''): string {
   const params = new URLSearchParams({
     utm_source: 'blog',
     utm_medium: 'referral',
-    utm_campaign: 'ble_starter',
+    utm_campaign: 'course_preorder',
     utm_content: content,
     utm_term: term,
   })
-  return `${STARTER_SITE}?${params.toString()}${anchor ? `#${anchor}` : ''}`
+  return `${COURSE_SITE}?${params.toString()}${anchor ? `#${anchor}` : ''}`
 }
 
-const LICENCE = 'flutter_blue_plus 2.x needs a paid licence.'
-const COMMERCIAL = 'Shipping this commercially?'
-
-function matched(feature: string): PostOffer {
-  return { kind: 'starter', lead: COMMERCIAL, pitch: `${LICENCE} ${feature}` }
+function matched(pitch: string): PostOffer {
+  return { kind: 'course', lead: 'Want to go deeper?', pitch }
 }
 
 const GUIDE: PostOffer = { kind: 'guide' }
 
-const FLUTTER_STACK_PITCH =
-  "BLE Starter gives you a production-ready BLE layer for iOS and Android from one codebase, built on BSD-licensed libraries, so there's no library licence to buy."
+const FULL_COURSE_PITCH = `${COURSE_NAME} takes you from BLE fundamentals to production: scanning, reliable connections, GATT communication, a clean app architecture and OTA firmware updates for ESP32.`
 
-const LICENCE_POST_PITCH =
-  "BLE Starter is a production-ready Flutter BLE kit built on universal_ble and flutter_reactive_ble, both BSD-licensed, so there's no library licence to buy at any company size."
+const PATTERNS_PITCH = `${COURSE_NAME} covers the patterns that make or break a BLE app in production: stable connections, auto-reconnect, GATT communication and OTA firmware updates.`
 
-// Background mode and pairing aren't kit features, so these posts get a plain licence note.
-const LICENCE_NOTE: PostOffer = {
-  kind: 'starter',
-  lead: COMMERCIAL,
-  pitch: 'flutter_blue_plus 2.x needs a paid licence, even during development. BLE Starter is a Flutter BLE starter kit built on BSD-licensed libraries instead.',
-}
-
-export const DEFAULT_OFFER: PostOffer = {
-  kind: 'starter',
-  lead: 'Building a BLE app?',
-  pitch:
-    'BLE Starter is a production-ready Flutter BLE starter kit with permissions, scanning, auto-reconnect, data, OTA updates and tests, built on BSD-licensed libraries with no library licence to buy.',
-}
+export const DEFAULT_OFFER: PostOffer = { kind: 'course', lead: 'Building a BLE app?', pitch: FULL_COURSE_PITCH }
 
 const OFFERS: Record<string, PostOffer> = {
   // Beginner posts keep the free guide: these readers are still learning.
@@ -58,83 +49,70 @@ const OFFERS: Record<string, PostOffer> = {
   'ble-gatt-profiles-explained': GUIDE,
   'ble-vs-classic-bluetooth-flutter': GUIDE,
 
-  // Posts that solve a problem one of the kit's modules already handles.
+  // Posts whose topic the course teaches in depth.
   'flutter-ble-permissions-android-ios': matched(
-    'BLE Starter has these permission flows ready-made for Android 12+ and iOS, with denied and Bluetooth-off screens, without a library licence.',
+    `In ${COURSE_NAME} you set up permissions on Android and iOS, handle runtime requests and build a working BLE scanner.`,
   ),
   'flutter-ble-scanning-guide': matched(
-    'BLE Starter includes a scanner with service UUID, name and signal-strength filters and battery-aware scan modes, without a library licence.',
+    `In ${COURSE_NAME} you build a working BLE scanner, with cross-platform permissions and signal-strength (RSSI) filtering.`,
   ),
   'flutter-ble-read-write-characteristics': matched(
-    'BLE Starter gives you typed read, write and notify calls, plus MTU negotiation and chunked writes, without a library licence.',
+    `${COURSE_NAME} covers reading values, writing with and without response, notifications and error handling, and you use them to control an ESP32.`,
   ),
   'flutter-ble-notifications-vs-indications': matched(
-    "BLE Starter's GATT data layer gives you typed read, write and notify calls, plus MTU negotiation and chunked writes, without a library licence.",
+    `${COURSE_NAME} covers notifications without memory leaks, plus reads, writes and error handling, with an ESP32 project to practise on.`,
   ),
   'flutter-ble-keeps-disconnecting': matched(
-    "BLE Starter's connection manager handles status 133, timeouts and auto-reconnect with exponential backoff, without a library licence.",
+    `${COURSE_NAME} has a whole module on connection management: reliable connections, auto-reconnect with exponential backoff and the edge cases that cause drops.`,
   ),
   'flutter-ble-auto-reconnect': matched(
-    "BLE Starter's connection manager is a ready-made state machine with auto-reconnect and exponential backoff, without a library licence.",
+    `${COURSE_NAME} covers auto-reconnect with exponential backoff and the edge cases around it, and you build a device screen that stays stable on a flaky connection.`,
   ),
   'flutter-ble-mtu-negotiation-large-data-transfer': matched(
-    'BLE Starter handles MTU negotiation and chunked writes for big payloads, without a library licence.',
+    `The ${COURSE_NAME} capstone covers MTU negotiation and long writes, then puts them to work in an OTA firmware updater.`,
   ),
   'flutter-ble-multiple-devices': matched(
-    "BLE Starter's device registry keeps several connections alive and in sync with your UI, without a library licence.",
+    `${COURSE_NAME} covers reliable connection management and an app architecture that keeps your UI in sync with your devices.`,
   ),
   'flutter-ble-ota-firmware-update-esp32': matched(
-    'BLE Starter includes ESP32 OTA updates over BLE with a progress screen and the matching ESP32 firmware sketch, without a library licence.',
-  ),
-  'testing-flutter-ble-apps': matched(
-    'BLE Starter comes with a mock adapter and unit tests for testing without hardware, and needs no library licence.',
+    `The ${COURSE_NAME} capstone is a complete OTA firmware updater for ESP32, with MTU negotiation, long writes and a progress UI.`,
   ),
   'debugging-flutter-ble-nrf-connect': matched(
-    "BLE Starter includes an in-app log viewer you can export from a customer's phone, plus a mock adapter and unit tests, without a library licence.",
+    `${COURSE_NAME} covers production logging and a clean BLoC or Riverpod architecture, so problems in the field are easier to track down.`,
   ),
   'flutter-ble-state-management-riverpod-bloc': matched(
-    'BLE Starter gives you the whole BLE layer already wired together as plain Flutter code you own: permissions, scanning, connections and data, without a library licence.',
+    `${COURSE_NAME} shows you how to structure a BLE app with BLoC or Riverpod and keep your UI state in sync with your devices.`,
   ),
   'ble-uuid-custom-service-flutter': matched(
-    'With BLE Starter you add your service and characteristic UUIDs to one config file, and scanning, connections and data pick them up, without a library licence.',
+    `${COURSE_NAME} covers the GATT hierarchy from the ground up, then has you talk to your own ESP32: switch an LED and read sensor data.`,
   ),
   'flutter-ble-heart-rate-monitor': matched(
-    'BLE Starter gives you the production layer under an app like this: scanning, auto-reconnect and typed notify calls, without a library licence.',
+    `${COURSE_NAME} takes you from scanning and stable connections to GATT notifications, with projects on real ESP32 hardware.`,
   ),
   'build-complete-flutter-ble-app': matched(
-    'BLE Starter has the production version of these pieces already working together: permissions, scanning, auto-reconnect, GATT data, OTA and tests, without a library licence.',
+    `${COURSE_NAME} walks you through the whole build in depth: a scanner, a stable device screen, ESP32 control, a production architecture and an OTA firmware updater.`,
+  ),
+  'flutter-ble-bonding-pairing-security': matched(
+    `The ${COURSE_NAME} capstone covers pairing, bonding and security, along with MTU negotiation and OTA firmware updates.`,
   ),
 
   // "Which tech should I use?" posts.
-  'flutter-vs-react-native-ble': { kind: 'starter', lead: 'Going with Flutter?', pitch: FLUTTER_STACK_PITCH },
-  'flutter-ble-vs-native-android-kotlin': { kind: 'starter', lead: 'Choosing Flutter?', pitch: FLUTTER_STACK_PITCH },
-  'ble-vs-wifi-flutter-iot': {
-    kind: 'starter',
-    lead: 'Going with BLE?',
-    pitch:
-      'BLE Starter gives your Flutter app a production-ready BLE layer, from permissions and scanning to reconnects and OTA updates, with no library licence to buy.',
-  },
+  'flutter-vs-react-native-ble': { kind: 'course', lead: 'Going with Flutter?', pitch: FULL_COURSE_PITCH },
+  'flutter-ble-vs-native-android-kotlin': { kind: 'course', lead: 'Choosing Flutter?', pitch: FULL_COURSE_PITCH },
+  'ble-vs-wifi-flutter-iot': { kind: 'course', lead: 'Going with BLE?', pitch: FULL_COURSE_PITCH },
   'esp32-vs-arduino-flutter-ble': {
-    kind: 'starter',
+    kind: 'course',
     lead: 'Building on ESP32?',
-    pitch:
-      'BLE Starter includes ESP32 OTA updates over BLE with the matching firmware sketch, plus scanning, reconnects and data, with no library licence to buy.',
+    pitch: `In ${COURSE_NAME} you control an ESP32 from Flutter, then build an OTA firmware updater for it.`,
   },
 
-  // The two posts about the flutter_blue_plus licence.
-  'flutter-blue-vs-flutter-blue-plus': { kind: 'starter', lead: 'Shipping a commercial app?', pitch: LICENCE_POST_PITCH },
-  'flutter-ble-packages-comparison': { kind: 'starter', lead: 'Shipping a commercial app?', pitch: LICENCE_POST_PITCH },
+  // The flutter_blue_plus licence posts and the migration guide.
+  'flutter-blue-vs-flutter-blue-plus': { kind: 'course', lead: 'Building a BLE app?', pitch: PATTERNS_PITCH },
+  'flutter-ble-packages-comparison': { kind: 'course', lead: 'Building a BLE app?', pitch: PATTERNS_PITCH },
+  'migrate-flutter-blue-plus-to-universal-ble': { kind: 'course', lead: 'Building a BLE app?', pitch: PATTERNS_PITCH },
 
-  // Migration guide to universal_ble, the package BLE Starter is built on.
-  'migrate-flutter-blue-plus-to-universal-ble': {
-    kind: 'starter',
-    lead: 'Migrating a commercial app?',
-    pitch:
-      'BLE Starter is a production-ready Flutter BLE kit already built on universal_ble, with permissions, scanning, auto-reconnect, GATT data, OTA updates and tests working together.',
-  },
-
-  'flutter-ble-background-mode-ios-android': LICENCE_NOTE,
-  'flutter-ble-bonding-pairing-security': LICENCE_NOTE,
+  // testing-flutter-ble-apps and flutter-ble-background-mode-ios-android get DEFAULT_OFFER:
+  // the course doesn't have a section on either topic.
 }
 
 export function getPostOffer(slug: string): PostOffer {
