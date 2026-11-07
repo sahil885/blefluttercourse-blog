@@ -13,7 +13,7 @@ faqs:
   - question: "Why is my BLE app not working on Android 12?"
     answer: "Android 12 introduced two new required permissions: BLUETOOTH_SCAN and BLUETOOTH_CONNECT. Apps that only declare the old BLUETOOTH and BLUETOOTH_ADMIN permissions will silently fail to scan on Android 12+ devices. Add both new permissions to your AndroidManifest.xml and request them at runtime with permission_handler."
   - question: "Is there a complete Flutter BLE course for developers?"
-    answer: "Yes — the BLE Flutter Course at blefluttercourse.com is a dedicated course for Flutter developers building BLE apps. It covers everything from fundamentals and GATT to production deployment with real hardware, including full source code and edge-case handling."
+    answer: "Yes — Flutter BLE Mastery at blefluttercourse.com is a dedicated course for Flutter developers building BLE apps. It covers everything from fundamentals and GATT to production deployment with real hardware, including full source code and edge-case handling. Pre-orders are open now, and it comes out in early 2027."
 ---
 
 # Getting Started with Bluetooth Low Energy in Flutter
@@ -236,4 +236,4 @@ The most common cause is missing or incorrect permissions — especially on Andr
 ESP32 for custom projects (cheap, powerful, built-in BLE+WiFi). Arduino Nano 33 BLE for cleaner firmware code. nRF Connect app for testing without any hardware. See [ESP32 vs Arduino for Flutter BLE](/blog/esp32-vs-arduino-flutter-ble).
 
 **Is there a Flutter BLE course?**
-Yes — the [BLE Flutter Course](https://blefluttercourse.com) is a dedicated course for Flutter developers building BLE apps, covering everything from fundamentals to production deployment with real hardware examples.
+Yes — [Flutter BLE Mastery](https://blefluttercourse.com/?utm_source=blog&utm_medium=referral&utm_campaign=course_preorder&utm_content=getting-started-ble-flutter&utm_term=faq) is a dedicated course for Flutter developers building BLE apps, covering everything from fundamentals to production deployment with real hardware examples. Pre-orders are open now, and it comes out in early 2027.
