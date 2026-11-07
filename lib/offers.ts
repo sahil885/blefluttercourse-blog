@@ -43,11 +43,21 @@ export const DEFAULT_OFFER: PostOffer = { kind: 'course', lead: 'Building a BLE 
 const OFFERS: Record<string, PostOffer> = {
   // Beginner posts keep the free guide: these readers are still learning.
   'getting-started-ble-flutter': GUIDE,
-  'how-long-to-learn-flutter-ble': GUIDE,
   'flutter-ble-project-ideas': GUIDE,
-  'best-flutter-ble-course-2026': GUIDE,
   'ble-gatt-profiles-explained': GUIDE,
   'ble-vs-classic-bluetooth-flutter': GUIDE,
+
+  // Readers comparing courses or planning how to learn.
+  'best-flutter-ble-course-2026': {
+    kind: 'course',
+    lead: 'Looking for a Flutter BLE course?',
+    pitch: `${COURSE_NAME} takes you from BLE fundamentals to production with projects on real ESP32 hardware: a scanner, a stable device screen, ESP32 control, a production architecture and an OTA firmware updater.`,
+  },
+  'how-long-to-learn-flutter-ble': {
+    kind: 'course',
+    lead: 'Want a structured path?',
+    pitch: `${COURSE_NAME} takes you from BLE fundamentals to a production-ready app in order, with hands-on ESP32 projects and an OTA firmware updater as the capstone.`,
+  },
 
   // Posts whose topic the course teaches in depth.
   'flutter-ble-permissions-android-ios': matched(
