@@ -96,6 +96,23 @@ function splitHtmlForCourseBox(html: string): [string, string] {
   return [html.slice(0, splitPos), html.slice(splitPos)]
 }
 
+// Removes the first "# Title" line that appears before the first "## " section heading,
+// ignoring anything inside fenced code blocks (where "#" is often a comment).
+function stripTitleHeading(markdown: string): string {
+  const lines = markdown.split('\n')
+  let inCode = false
+  for (let i = 0; i < lines.length; i++) {
+    if (lines[i].startsWith('```')) inCode = !inCode
+    if (inCode) continue
+    if (lines[i].startsWith('## ')) break
+    if (lines[i].startsWith('# ')) {
+      lines.splice(i, 1)
+      break
+    }
+  }
+  return lines.join('\n')
+}
+
 function formatDate(date: string): string {
   return new Date(date).toLocaleDateString('en-US', {
     year: 'numeric',
@@ -112,9 +129,9 @@ export default function BlogPostPage({ params }: Props) {
     notFound()
   }
 
-  // The page template already renders the title as the only <h1>. Drop a leading
-  // "# Title" line from the markdown and demote any other h1 so each post has exactly one.
-  const markdown = post.content.replace(/^\s*# [^\n]*\n/, '')
+  // The page template already renders the title as the only <h1>. Drop the markdown's own
+  // "# Title" line and demote any other h1 so each post has exactly one.
+  const markdown = stripTitleHeading(post.content)
   const htmlContent = (marked(markdown) as string)
     .replace(/<h1(\s|>)/g, '<h2$1')
     .replace(/<\/h1>/g, '</h2>')
