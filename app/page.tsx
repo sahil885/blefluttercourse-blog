@@ -3,8 +3,40 @@ import PostCard from '@/components/PostCard'
 import { getAllPosts } from '@/lib/posts'
 import { courseUrl, COURSE_NAME, COURSE_PRICE, COURSE_FULL_PRICE, COURSE_LAUNCH } from '@/lib/offers'
 
+// Core guides, in the order a new Flutter BLE developer should read them.
+// The label is the link text, so it carries each page's main keyword.
+const HUBS: { slug: string; label: string; blurb: string }[] = [
+  { slug: 'getting-started-ble-flutter', label: 'Flutter Bluetooth Low Energy tutorial', blurb: 'Your first BLE example in Flutter, from adapter state to a connected device.' },
+  { slug: 'ble-gatt-profiles-explained', label: 'BLE GATT profiles explained', blurb: 'Services, characteristics and descriptors, and how flutter_blue_plus maps to them.' },
+  { slug: 'flutter-ble-permissions-android-ios', label: 'Flutter BLE permissions on Android 12+ and iOS', blurb: 'The manifest, Info.plist and runtime permissions you need before you scan.' },
+  { slug: 'flutter-ble-scanning-guide', label: 'Flutter BLE scanning with flutter_blue_plus', blurb: 'startScan, scanResults, filters and the scan settings that actually matter.' },
+  { slug: 'flutter-ble-read-write-characteristics', label: 'Read and write BLE characteristics in Flutter', blurb: 'Reads, writes with and without response, and subscribing to notifications.' },
+  { slug: 'build-complete-flutter-ble-app', label: 'Build a complete Flutter BLE app', blurb: 'An end-to-end walkthrough that ties scanning, connecting and data together.' },
+  { slug: 'flutter-ble-packages-comparison', label: 'Flutter BLE packages compared', blurb: 'flutter_blue_plus against the alternatives, and when to pick each one.' },
+  { slug: 'flutter-blue-vs-flutter-blue-plus', label: 'flutter_blue_plus license and free alternatives', blurb: 'What the license costs and the free options if it does not fit your project.' },
+  { slug: 'esp32-vs-arduino-flutter-ble', label: 'ESP32 vs Arduino for Flutter BLE projects', blurb: 'Which board to pair with your Flutter app, and why.' },
+]
+
+// Every other guide, grouped by topic so the homepage links to the whole blog.
+// A post that isn't listed here still appears under "More guides".
+const TOPICS: { name: string; slugs: string[] }[] = [
+  { name: 'Connections and reliability', slugs: ['flutter-ble-keeps-disconnecting', 'flutter-ble-auto-reconnect', 'flutter-ble-background-mode-ios-android', 'flutter-ble-multiple-devices', 'flutter-ble-bonding-pairing-security'] },
+  { name: 'Data and GATT', slugs: ['flutter-ble-notifications-vs-indications', 'flutter-ble-mtu-negotiation-large-data-transfer', 'ble-uuid-custom-service-flutter', 'flutter-ble-peripheral-mode', 'flutter-ble-heart-rate-monitor'] },
+  { name: 'Hardware and firmware', slugs: ['flutter-ble-ota-firmware-update-esp32', 'flutter-ble-project-ideas', 'ble-vs-wifi-flutter-iot', 'ble-vs-classic-bluetooth-flutter'] },
+  { name: 'Architecture, testing and debugging', slugs: ['flutter-ble-state-management-riverpod-bloc', 'testing-flutter-ble-apps', 'debugging-flutter-ble-nrf-connect', 'migrate-flutter-blue-plus-to-universal-ble'] },
+  { name: 'Choosing your stack', slugs: ['flutter-vs-react-native-ble', 'flutter-ble-vs-native-android-kotlin', 'best-flutter-ble-course-2026', 'how-long-to-learn-flutter-ble'] },
+]
+
 export default function HomePage() {
-  const posts = getAllPosts().slice(0, 3)
+  const allPosts = getAllPosts()
+  const posts = allPosts.slice(0, 3)
+  const bySlug = new Map(allPosts.map((p) => [p.slug, p]))
+  const hubs = HUBS.filter((h) => bySlug.has(h.slug))
+  const grouped = new Set([...HUBS.map((h) => h.slug), ...TOPICS.flatMap((t) => t.slugs)])
+  const topics = [
+    ...TOPICS.map((t) => ({ name: t.name, posts: t.slugs.flatMap((s) => bySlug.get(s) ?? []) })),
+    { name: 'More guides', posts: allPosts.filter((p) => !grouped.has(p.slug)) },
+  ].filter((t) => t.posts.length > 0)
 
   return (
     <>
@@ -101,6 +133,58 @@ export default function HomePage() {
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
           {posts.map((post) => (
             <PostCard key={post.slug} {...post} />
+          ))}
+        </div>
+      </section>
+
+      {/* Core guides: crawlable links to the hub posts */}
+      <section className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 pb-20" aria-labelledby="core-guides">
+        <div className="mb-10">
+          <h2 id="core-guides" className="text-3xl font-bold text-white mb-1">Start Here: Core Flutter BLE Guides</h2>
+          <p className="text-slate-400">The essentials of Bluetooth Low Energy with flutter_blue_plus, in reading order.</p>
+        </div>
+        <ol className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+          {hubs.map((hub, i) => (
+            <li key={hub.slug}>
+              <Link
+                href={`/blog/${hub.slug}`}
+                className="group flex gap-4 h-full bg-slate-900 border border-slate-800 rounded-2xl p-5 hover:border-sky-500/50 transition-all"
+              >
+                <span className="flex-none w-8 h-8 rounded-full bg-sky-500/10 border border-sky-500/20 text-sky-400 text-sm font-bold flex items-center justify-center">
+                  {i + 1}
+                </span>
+                <span>
+                  <span className="block font-semibold text-slate-100 group-hover:text-sky-400 transition-colors leading-snug mb-1">
+                    {hub.label}
+                  </span>
+                  <span className="block text-sm text-slate-400 leading-relaxed">{hub.blurb}</span>
+                </span>
+              </Link>
+            </li>
+          ))}
+        </ol>
+      </section>
+
+      {/* All guides by topic */}
+      <section className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 pb-20" aria-labelledby="guides-by-topic">
+        <h2 id="guides-by-topic" className="text-3xl font-bold text-white mb-10">Flutter BLE Guides by Topic</h2>
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-x-8 gap-y-10">
+          {topics.map((topic) => (
+            <div key={topic.name}>
+              <h3 className="text-sm font-semibold uppercase tracking-wider text-sky-400 mb-4">{topic.name}</h3>
+              <ul className="space-y-3">
+                {topic.posts.map((post) => (
+                  <li key={post.slug}>
+                    <Link
+                      href={`/blog/${post.slug}`}
+                      className="text-slate-300 hover:text-white hover:underline underline-offset-2 leading-snug"
+                    >
+                      {post.title}
+                    </Link>
+                  </li>
+                ))}
+              </ul>
+            </div>
           ))}
         </div>
       </section>
