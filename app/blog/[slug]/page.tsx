@@ -112,7 +112,12 @@ export default function BlogPostPage({ params }: Props) {
     notFound()
   }
 
-  const htmlContent = marked(post.content) as string
+  // The page template already renders the title as the only <h1>. Drop a leading
+  // "# Title" line from the markdown and demote any other h1 so each post has exactly one.
+  const markdown = post.content.replace(/^\s*# [^\n]*\n/, '')
+  const htmlContent = (marked(markdown) as string)
+    .replace(/<h1(\s|>)/g, '<h2$1')
+    .replace(/<\/h1>/g, '</h2>')
   const offer = getPostOffer(params.slug)
   // Guide posts keep the mid-article free-guide form; every other post gets the course box.
   const [firstHalf, secondHalf] =
